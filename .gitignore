@@ -7,3 +7,8 @@
 .DS_Store
 /build
 /captures
+bin/
+build/
+.idea/
+.gradle/
+projectname.iml
