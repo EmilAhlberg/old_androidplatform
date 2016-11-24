@@ -3,6 +3,7 @@ package Game;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 /**
  * Created by Emil on 2016-11-20.
@@ -24,6 +25,7 @@ public class Circle extends Mover {
     @Override
     public void draw() {
         canvas.drawCircle((int) x, (int) y, radius, paint);
+        //Log.d("nisse", "X= " + canvas.getWidth() + " : Y= " + canvas.getHeight());
     }
 
     @Override

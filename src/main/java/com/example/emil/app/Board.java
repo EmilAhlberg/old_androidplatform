@@ -4,13 +4,16 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -36,6 +39,7 @@ public class Board extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setFullscreen();
         setContentView(R.layout.activity_board);
 
         Handler h = new Handler(Looper.getMainLooper()) {
@@ -69,9 +73,17 @@ public class Board extends AppCompatActivity {
         list.add(new Circle(100,100,50));
     }
 
+    public void setFullscreen() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
+    }
+
     public boolean onTouchEvent(MotionEvent event) {
-        double clickX = event.getRawX()-180;
-        double clickY = event.getRawY()-600;
+        Point p = new Point();
+        getWindowManager().getDefaultDisplay().getSize(p);
+        double clickX = event.getRawX() * canvas.getWidth() / p.x;
+        double clickY = event.getRawY() * canvas.getHeight() / p.y;
+        Log.d("X : Y", "onTouchEvent: X= " + clickX + " : Y= " + clickY + " Maxsize = " + p.x + " : " + p.y);
         if (clickCap<0) {
             list.add(new Circle((int)clickX,(int)clickY,40));
             clickCap = 10;

@@ -1,3 +1,15 @@
+
+repositories {
+    jcenter()
+}
+buildscript {
+
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.2'
+    }
+}
+
 apply plugin: 'com.android.application'
 
 android {
