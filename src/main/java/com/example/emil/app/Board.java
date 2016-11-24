@@ -23,6 +23,7 @@ import Game.Circle;
 import Game.GameBlock;
 import Game.GameObject;
 import Game.LevelCreator;
+import Game.Player;
 
 public class Board extends AppCompatActivity {
 
@@ -35,6 +36,7 @@ public class Board extends AppCompatActivity {
     private ArrayList<GameObject> list;
     private int clickCap = 10;
     private LevelCreator levelCreator;
+    private Player player = new Player(300, 300);
 
 
     @Override
@@ -50,6 +52,7 @@ public class Board extends AppCompatActivity {
 
             }
         };
+
         Handler s = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message inputMessage) {
                 list = levelCreator.getNewList();
@@ -59,19 +62,21 @@ public class Board extends AppCompatActivity {
         bg = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
 
         canvas = new Canvas(bg);
-        GameObject.setCanvas(canvas);
-
         ll = (LinearLayout) findViewById(R.id.board);
         loop = new GameLoop(this, h);
-        loop.startLoop();
+        gameSetup(s);
+    }
 
-
+    private void gameSetup(Handler s) {
+        GameObject.setCanvas(canvas);
 
         list = new ArrayList<GameObject>();
-        levelCreator = new LevelCreator(ll, s);
+        levelCreator = new LevelCreator(ll, s, player);
         setLevel();
 
-        list.add(new Circle(100,100,50));
+
+        loop.startLoop();
+
     }
 
     public void setFullscreen() {
@@ -84,6 +89,7 @@ public class Board extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getSize(p);
         double clickX = event.getRawX() * canvas.getWidth() / p.x;
         double clickY = event.getRawY() * canvas.getHeight() / p.y;
+        player.updateClickPosition(clickX, clickY);
         Log.d("X : Y", "onTouchEvent: X= " + clickX + " : Y= " + clickY + " Maxsize = " + p.x + " : " + p.y);
         if (clickCap<0) {
             list.add(new Circle((int)clickX,(int)clickY,40));
@@ -96,9 +102,9 @@ public class Board extends AppCompatActivity {
     public void update() {
         clickCap--;
         canvas.drawColor(Color.WHITE);
-        List<GameObject> temp = new ArrayList<GameObject>();
-        temp.addAll(list);
-        for (GameObject gameObject : temp) {
+        //List<GameObject> temp = new ArrayList<GameObject>();
+        //temp.addAll(list);
+        for (GameObject gameObject : list) {
             gameObject.update();
             gameObject.draw();
         }

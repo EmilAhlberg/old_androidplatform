@@ -17,7 +17,7 @@ public class Circle extends Mover {
 
 
     public Circle(int x, int y, int radius) {
-        super(x, y, CIRCLE_SPEED);
+        super(x, y, CIRCLE_SPEED, 1);
         this.radius = radius;
         paint.setColor(Color.BLUE);
     }
@@ -32,6 +32,15 @@ public class Circle extends Mover {
     public void update() {
         edgeCollision();
         updatePosition();
+    }
+
+    @Override
+    protected void updatePosition() {
+        double cos = Math.cos(direction);
+        double sin = Math.sin(direction);
+        double dx = cos * speed;
+        double dy = sin * speed;
+        move(x + dx, y + dy);
     }
 
     @Override

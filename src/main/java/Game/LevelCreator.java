@@ -22,14 +22,17 @@ public class LevelCreator {
     private LinearLayout ll;
     private ArrayList<GameObject> newList;
     private Handler s;
+    private Player player;
 
-    public LevelCreator(View ll, Handler s) {
+    public LevelCreator(View ll, Handler s, Player player) {
         this.ll = (LinearLayout) ll;
         this.s = s;
+        this.player = player;
     }
 
     public void setLevel() {
         newList = new ArrayList<GameObject>();
+        newList.add(player);
 
         new Thread(new Runnable() {
             public void run() {
