@@ -102,9 +102,12 @@ public class Board extends AppCompatActivity {
     public void update() {
         clickCap--;
         canvas.drawColor(Color.WHITE);
-        //List<GameObject> temp = new ArrayList<GameObject>();
-        //temp.addAll(list);
-        for (GameObject gameObject : list) {
+        //Fixar ConcurrentModificationException (tror jag), låt stå pls
+        ////////////////////////////////////////////////
+        List<GameObject> temp = new ArrayList<GameObject>();
+        temp.addAll(list);
+        ////////////////////////////////////////////////
+        for (GameObject gameObject : temp) {
             gameObject.update();
             gameObject.draw();
         }

@@ -2,6 +2,7 @@ package Game;
 
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 /**
  * Created by Emil on 2016-11-24.
@@ -10,9 +11,10 @@ import android.graphics.Paint;
 public class Player extends Mover {
 
     private Paint paint = new Paint();
-    private final static int PLAYER_SPEED = 2;
+    //huh? är det inte onödigt att ha final här när värdet som används ändå är mutable? Bättre att använda denna variabeln eller ändra speed i Mover till final
+    private final static int PLAYER_SPEED = 8;
     private double clickX =  y;
-    private double clickY=  x;
+    private double clickY =  x;
 
 
 
@@ -36,7 +38,7 @@ public class Player extends Mover {
     }
 
     public void updateClickPosition(double cx, double cy) {
-        clickX =cx;
+        clickX = cx;
         clickY = cy;
     }
 
@@ -46,10 +48,17 @@ public class Player extends Mover {
         double dx = clickX - x;
         double dy = clickY - y;
 
-        if (Math.abs(dx) <=2 &&(Math.abs(dy)<=2)) {
+        if (Math.abs(dx) <= speed &&(Math.abs(dy)<= speed)) {
 
         } else {
-            if (dx > 0) {
+            double xMov = speed * dx / (Math.abs(dx)+Math.abs(dy));
+            double yMov = speed * dy / (Math.abs(dx)+Math.abs(dy));
+
+            //Log.d("WAAAA", "xMov= " + xMov + " : yMov= " + yMov + " : xMov + yMov = " + (Math.abs(xMov) + Math.abs(yMov)));
+
+            move(x+xMov, y+yMov);
+
+            /*if (dx > 0) {
                 move(x+speed, y);
             } else if (dx<0) {
                 move(x-speed, y);
@@ -58,7 +67,7 @@ public class Player extends Mover {
                 move(x, y+speed);
             } else if (dy<0) {
                 move(x, y-speed);
-            }
+            }*/
         }
 
 
