@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import Game.Circle;
 import Game.GameBlock;
@@ -95,7 +96,9 @@ public class Board extends AppCompatActivity {
     public void update() {
         clickCap--;
         canvas.drawColor(Color.WHITE);
-        for (GameObject gameObject : list) {
+        List<GameObject> temp = new ArrayList<GameObject>();
+        temp.addAll(list);
+        for (GameObject gameObject : temp) {
             gameObject.update();
             gameObject.draw();
         }
