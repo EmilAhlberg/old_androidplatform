@@ -1,6 +1,7 @@
 package Game;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -13,9 +14,9 @@ public abstract class Mover extends GameObject {
     protected int speed;
     protected double direction;
 
-    public Mover (int x, int y, int speed, int direction) {
-        super(x,y);
-        this.speed=speed;
+    public Mover(int x, int y, int speed, int direction) {
+        super(x, y);
+        this.speed = speed;
         this.direction = direction;
     }
 
@@ -23,18 +24,23 @@ public abstract class Mover extends GameObject {
 
     protected abstract boolean edgeCollision();
 
-    protected abstract boolean intersects(ArrayList<GameObject> list);
+    protected abstract boolean intersects(GameObject g);
+
+    /**
+     * Checks whether or not the Movers intersects with any game object, by calling the mover-objects
+     * intersects method.
+     */
 
     protected void getIntersectingObject() {
         ArrayList<GameObject> tempGameObjects = world.createTempGameObjects();
-        ArrayList<Mover> tempMovers = world.createTempMovers();
-        for (Mover mover : tempMovers) {
-            if (mover.intersects(tempGameObjects)) {
-                //do something
+        //ArrayList<Mover> tempMovers = world.createTempMovers();
+        for (GameObject g : tempGameObjects) {
+            if (intersects(g)) {
+                //handleCollision with g
+                Log.d("COLLISION", this.getClass() + ", " + g.getClass());
             }
         }
     }
-
 
 
 }

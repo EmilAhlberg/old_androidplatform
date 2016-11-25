@@ -63,7 +63,7 @@ public class Board extends AppCompatActivity {
         Log.d("X : Y", "onTouchEvent: X= " + clickX + " : Y= " + clickY + " Maxsize = " + p.x + " : " + p.y);
 
         if (time - System.currentTimeMillis() > 30) {
-            //här händer inget
+            //cirklar borttagna
             time = System.currentTimeMillis();
         }
         return true;

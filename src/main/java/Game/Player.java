@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by Emil on 2016-11-24.
  */
@@ -57,6 +59,12 @@ public class Player extends Mover {
 
     @Override
     protected boolean edgeCollision() {
+        return false;
+    }
+
+    @Override
+    protected boolean intersects(GameObject g) {
+        //TODO
         return false;
     }
 }

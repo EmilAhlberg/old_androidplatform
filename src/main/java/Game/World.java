@@ -69,7 +69,6 @@ public class World {
 
     /**
      * Returns a temporary list instance of Mover objects.
-     *
      * @return tempMovers
      */
     public ArrayList<Mover> createTempMovers() {
@@ -93,16 +92,13 @@ public class World {
 
     public void updateWorld() {
         canvas.drawColor(Color.WHITE);
-        //Fixar ConcurrentModificationException (tror jag), låt stå pls
-        ///////////////
+        //ConcurrentModificationException fix
         List<GameObject> temp = createTempGameObjects();
-        ////////////////////////////////////////////////
         for (GameObject gameObject : temp) {
             gameObject.update();
             gameObject.draw();
         }
     }
-
 
     //filthy set-methods
     public void setLevel() {
