@@ -13,6 +13,7 @@ public abstract class GameObject {
     protected double x;
     protected double y;
     protected static Canvas canvas;
+    protected static World world;
 
 
 
@@ -32,9 +33,9 @@ public abstract class GameObject {
 
     public abstract void update();
 
-    public static void setCanvas(Canvas c) {
+    public static void initialize(Canvas c, World w) {
         canvas = c;
+        world = w;
     }
-
 
 }

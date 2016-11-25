@@ -28,13 +28,11 @@ public class Player extends Mover {
     @Override
     public void draw() {
         canvas.drawCircle((int) x, (int) y, 20, paint);
-
     }
 
     @Override
     public void update() {
         updatePosition();
-
     }
 
     public void updateClickPosition(double cx, double cy) {
@@ -47,15 +45,11 @@ public class Player extends Mover {
     protected void updatePosition() {
         double dx = clickX - x;
         double dy = clickY - y;
-
         if (Math.abs(dx) <= speed && (Math.abs(dy) <= speed)) {
-
         } else {
             double xMov = speed * dx / (Math.abs(dx) + Math.abs(dy));
             double yMov = speed * dy / (Math.abs(dx) + Math.abs(dy));
-
             //Log.d("WAAAA", "xMov= " + xMov + " : yMov= " + yMov + " : xMov + yMov = " + (Math.abs(xMov) + Math.abs(yMov)));
-
             move(x + xMov, y + yMov);
         }
 

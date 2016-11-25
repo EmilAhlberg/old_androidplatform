@@ -2,6 +2,7 @@ package Game;
 
 import android.graphics.Canvas;
 
+import java.util.ArrayList;
 
 
 /**
@@ -21,5 +22,19 @@ public abstract class Mover extends GameObject {
     protected abstract void updatePosition();
 
     protected abstract boolean edgeCollision();
+
+    protected abstract boolean intersects(ArrayList<GameObject> list);
+
+    protected void getIntersectingObject() {
+        ArrayList<GameObject> tempGameObjects = world.createTempGameObjects();
+        ArrayList<Mover> tempMovers = world.createTempMovers();
+        for (Mover mover : tempMovers) {
+            if (mover.intersects(tempGameObjects)) {
+                //do something
+            }
+        }
+    }
+
+
 
 }

@@ -31,6 +31,7 @@ public class Board extends AppCompatActivity {
     private Canvas canvas;
     private long time = System.currentTimeMillis();
     private World world;
+    private Bitmap bg;
 
 
     @Override
@@ -40,10 +41,10 @@ public class Board extends AppCompatActivity {
         setContentView(R.layout.activity_board);
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.board);
-        Bitmap bg = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
+        bg = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
 
         canvas = new Canvas(bg);
-        world = new World(canvas, ll, this, bg);
+        world = new World(canvas, ll, this);
     }
 
 
@@ -58,7 +59,7 @@ public class Board extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getSize(p);
         double clickX = event.getRawX() * canvas.getWidth() / p.x;
         double clickY = event.getRawY() * canvas.getHeight() / p.y;
-        world.getPlayer().updateClickPosition(clickX, clickY);
+        world.setClickPosition(clickX, clickY);
         Log.d("X : Y", "onTouchEvent: X= " + clickX + " : Y= " + clickY + " Maxsize = " + p.x + " : " + p.y);
 
         if (time - System.currentTimeMillis() > 30) {
@@ -66,7 +67,10 @@ public class Board extends AppCompatActivity {
             time = System.currentTimeMillis();
         }
         return true;
+    }
 
+    public Bitmap getBitmap() {
+        return bg;
     }
 
 }

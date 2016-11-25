@@ -33,17 +33,15 @@ public class World {
     private Player player = new Player(300, 300);
     private ArrayList<GameObject> list;
     private GameLoop loop;
-    private Bitmap bg;
 
 
-    public World(Canvas canvas, LinearLayout ll, Board board, Bitmap bg) {
-        this.bg = bg;
+    public World(Canvas canvas, LinearLayout ll, Board board) {
         this.ll = ll;
         this.canvas = canvas;
         this.board = board;
         handlerSetup();
 
-        GameObject.setCanvas(canvas);
+        GameObject.initialize(canvas, this);
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(ll, s, player);
         setLevel();
@@ -51,6 +49,7 @@ public class World {
         loop.startLoop();
 
     }
+
     private void handlerSetup() {
 
         s = new Handler(Looper.getMainLooper()) {
@@ -61,19 +60,42 @@ public class World {
         h = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message inputMessage) {
 
-                ll.setBackground(new BitmapDrawable(board.getResources(), bg));
+                ll.setBackground(new BitmapDrawable(board.getResources(), board.getBitmap()));
 
             }
         };
 
     }
 
+    /**
+     * Returns a temporary list instance of Mover objects.
+     *
+     * @return tempMovers
+     */
+    public ArrayList<Mover> createTempMovers() {
+        ArrayList<GameObject> tempGameObjects = new ArrayList<GameObject>();
+        tempGameObjects.addAll(list);
+
+        ArrayList<Mover> tempMovers = new ArrayList<Mover>();
+        for (GameObject gameObject : list) {
+            if (gameObject instanceof Mover) {
+                tempMovers.add((Mover) gameObject);
+            }
+        }
+        return tempMovers;
+    }
+
+    public ArrayList<GameObject> createTempGameObjects() {
+        ArrayList<GameObject> tempGameObjects = new ArrayList<GameObject>();
+        tempGameObjects.addAll(list);
+        return tempGameObjects;
+    }
+
     public void updateWorld() {
         canvas.drawColor(Color.WHITE);
         //Fixar ConcurrentModificationException (tror jag), låt stå pls
-        //////////////////////////////////////////////// number of '/' is too damn high! /Jimmy McMillan
-        List<GameObject> temp = new ArrayList<GameObject>();
-        temp.addAll(list);
+        ///////////////
+        List<GameObject> temp = createTempGameObjects();
         ////////////////////////////////////////////////
         for (GameObject gameObject : temp) {
             gameObject.update();
@@ -81,12 +103,14 @@ public class World {
         }
     }
 
+
+    //filthy set-methods
     public void setLevel() {
         levelCreator.setLevel();
     }
 
-    public Player getPlayer() {
-        return (Player)list.get(0);
+    public void setClickPosition(double clickX, double clickY) {
+        player.updateClickPosition(clickX, clickY);
     }
 
 
