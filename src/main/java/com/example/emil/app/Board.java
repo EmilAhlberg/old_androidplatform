@@ -103,7 +103,7 @@ public class Board extends AppCompatActivity {
         clickCap--;
         canvas.drawColor(Color.WHITE);
         //Fixar ConcurrentModificationException (tror jag), låt stå pls
-        ////////////////////////////////////////////////
+        //////////////////////////////////////////////// number of '/' is too damn high! /Jimmy McMillan
         List<GameObject> temp = new ArrayList<GameObject>();
         temp.addAll(list);
         ////////////////////////////////////////////////

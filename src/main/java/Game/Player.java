@@ -12,6 +12,8 @@ public class Player extends Mover {
 
     private Paint paint = new Paint();
     //huh? är det inte onödigt att ha final här när värdet som används ändå är mutable? Bättre att använda denna variabeln eller ändra speed i Mover till final
+    //^^^ aa det är bara att ändra, är inget väl genomtänkt detta ^^^
+    //refactor mercilessly
     private final static int PLAYER_SPEED = 8;
     private double clickX =  y;
     private double clickY =  x;
@@ -80,6 +82,8 @@ public class Player extends Mover {
 
     @Override
     protected boolean edgeCollision() {
+
+
         return false;
     }
 }
