@@ -18,6 +18,7 @@ public class Board extends AppCompatActivity {
     private Canvas canvas;
     private long time = System.currentTimeMillis();
     private World world;
+    private Bitmap bg;
 
 
     @Override
@@ -27,10 +28,10 @@ public class Board extends AppCompatActivity {
         setContentView(R.layout.activity_board);
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.board);
-        Bitmap bg = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
+        bg = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
 
         canvas = new Canvas(bg);
-        world = new World(canvas, ll, this, bg);
+        world = new World(canvas, ll, this);
     }
 
 
@@ -58,11 +59,14 @@ public class Board extends AppCompatActivity {
         Log.d("X : Y", "onTouchEvent: X= " + clickX + " : Y= " + clickY + " Maxsize = " + p.x + " : " + p.y);
 
         if (time - System.currentTimeMillis() > 30) {
-            //här händer inget
+            //cirklar borttagna
             time = System.currentTimeMillis();
         }
         return true;
+    }
 
+    public Bitmap getBitmap() {
+        return bg;
     }
 
 }

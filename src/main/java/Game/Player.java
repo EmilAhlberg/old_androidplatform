@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by Emil on 2016-11-24.
  */
@@ -28,7 +30,6 @@ public class Player extends Mover {
     @Override
     public void draw() {
         canvas.drawCircle((int) x, (int) y, 20, paint);
-
     }
 
     @Override
@@ -76,15 +77,11 @@ public class Player extends Mover {
         /*
         double dx = clickX - x;
         double dy = clickY - y;
-
         if (Math.abs(dx) <= speed && (Math.abs(dy) <= speed)) {
-
         } else {
             double xMov = speed * dx / (Math.abs(dx) + Math.abs(dy));
             double yMov = speed * dy / (Math.abs(dx) + Math.abs(dy));
-
             //Log.d("WAAAA", "xMov= " + xMov + " : yMov= " + yMov + " : xMov + yMov = " + (Math.abs(xMov) + Math.abs(yMov)));
-
             move(x + xMov, y + yMov);
         }
         */
@@ -129,6 +126,12 @@ public class Player extends Mover {
 
     @Override
     protected boolean edgeCollision() {
+        return false;
+    }
+
+    @Override
+    protected boolean intersects(GameObject g) {
+        //TODO
         return false;
     }
 }

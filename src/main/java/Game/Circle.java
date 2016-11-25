@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by Emil on 2016-11-20.
  */
@@ -32,6 +34,7 @@ public class Circle extends Mover {
     public void update() {
         edgeCollision();
         updatePosition();
+        getIntersectingObject();
     }
 
     @Override
@@ -67,6 +70,12 @@ public class Circle extends Mover {
         } else if(y - radius <= 0 || y + radius >= canvas.getHeight()) {
             direction = Math.PI/2+direction;
         }
+        return false;
+    }
+
+    @Override
+    protected boolean intersects(GameObject g) {
+        //TODO
         return false;
     }
 }
