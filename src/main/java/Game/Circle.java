@@ -35,12 +35,27 @@ public class Circle extends Mover {
     }
 
     @Override
+    public void updateSpeed() {
+
+    }
+
+    @Override
+    public void changeVerticalForce(double changeforce) {
+
+    }
+
+    @Override
+    public void changeHorizontalForce(double changeforce) {
+
+    }
+
+    @Override
     protected void updatePosition() {
-        double cos = Math.cos(direction);
+        /*double cos = Math.cos(direction);
         double sin = Math.sin(direction);
         double dx = cos * speed;
         double dy = sin * speed;
-        move(x + dx, y + dy);
+        move(x + dx, y + dy);*/
     }
 
     @Override

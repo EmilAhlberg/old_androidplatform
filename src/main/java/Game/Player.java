@@ -11,17 +11,17 @@ import android.util.Log;
 public class Player extends Mover {
 
     private Paint paint = new Paint();
-    //huh? är det inte onödigt att ha final här när värdet som används ändå är mutable? Bättre att använda denna variabeln eller ändra speed i Mover till final
-    //^aa det är bara att ändra, är inget väl genomtänkt detta^
-    //refactor mercilessly
-    private final static int PLAYER_SPEED = 8;
     private double clickX = y;
     private double clickY = x;
+    private long savedSpeedTime, savedPositionTime;
+    private boolean grounded;
 
 
     public Player(int x, int y) {
-        super(x, y, PLAYER_SPEED, 0);
+        super(x, y, 0, 30);
         paint.setColor(Color.GREEN);
+        savedSpeedTime = savedPositionTime = System.nanoTime();
+        grounded = false;
     }
 
 
@@ -33,8 +33,8 @@ public class Player extends Mover {
 
     @Override
     public void update() {
+        updateSpeed();
         updatePosition();
-
     }
 
     public void updateClickPosition(double cx, double cy) {
@@ -42,9 +42,38 @@ public class Player extends Mover {
         clickY = cy;
     }
 
+    public void jump() {
+        changeVerticalForce(750);
+        update();
+    }
+
+    @Override
+    protected void updateSpeed() {
+        updateAcceleration();
+        verticalForce = GRAVITY;
+        horizontalForce = 0;
+        //long deltaTime = System.nanoTime() - savedSpeedTime;
+        verticalSpeed = verticalSpeed + verticalAcceleration /** deltaTime / 1000000000*/;
+        horizontalSpeed = horizontalSpeed + horizontalAcceleration /** deltaTime / 1000000000*/;
+        //savedSpeedTime = System.nanoTime();
+    }
+
+    protected void updateAcceleration () {
+        verticalAcceleration = verticalForce / mass;
+        horizontalAcceleration = horizontalForce / mass;
+    }
+
+    public void changeVerticalForce (double changeforce) {
+        verticalForce += changeforce;
+    }
+
+    public void changeHorizontalForce (double changeforce) {
+        horizontalForce += changeforce;
+    }
 
     @Override
     protected void updatePosition() {
+        /*
         double dx = clickX - x;
         double dy = clickY - y;
 
@@ -58,7 +87,44 @@ public class Player extends Mover {
 
             move(x + xMov, y + yMov);
         }
+        */
 
+        Log.d("42", "verticalSpeed= " + verticalSpeed + " : horizontalSpeed= " + horizontalSpeed + " : verticalForce= " + verticalForce + " : verticalAcceleration= " + verticalAcceleration);
+
+        //long deltaTime = System.nanoTime() - savedPositionTime;
+        if (!VerticalCollision() || verticalSpeed > 0) {
+            move(x, y - verticalSpeed /** deltaTime / 1000000000*/);
+        } else {
+            verticalSpeed = 0;
+        }
+        if (!HorizontalCollision()) {
+            move(x + horizontalSpeed /** deltaTime / 1000000000*/, y);
+        } else {
+            horizontalSpeed = 0;
+        }
+
+        //savedPositionTime = System.nanoTime();
+    }
+
+    public boolean isGrounded() {
+        return grounded;
+    }
+
+    private boolean HorizontalCollision () {
+        if (x <= 0 || x >= canvas.getWidth()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean VerticalCollision () {
+        if (y >= canvas.getHeight()) {
+            y = canvas.getHeight();
+            grounded = true;
+            return true;
+        }
+        grounded = false;
+        return false;
     }
 
     @Override

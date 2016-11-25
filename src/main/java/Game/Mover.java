@@ -9,14 +9,24 @@ import android.graphics.Canvas;
  */
 
 public abstract class Mover extends GameObject {
-    protected int speed;
     protected double direction;
+    protected final double GRAVITY = -35;
 
-    public Mover (int x, int y, int speed, int direction) {
+    protected double verticalForce, horizontalForce, horizontalAcceleration, verticalAcceleration, horizontalSpeed, verticalSpeed, mass;
+
+    public Mover (int x, int y, int direction, int mass) {
         super(x,y);
-        this.speed=speed;
+        this.mass = mass;
         this.direction = direction;
+        horizontalForce = horizontalAcceleration = verticalAcceleration = horizontalSpeed = verticalSpeed = 0;
+        verticalForce = GRAVITY;
     }
+
+    protected abstract void updateSpeed();
+
+    public abstract void changeVerticalForce(double changeforce);
+
+    public abstract void changeHorizontalForce(double changeforce);
 
     protected abstract void updatePosition();
 

@@ -14,9 +14,6 @@ public abstract class GameObject {
     protected double y;
     protected static Canvas canvas;
 
-
-
-
     public GameObject(int x, int y) {
         this.x = x;
         this.y = y;
