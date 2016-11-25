@@ -12,24 +12,22 @@ public class Player extends Mover {
 
     private Paint paint = new Paint();
     //huh? är det inte onödigt att ha final här när värdet som används ändå är mutable? Bättre att använda denna variabeln eller ändra speed i Mover till final
-    //^^^ aa det är bara att ändra, är inget väl genomtänkt detta ^^^
+    //^aa det är bara att ändra, är inget väl genomtänkt detta^
     //refactor mercilessly
     private final static int PLAYER_SPEED = 8;
-    private double clickX =  y;
-    private double clickY =  x;
-
+    private double clickX = y;
+    private double clickY = x;
 
 
     public Player(int x, int y) {
-        super(x,y, PLAYER_SPEED, 0);
+        super(x, y, PLAYER_SPEED, 0);
         paint.setColor(Color.GREEN);
     }
 
 
-
     @Override
     public void draw() {
-        canvas.drawCircle((int)x, (int)y, 20, paint);
+        canvas.drawCircle((int) x, (int) y, 20, paint);
 
     }
 
@@ -50,40 +48,21 @@ public class Player extends Mover {
         double dx = clickX - x;
         double dy = clickY - y;
 
-        if (Math.abs(dx) <= speed &&(Math.abs(dy)<= speed)) {
+        if (Math.abs(dx) <= speed && (Math.abs(dy) <= speed)) {
 
         } else {
-            double xMov = speed * dx / (Math.abs(dx)+Math.abs(dy));
-            double yMov = speed * dy / (Math.abs(dx)+Math.abs(dy));
+            double xMov = speed * dx / (Math.abs(dx) + Math.abs(dy));
+            double yMov = speed * dy / (Math.abs(dx) + Math.abs(dy));
 
             //Log.d("WAAAA", "xMov= " + xMov + " : yMov= " + yMov + " : xMov + yMov = " + (Math.abs(xMov) + Math.abs(yMov)));
 
-            move(x+xMov, y+yMov);
-
-            /*if (dx > 0) {
-                move(x+speed, y);
-            } else if (dx<0) {
-                move(x-speed, y);
-            }
-            if (dy > 0) {
-                move(x, y+speed);
-            } else if (dy<0) {
-                move(x, y-speed);
-            }*/
+            move(x + xMov, y + yMov);
         }
-
-
-
-
-
-
 
     }
 
     @Override
     protected boolean edgeCollision() {
-
-
         return false;
     }
 }

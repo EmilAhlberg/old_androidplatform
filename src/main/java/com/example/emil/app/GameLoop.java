@@ -3,21 +3,23 @@ package com.example.emil.app;
 import android.os.Handler;
 import android.os.Message;
 
+import Game.World;
+
 /**
  * Created by Emil on 2016-11-04.
  */
 
 public class GameLoop {
 
-    private Board board;
+    private World world;
     private final int timeLimit = 30;
     private Handler handler;
 
     private double elapsedTime;
 
-    public GameLoop(Board board, Handler handler) {
+    public GameLoop(World world, Handler handler) {
 
-        this.board = board;
+        this.world = world;
         this.handler = handler;
     }
 
@@ -40,7 +42,7 @@ public class GameLoop {
     }
 
     private void updateLoop() {
-        board.update();
+        world.update();
         Message m = handler.obtainMessage();
         m.sendToTarget();
     }

@@ -24,19 +24,17 @@ import Game.GameBlock;
 import Game.GameObject;
 import Game.LevelCreator;
 import Game.Player;
+import Game.World;
 
 public class Board extends AppCompatActivity {
 
     private Canvas canvas;
-    private GameLoop loop;
-    private Paint paint;
     private Bitmap bg;
     private LinearLayout ll;
     private Handler h;
-    private ArrayList<GameObject> list;
-    private int clickCap = 10;
+    private long time = System.currentTimeMillis();
     private LevelCreator levelCreator;
-    private Player player = new Player(300, 300);
+    private World world;
 
 
     @Override
@@ -45,39 +43,14 @@ public class Board extends AppCompatActivity {
         setFullscreen();
         setContentView(R.layout.activity_board);
 
-        Handler h = new Handler(Looper.getMainLooper()) {
-            public void handleMessage(Message inputMessage) {
-
-                ll.setBackground(new BitmapDrawable(getResources(), bg));
-
-            }
-        };
-
-        Handler s = new Handler(Looper.getMainLooper()) {
-            public void handleMessage(Message inputMessage) {
-                list = levelCreator.getNewList();
-            }
-        };
 
         bg = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
-
         canvas = new Canvas(bg);
         ll = (LinearLayout) findViewById(R.id.board);
-        loop = new GameLoop(this, h);
-        gameSetup(s);
+        world = new World(canvas, ll, this, bg);
     }
 
-    private void gameSetup(Handler s) {
-        GameObject.setCanvas(canvas);
 
-        list = new ArrayList<GameObject>();
-        levelCreator = new LevelCreator(ll, s, player);
-        setLevel();
-
-
-        loop.startLoop();
-
-    }
 
     public void setFullscreen() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -89,35 +62,15 @@ public class Board extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getSize(p);
         double clickX = event.getRawX() * canvas.getWidth() / p.x;
         double clickY = event.getRawY() * canvas.getHeight() / p.y;
-        player.updateClickPosition(clickX, clickY);
+        world.getPlayer().updateClickPosition(clickX, clickY);
         Log.d("X : Y", "onTouchEvent: X= " + clickX + " : Y= " + clickY + " Maxsize = " + p.x + " : " + p.y);
-        if (clickCap<0) {
-            list.add(new Circle((int)clickX,(int)clickY,40));
-            clickCap = 10;
+
+        if (time - System.currentTimeMillis() > 30) {
+            //här händer inget
+            time = System.currentTimeMillis();
         }
         return true;
 
     }
 
-    public void update() {
-        clickCap--;
-        canvas.drawColor(Color.WHITE);
-        //Fixar ConcurrentModificationException (tror jag), låt stå pls
-        //////////////////////////////////////////////// number of '/' is too damn high! /Jimmy McMillan
-        List<GameObject> temp = new ArrayList<GameObject>();
-        temp.addAll(list);
-        ////////////////////////////////////////////////
-        for (GameObject gameObject : temp) {
-            gameObject.update();
-            gameObject.draw();
-        }
-    }
-
-    public void setLevel() {
-        levelCreator.setLevel();
-
-
-        //AsyncTaskCompat.executeParallel(levelCreator,coords[0],coords[1],coords[2],coords[3]);
-        //levelCreator.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,coords[0],coords[1],coords[2],coords[3] );
-    }
 }
