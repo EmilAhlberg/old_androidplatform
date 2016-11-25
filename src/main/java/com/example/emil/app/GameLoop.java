@@ -42,7 +42,7 @@ public class GameLoop {
     }
 
     private void updateLoop() {
-        world.update();
+        world.updateWorld();
         Message m = handler.obtainMessage();
         m.sendToTarget();
     }

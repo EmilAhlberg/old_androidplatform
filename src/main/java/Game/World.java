@@ -68,7 +68,7 @@ public class World {
 
     }
 
-    public void update() {
+    public void updateWorld() {
         canvas.drawColor(Color.WHITE);
         //Fixar ConcurrentModificationException (tror jag), låt stå pls
         //////////////////////////////////////////////// number of '/' is too damn high! /Jimmy McMillan

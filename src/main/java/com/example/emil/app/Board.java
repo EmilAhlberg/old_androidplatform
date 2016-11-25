@@ -29,11 +29,7 @@ import Game.World;
 public class Board extends AppCompatActivity {
 
     private Canvas canvas;
-    private Bitmap bg;
-    private LinearLayout ll;
-    private Handler h;
     private long time = System.currentTimeMillis();
-    private LevelCreator levelCreator;
     private World world;
 
 
@@ -43,10 +39,10 @@ public class Board extends AppCompatActivity {
         setFullscreen();
         setContentView(R.layout.activity_board);
 
+        LinearLayout ll = (LinearLayout) findViewById(R.id.board);
+        Bitmap bg = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
 
-        bg = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bg);
-        ll = (LinearLayout) findViewById(R.id.board);
         world = new World(canvas, ll, this, bg);
     }
 
