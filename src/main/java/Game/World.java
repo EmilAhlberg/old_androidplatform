@@ -30,7 +30,7 @@ public class World {
     private Handler h;
     private Handler s;
     private LevelCreator levelCreator;
-    private Player player = new Player(300, 300);
+    private Player player = new Player(new Position(300,300));
     private ArrayList<GameObject> list;
     private GameLoop loop;
 
@@ -43,7 +43,7 @@ public class World {
 
         GameObject.initialize(canvas, this);
         list = new ArrayList<GameObject>();
-        levelCreator = new LevelCreator(ll, s, player);
+        levelCreator = new LevelCreator(s, player);
         setLevel();
         loop = new GameLoop(this, h);
         loop.startLoop();

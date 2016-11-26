@@ -19,13 +19,11 @@ import java.util.ArrayList;
 public class LevelCreator {
 
 
-    private LinearLayout ll;
     private ArrayList<GameObject> newList;
     private Handler s;
     private Player player;
 
-    public LevelCreator(View ll, Handler s, Player player) {
-        this.ll = (LinearLayout) ll;
+    public LevelCreator(Handler s, Player player) {
         this.s = s;
         this.player = player;
     }
@@ -39,10 +37,10 @@ public class LevelCreator {
                 for (int y = 0; y <= 780; y += 20) {
                     for (int x = 0; x <= 460; x += 20) {
                         if (y == 0 || x == 0 || y == 780 || x == 460) {
-                            newList.add(new EdgeBlock(x, y));
+                            newList.add(new EdgeBlock(new Position(x, y)));
                         }
                         if (y == 600 && x > 100 && x < 400) {
-                            newList.add(new GameBlock(x, y));
+                            newList.add(new GameBlock(new Position(x, y)));
                         }
                     }
                 }
@@ -50,7 +48,6 @@ public class LevelCreator {
 
             }
         }).start();
-
         s.obtainMessage().sendToTarget();
     }
 

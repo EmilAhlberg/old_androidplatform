@@ -10,20 +10,20 @@ import android.graphics.Point;
 
 public abstract class GameObject {
 
-    protected double x;
-    protected double y;
+    protected Position position;
     protected static Canvas canvas;
     protected static World world;
 
-    public GameObject(int x, int y) {
-        this.x = x;
-        this.y = y;
-
+    public GameObject(Position position) {
+       this.position = position;
+    }
+    public Position getPosition() {
+        return position;
     }
 
     public void move(double x, double y) {
-        this.x = x;
-        this.y = y;
+        position.setX(x);
+        position.setY(y);
     }
 
     public abstract void draw();

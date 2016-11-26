@@ -8,8 +8,8 @@ import android.graphics.Canvas;
 
 public abstract class Block extends GameObject{
 
-    public Block(int x, int y) {
-        super(x,y);
+    public Block(Position position) {
+        super(position);
     }
 
 

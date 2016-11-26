@@ -18,15 +18,15 @@ public class Circle extends Mover {
     protected static Paint paint = new Paint();
 
 
-    public Circle(int x, int y, int radius) {
-        super(x, y, CIRCLE_SPEED, 1);
+    public Circle(Position position, int radius) {
+        super(position, CIRCLE_SPEED, 1);
         this.radius = radius;
         paint.setColor(Color.BLUE);
     }
 
     @Override
     public void draw() {
-        canvas.drawCircle((int) x, (int) y, radius, paint);
+        canvas.drawCircle((int) position.getX(), (int) position.getY(), radius, paint);
         //Log.d("nisse", "X= " + canvas.getWidth() + " : Y= " + canvas.getHeight());
     }
 
@@ -34,7 +34,6 @@ public class Circle extends Mover {
     public void update() {
         edgeCollision();
         updatePosition();
-        getIntersectingObject();
     }
 
     @Override
@@ -52,21 +51,14 @@ public class Circle extends Mover {
         move(x + dx, y + dy);*/
     }
 
-    @Override
     protected boolean edgeCollision() {
         //left or right edge collision
-        if (x - radius <= 0 || x + radius >= canvas.getWidth()) {
+        if (position.getX() - radius <= 0 || position.getX() + radius >= canvas.getWidth()) {
             direction = Math.PI-direction;
             return true;
-        } else if(y - radius <= 0 || y + radius >= canvas.getHeight()) {
+        } else if(position.getY() - radius <= 0 || position.getY() + radius >= canvas.getHeight()) {
             direction = Math.PI/2+direction;
         }
-        return false;
-    }
-
-    @Override
-    protected boolean intersects(GameObject g) {
-        //TODO
         return false;
     }
 }

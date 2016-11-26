@@ -13,29 +13,29 @@ import java.util.ArrayList;
 public class Player extends Mover {
 
     private Paint paint = new Paint();
-    private double clickX = y;
-    private double clickY = x;
+    private double clickX = position.getX();
+    private double clickY = position.getY();
     private long savedSpeedTime, savedPositionTime;
-    private boolean grounded;
 
 
-    public Player(int x, int y) {
-        super(x, y, 0, 30);
+    public Player(Position position) {
+        super(position, 0, 30);
         paint.setColor(Color.GREEN);
         savedSpeedTime = savedPositionTime = System.nanoTime();
-        grounded = false;
+
     }
 
 
     @Override
     public void draw() {
-        canvas.drawCircle((int) x, (int) y, 20, paint);
+        canvas.drawCircle((int) position.getX(), (int) position.getY(), 20, paint);
     }
 
     @Override
     public void update() {
         updateSpeed();
         updatePosition();
+        checkCollision();
     }
 
     public void updateClickPosition(double cx, double cy) {
@@ -48,7 +48,8 @@ public class Player extends Mover {
     }
 
     public void jump() {
-        applyForce(0,750);
+        applyForce(0, 750);
+        grounded = false;
         //changeVerticalForce(750);
         update();
     }
@@ -67,7 +68,11 @@ public class Player extends Mover {
         horizontalForce = 0;
         //long deltaTime = System.nanoTime() - savedSpeedTime;
         verticalSpeed = verticalSpeed + verticalAcceleration *//** deltaTime / 1000000000*//*;
-        horizontalSpeed = horizontalSpeed + horizontalAcceleration *//** deltaTime / 1000000000*//*;
+        horizontalSpeed = horizontalSpeed + horizontalAcceleration */
+
+    /**
+     * deltaTime / 1000000000
+     *//*;
         //savedSpeedTime = System.nanoTime();
     }
 
@@ -75,7 +80,6 @@ public class Player extends Mover {
         verticalAcceleration = verticalForce / mass;
         horizontalAcceleration = horizontalForce / mass;
     }*/
-
     @Override
     protected void updatePosition() {
         /*
@@ -90,37 +94,37 @@ public class Player extends Mover {
         }
         */
 
-        Log.d("42", "verticalSpeed= " + verticalSpeed + " : horizontalSpeed= " + horizontalSpeed + " : verticalForce= " + verticalForce + " : verticalAcceleration= " + verticalAcceleration);
+        //Log.d("42", "verticalSpeed= " + verticalSpeed + " : horizontalSpeed= " + horizontalSpeed + " : verticalForce= " + verticalForce + " : verticalAcceleration= " + verticalAcceleration);
 
         //long deltaTime = System.nanoTime() - savedPositionTime;
-        if (!VerticalCollision() || verticalSpeed > 0) {
-            move(x, y - verticalSpeed /** deltaTime / 1000000000*/);
-        } else {
-            verticalSpeed = 0;
-        }
-        if (!HorizontalCollision()) {
-            move(x + horizontalSpeed /** deltaTime / 1000000000*/, y);
-        } else {
-            horizontalSpeed = 0;
-        }
+
+        move(position.getX(), position.getY() - verticalSpeed /** deltaTime / 1000000000*/);
+
+
+//        if (!VerticalCollision() || verticalSpeed > 0) {
+//            move(position.getX(), position.getY() - verticalSpeed /** deltaTime / 1000000000*/);
+//        } else {
+//            verticalSpeed = 0;
+//        }
+//        if (!HorizontalCollision()) {
+//            move(position.getX() + horizontalSpeed /** deltaTime / 1000000000*/, position.getY());
+//        } else {
+//            horizontalSpeed = 0;
+//        }
 
         //savedPositionTime = System.nanoTime();
     }
 
-    public boolean isGrounded() {
-        return grounded;
-    }
-
-    private boolean HorizontalCollision () {
-        if (x <= 0 || x >= canvas.getWidth()) {
+    private boolean HorizontalCollision() {
+        if (position.getX() <= 0 || position.getX() >= canvas.getWidth()) {
             return true;
         }
         return false;
     }
 
-    private boolean VerticalCollision () {
-        if (y >= canvas.getHeight()) {
-            y = canvas.getHeight();
+    private boolean VerticalCollision() {
+        if (position.getY() >= canvas.getHeight()) {
+            position.setY(canvas.getHeight());
             grounded = true;
             return true;
         }
@@ -128,14 +132,5 @@ public class Player extends Mover {
         return false;
     }
 
-    @Override
-    protected boolean edgeCollision() {
-        return false;
-    }
-
-    @Override
-    protected boolean intersects(GameObject g) {
-        //TODO
-        return false;
-    }
 }
+
