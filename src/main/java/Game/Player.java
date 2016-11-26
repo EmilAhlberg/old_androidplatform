@@ -41,11 +41,23 @@ public class Player extends Mover {
     public void updateClickPosition(double cx, double cy) {
         clickX = cx;
         clickY = cy;
+        //hoppcheck hamnade här nu
+        if (isGrounded()) {
+            jump();
+        }
     }
 
     public void jump() {
-        changeVerticalForce(750);
+        applyForce(0,750);
+        //changeVerticalForce(750);
         update();
+    }
+
+    /*public void changeVerticalForce(double verticalChange) {
+        verticalForce += verticalChange;
+    }
+    public void changeHorizontalForce(double horizontalChange) {
+        horizontalForce += horizontalChange;
     }
 
     @Override
@@ -54,23 +66,15 @@ public class Player extends Mover {
         verticalForce = GRAVITY;
         horizontalForce = 0;
         //long deltaTime = System.nanoTime() - savedSpeedTime;
-        verticalSpeed = verticalSpeed + verticalAcceleration /** deltaTime / 1000000000*/;
-        horizontalSpeed = horizontalSpeed + horizontalAcceleration /** deltaTime / 1000000000*/;
+        verticalSpeed = verticalSpeed + verticalAcceleration *//** deltaTime / 1000000000*//*;
+        horizontalSpeed = horizontalSpeed + horizontalAcceleration *//** deltaTime / 1000000000*//*;
         //savedSpeedTime = System.nanoTime();
     }
 
     protected void updateAcceleration () {
         verticalAcceleration = verticalForce / mass;
         horizontalAcceleration = horizontalForce / mass;
-    }
-
-    public void changeVerticalForce (double changeforce) {
-        verticalForce += changeforce;
-    }
-
-    public void changeHorizontalForce (double changeforce) {
-        horizontalForce += changeforce;
-    }
+    }*/
 
     @Override
     protected void updatePosition() {

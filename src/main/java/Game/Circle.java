@@ -42,15 +42,6 @@ public class Circle extends Mover {
 
     }
 
-    @Override
-    public void changeVerticalForce(double changeforce) {
-
-    }
-
-    @Override
-    public void changeHorizontalForce(double changeforce) {
-
-    }
 
     @Override
     protected void updatePosition() {

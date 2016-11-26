@@ -24,32 +24,64 @@ public abstract class Mover extends GameObject {
         verticalForce = GRAVITY;
     }
 
-    protected abstract void updateSpeed();
+    protected void updateSpeed() {
+        updateAcceleration();
+        verticalForce = GRAVITY;
+        horizontalForce = 0;
+        //long deltaTime = System.nanoTime() - savedSpeedTime;
+        verticalSpeed = verticalSpeed + verticalAcceleration /** deltaTime / 1000000000*/;
+        horizontalSpeed = horizontalSpeed + horizontalAcceleration /** deltaTime / 1000000000*/;
+        //savedSpeedTime = System.nanoTime();
+    }
+    private void updateAcceleration () {
+        verticalAcceleration = verticalForce / mass;
+        horizontalAcceleration = horizontalForce / mass;
+    }
 
-    public abstract void changeVerticalForce(double changeforce);
-
-    public abstract void changeHorizontalForce(double changeforce);
+    public void applyForce(double horizontalChange, double verticalChange) {
+        verticalForce += verticalChange;
+        horizontalForce += horizontalChange;
+    }
 
     protected abstract void updatePosition();
 
     protected abstract boolean edgeCollision();
 
+    /**
+     * Check for any collisions between THIS and any other GameObject. If any collision occurs,
+     * they are handled one by one, in the order they were registered.
+     */
+    protected boolean checkCollision() {
+        ArrayList <GameObject> collisions = getIntersectingObjects();
+        if (collisions != null) {
+            handleCollisions(collisions);
+            return true;
+        }
+        return false;
+    }
+
+    private void handleCollisions(ArrayList<GameObject> colliders) {
+        
+    }
+
     protected abstract boolean intersects(GameObject g);
+
 
     /**
      * Checks whether or not the Movers intersects with any game object, by calling the mover-objects
      * intersects method.
      */
-
-    protected void getIntersectingObject() {
+    protected ArrayList<GameObject> getIntersectingObjects() {
         ArrayList<GameObject> tempGameObjects = world.createTempGameObjects();
         //ArrayList<Mover> tempMovers = world.createTempMovers();
+        ArrayList<GameObject> colliders = new ArrayList<GameObject>();
         for (GameObject g : tempGameObjects) {
             if (intersects(g)) {
-                //handleCollision with g
+                colliders.add(g);
                 Log.d("COLLISION", this.getClass() + ", " + g.getClass());
             }
         }
+        return colliders;
     }
 
 

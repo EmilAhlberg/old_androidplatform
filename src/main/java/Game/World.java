@@ -72,10 +72,9 @@ public class World {
      * @return tempMovers
      */
     public ArrayList<Mover> createTempMovers() {
-        ArrayList<GameObject> tempGameObjects = new ArrayList<GameObject>();
-        tempGameObjects.addAll(list);
-
+        ArrayList<GameObject> tempGameObjects = createTempGameObjects();
         ArrayList<Mover> tempMovers = new ArrayList<Mover>();
+
         for (GameObject gameObject : list) {
             if (gameObject instanceof Mover) {
                 tempMovers.add((Mover) gameObject);
@@ -84,6 +83,10 @@ public class World {
         return tempMovers;
     }
 
+    /**
+     * Returns a temporary list instance of GameObjects.
+     * @return tempGameObjects
+     */
     public ArrayList<GameObject> createTempGameObjects() {
         ArrayList<GameObject> tempGameObjects = new ArrayList<GameObject>();
         tempGameObjects.addAll(list);
