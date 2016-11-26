@@ -34,12 +34,12 @@ public class LevelCreator {
 
         new Thread(new Runnable() {
             public void run() {
-                for (int y = 0; y <= 780; y += 20) {
-                    for (int x = 0; x <= 460; x += 20) {
-                        if (y == 0 || x == 0 || y == 780 || x == 460) {
+                for (int y = 0; y <= 460; y += 20) {
+                    for (int x = 0; x <= 780; x += 20) {
+                        if (y == 0 || x == 0 || y == 460 || x == 780) {
                             newList.add(new EdgeBlock(new Position(x, y)));
                         }
-                        if (y == 600 && x > 100 && x < 400) {
+                        if (y == 300 && x > 200 && x < 580) {
                             newList.add(new GameBlock(new Position(x, y)));
                         }
                     }

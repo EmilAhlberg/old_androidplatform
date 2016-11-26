@@ -112,8 +112,12 @@ public class World {
         player.updateClickPosition(clickX, clickY);
     }
 
-
-    public Player getPlayer() {
-        return player;
+    public void decodeTouchEvent(MotionEvent event, Point p) {
+        player.decodeTouchEvent(event, p);
     }
+
+
+    //public Player getPlayer() {
+    //    return player;
+    //}
 }

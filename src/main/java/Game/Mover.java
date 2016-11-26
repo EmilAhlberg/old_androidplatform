@@ -74,7 +74,7 @@ public abstract class Mover extends GameObject {
         for (GameObject g : tempGameObjects) {
             if (this != g && intersects(g)) {
                 colliders.add(g);
-                Log.d("COLLISION", this.getClass() + ", " + g.getClass());
+                //Log.d("COLLISION", this.getClass() + ", " + g.getClass());
             }
         }
         return colliders;
