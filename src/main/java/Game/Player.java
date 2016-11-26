@@ -115,22 +115,22 @@ public class Player extends Mover {
         //savedPositionTime = System.nanoTime();
     }
 
-    private boolean HorizontalCollision() {
-        if (position.getX() <= 0 || position.getX() >= canvas.getWidth()) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean VerticalCollision() {
-        if (position.getY() >= canvas.getHeight()) {
-            position.setY(canvas.getHeight());
-            grounded = true;
-            return true;
-        }
-        grounded = false;
-        return false;
-    }
+//    private boolean HorizontalCollision() {
+//        if (position.getX() <= 0 || position.getX() >= canvas.getWidth()) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    private boolean VerticalCollision() {
+//        if (position.getY() >= canvas.getHeight()) {
+//            position.setY(canvas.getHeight());
+//            grounded = true;
+//            return true;
+//        }
+//        grounded = false;
+//        return false;
+//    }
 
 }
 

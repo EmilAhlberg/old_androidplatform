@@ -98,7 +98,7 @@ public abstract class Mover extends GameObject {
 
     //lär behöva förbättras
     private boolean intersects(GameObject g) {
-        Position g1UpperLeft = getPosition();
+        Position g1UpperLeft = getPosition();                                   // VARNING ::::HÅRDKODAD OBJEKTSTORLEK
         Position g1LowerRight = new Position(getPosition().getX() + 20,         // getWidth()
                 getPosition().getY() + 20);                                     //getHeight
 
