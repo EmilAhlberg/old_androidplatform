@@ -110,4 +110,7 @@ public class World {
     }
 
 
+    public Player getPlayer() {
+        return player;
+    }
 }
