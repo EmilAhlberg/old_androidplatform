@@ -49,12 +49,15 @@ public class Board extends AppCompatActivity {
         double clickX = event.getRawX() * canvas.getWidth() / p.x;
         double clickY = event.getRawY() * canvas.getHeight() / p.y;
 
-        Player player = world.getPlayer();
 
-        player.updateClickPosition(clickX, clickY);
-        if (player.isGrounded()) {
-            player.jump();
-        }
+        world.setClickPosition(clickX, clickY); // tror detta fungerar likadant, och tar bort dependecies mellan board <--> player + player hanterar sig själv
+                                                // kan också lätt uppdatera andra klasser beroende av klick från world.setClickPosition()
+        //Player player = world.getPlayer();
+
+        //player.updateClickPosition(clickX, clickY);
+        //if (player.isGrounded()) {
+        //    player.jump();
+        //}
 
         Log.d("X : Y", "onTouchEvent: X= " + clickX + " : Y= " + clickY + " Maxsize = " + p.x + " : " + p.y);
 

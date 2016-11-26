@@ -11,8 +11,8 @@ import android.graphics.Paint;
 public class GameBlock extends Block {
     protected static Paint paint = new Paint();
 
-    public GameBlock(int x, int y) {
-        super(x,y);
+    public GameBlock(Position position) {
+        super(position);
         paint.setColor(Color.RED);
     }
 
@@ -20,7 +20,7 @@ public class GameBlock extends Block {
 
     @Override
     public void draw() {
-        canvas.drawRect((float)x,(float)y,(float)(x+18),(float)(y+18),paint);
+        canvas.drawRect((float)position.getX(),(float)position.getY(),(float)(position.getX()+18),(float)(position.getY()+18),paint);
 
 
     }
