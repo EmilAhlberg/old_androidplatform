@@ -45,6 +45,12 @@ public class Player extends Mover {
         if (isGrounded()) {
             jump();
         }
+        if(clickX < position.getX()) {
+            applyForce(30, 0);
+        }
+        else {
+            applyForce(-30,0);
+        }
     }
 
     public void jump() {
@@ -98,7 +104,7 @@ public class Player extends Mover {
 
         //long deltaTime = System.nanoTime() - savedPositionTime;
 
-        move(position.getX(), position.getY() - verticalSpeed /** deltaTime / 1000000000*/);
+        move(position.getX()-horizontalSpeed, position.getY() - verticalSpeed /** deltaTime / 1000000000*/);
 
 
 //        if (!VerticalCollision() || verticalSpeed > 0) {
