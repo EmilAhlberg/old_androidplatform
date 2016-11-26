@@ -83,13 +83,13 @@ public abstract class Mover extends GameObject {
     private void handleCollisions(ArrayList<GameObject> colliders) {
         for (GameObject g : colliders) {
             if (g instanceof Block) {
-                move(position.getX(), position.getY() + verticalSpeed /** deltaTime / 1000000000*/);
+                move(position.getX()+horizontalSpeed, position.getY() + verticalSpeed /** deltaTime / 1000000000*/);
                 verticalAcceleration = 0;
+                horizontalSpeed = 0;
                 verticalSpeed=0;
                 grounded = true;
             }
         }
-
     }
 
     public boolean isGrounded() {
@@ -98,13 +98,13 @@ public abstract class Mover extends GameObject {
 
     //lär behöva förbättras
     private boolean intersects(GameObject g) {
-        Position g1UpperLeft = getPosition();                                   // VARNING ::::HÅRDKODAD OBJEKTSTORLEK
-        Position g1LowerRight = new Position(getPosition().getX() + 20,         // getWidth()
-                getPosition().getY() + 20);                                     //getHeight
+        Position g1UpperLeft = new Position(getPosition().getX()-15, getPosition().getY()-15);                                   //:::: HÅRDKODAD OBJEKTSTORLEK :::::
+        Position g1LowerRight = new Position(getPosition().getX() + 15,         // getWidth()
+                getPosition().getY() + 15);                                     //getHeight
 
         Position g2UpperLeft = g.getPosition();
-        Position g2LowerRight = new Position(g.getPosition().getX() + 20,       //getWidth()
-                g.getPosition().getY() + 20);                                   //getHeight
+        Position g2LowerRight = new Position(g.getPosition().getX() + 18,       //getWidth()
+                g.getPosition().getY() + 18);                                   //getHeight
 
         if (g1UpperLeft.getX() > g2LowerRight.getX() || g1LowerRight.getX() < g2UpperLeft.getX()
                 || g1UpperLeft.getY() > g2LowerRight.getY() || g1LowerRight.getY() < g2UpperLeft.getY()) {
