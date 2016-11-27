@@ -45,11 +45,7 @@ public class Board extends AppCompatActivity {
         Point p = new Point();
         getWindowManager().getDefaultDisplay().getSize(p);
         world.decodeTouchEvent(event, p);
-
-        if (time - System.currentTimeMillis() > 30) {
-            //cirklar borttagna
-            time = System.currentTimeMillis();
-        }
+        
         return true;
     }
 

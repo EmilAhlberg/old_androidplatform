@@ -78,23 +78,40 @@ public abstract class Mover extends GameObject {
         return colliders;
     }
 
-    private void handleCollisions(ArrayList<GameObject> colliders, int vOrH) {
-        for (GameObject g : colliders) {
-            if (g instanceof Block) {
-                if (vOrH == 0) {
-                    move(position.getX() + horizontalSpeed, position.getY());
-                    horizontalAcceleration = 0;
-                    horizontalSpeed = 0;
-                    grounded = true;
-                } else if (vOrH == 1) {
-                    move(position.getX(), position.getY() + verticalSpeed);
-                    verticalAcceleration = 0;
-                    verticalSpeed = 0;
-                    grounded = true;
-                }
+//    private void handleCollisions(ArrayList<GameObject> colliders, int vOrH) {
+//        for (GameObject g : colliders) {
+//            if (g instanceof Block) {
+//                if (vOrH == 0) {
+//                    move(position.getX() + horizontalSpeed, position.getY());
+//                    horizontalAcceleration = 0;
+//                    horizontalSpeed = 0;
+//                    grounded = true;
+//                } else if (vOrH == 1) {
+//                    move(position.getX(), position.getY() + verticalSpeed);
+//                    verticalAcceleration = 0;
+//                    verticalSpeed = 0;
+//                    grounded = true;
+//                }
+//            }
+//        }
+//    }
+private void handleCollisions(ArrayList<GameObject> colliders, int vOrH) {
+    for (GameObject g : colliders) {
+        if (g instanceof Block) {
+            if (vOrH == 0) {
+                move(position.getX() + horizontalSpeed, position.getY());
+                horizontalAcceleration = 0;
+                horizontalSpeed = 0;
+                grounded = true;
+            } else if (vOrH == 1) {
+                move(position.getX(), position.getY() + verticalSpeed);
+                verticalAcceleration = 0;
+                verticalSpeed = 0;
+                grounded = true;
             }
         }
     }
+}
 
     public boolean isGrounded() {
         return grounded;
