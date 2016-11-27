@@ -1,6 +1,7 @@
 package Game;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -46,11 +47,12 @@ public class World {
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(s, player);
         setLevel();
+        background = board.getResources().getDrawable(R.drawable.textur);
+        background.setBounds(0, 0, 800, 480);
         loop = new GameLoop(this, h);
         loop.startLoop();
 
-        background = board.getResources().getDrawable(R.drawable.textur);
-        background.setBounds(0, 0, 800, 480);
+
     }
 
     private void handlerSetup() {
@@ -98,6 +100,7 @@ public class World {
 
     public void updateWorld() {
         background.draw(canvas);
+        //canvas.drawColor(Color.WHITE);
         //ConcurrentModificationException fix
         List<GameObject> temp = createTempGameObjects();
         for (GameObject gameObject : temp) {
