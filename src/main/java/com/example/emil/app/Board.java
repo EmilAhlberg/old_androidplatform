@@ -17,7 +17,6 @@ import Game.World;
 public class Board extends AppCompatActivity {
 
     private Canvas canvas;
-    private long time = System.currentTimeMillis();
     private World world;
     private Bitmap bg;
 
@@ -32,7 +31,6 @@ public class Board extends AppCompatActivity {
         bg = Bitmap.createBitmap(800, 480, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bg);
         world = new World(canvas, ll, this);
-
     }
 
 
@@ -49,17 +47,10 @@ public class Board extends AppCompatActivity {
         double clickX = event.getRawX() * canvas.getWidth() / p.x;
         double clickY = event.getRawY() * canvas.getHeight() / p.y;
 
-
         world.decodeTouchEvent(event, p);
         world.setClickPosition(clickX, clickY);
 
-
         //Log.d("X : Y", "onTouchEvent: X= " + clickX + " : Y= " + clickY + " Maxsize = " + p.x + " : " + p.y);
-
-        if (time - System.currentTimeMillis() > 30) {
-            //cirklar borttagna
-            time = System.currentTimeMillis();
-        }
         return true;
     }
 
