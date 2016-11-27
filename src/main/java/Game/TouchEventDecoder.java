@@ -14,7 +14,7 @@ public class TouchEventDecoder {
     private Position firstClickPos;
     private Position secondClickPos;
     private int touchAction, firstPointerId, secondPointerId;
-    private boolean fingerDown, secondFingerDown;
+    private int nbrFingersDown;
     private Canvas canvas;
 
 
@@ -22,7 +22,7 @@ public class TouchEventDecoder {
         this.firstClickPos = firstPos;
         this.secondClickPos = secondPos;
         this.canvas = canvas;
-        fingerDown = secondFingerDown = false;
+        nbrFingersDown = 0;
 
     }
 
@@ -41,21 +41,26 @@ public class TouchEventDecoder {
             firstClickPos.setY(event.getY(event.getPointerId(firstPointerId)));
             secondClickPos.setX(event.getX(event.getPointerId(secondPointerId)));
             secondClickPos.setY(event.getY(event.getPointerId(secondPointerId)));
-            secondFingerDown = true;
+            nbrFingersDown = 2;
             if (action == MotionEvent.ACTION_POINTER_UP) {
+                nbrFingersDown = 1;
                 firstPointerId = 1;
+                firstClickPos.setX(event.getX(event.getPointerId(firstPointerId)));
+                firstClickPos.setY(event.getY(event.getPointerId(firstPointerId)));
             } else if (action == MotionEvent.ACTION_POINTER_2_UP) {
+                nbrFingersDown = 1;
                 firstPointerId = 0;
+                firstClickPos.setX(event.getX(event.getPointerId(firstPointerId)));
+                firstClickPos.setY(event.getY(event.getPointerId(firstPointerId)));
             }
         } else {
-            secondFingerDown = false;
+            nbrFingersDown = 1;
             firstClickPos.setX(event.getX());
             firstClickPos.setY(event.getY());
             if (action == MotionEvent.ACTION_DOWN) {
-                fingerDown = true;
                 firstPointerId = 0;
             } else if (action == MotionEvent.ACTION_UP) {
-                fingerDown = false;
+                nbrFingersDown = 0;
             }
         }
 
@@ -64,7 +69,7 @@ public class TouchEventDecoder {
 
         //Log.d("MultiTouch", "FirstClickPos = (" + firstClickPos.getX() + ", " + firstClickPos.getY() + ")" + " : SecondClickPos = (" + secondClickPos.getX() + ", " + secondClickPos.getY() + ")");
 
-        //Log.d("MultiTouch", "" + firstPointerId + " : " + secondPointerId);
+        Log.d("MultiTouch", "" + firstPointerId + " : " + secondPointerId + " : " + nbrFingersDown);
         debugMultiTouch();
     }
 
@@ -110,5 +115,9 @@ public class TouchEventDecoder {
 
     public Position getSecondClickPos() {
         return secondClickPos;
+    }
+
+    public int getNbrFingersDown () {
+        return nbrFingersDown;
     }
 }

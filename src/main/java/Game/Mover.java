@@ -30,10 +30,8 @@ public abstract class Mover extends GameObject {
         updateAcceleration();
         verticalForce = GRAVITY;
         horizontalForce = 0;
-        //long deltaTime = System.nanoTime() - savedSpeedTime;
-        verticalSpeed = verticalSpeed + verticalAcceleration /** deltaTime / 1000000000*/;
-        horizontalSpeed = horizontalSpeed + horizontalAcceleration /** deltaTime / 1000000000*/;
-        //savedSpeedTime = System.nanoTime();
+        verticalSpeed = verticalSpeed + verticalAcceleration;
+        horizontalSpeed = horizontalSpeed + horizontalAcceleration;
     }
 
     //OBS: privat nu,  kanske behöver ändras
@@ -47,17 +45,17 @@ public abstract class Mover extends GameObject {
         horizontalForce += horizontalChange;
     }
 
-    protected abstract void updatePosition();
+    protected abstract void updatePosition(int vOrH);
 
 
     /**
      * Check for any collisions between THIS and any other GameObject. If any collision occurs,
      * they are handled one by one, in the order they were registered.
      */
-    protected boolean checkCollision() {
+    protected boolean checkCollision(int vOrH) {
         ArrayList<GameObject> collisions = getIntersectingObjects();
         if (collisions != null) {
-            handleCollisions(collisions);
+            handleCollisions(collisions, vOrH);
             return true;
         }
         return false;
@@ -80,14 +78,20 @@ public abstract class Mover extends GameObject {
         return colliders;
     }
 
-    private void handleCollisions(ArrayList<GameObject> colliders) {
+    private void handleCollisions(ArrayList<GameObject> colliders, int vOrH) {
         for (GameObject g : colliders) {
             if (g instanceof Block) {
-                move(position.getX()+horizontalSpeed, position.getY() + verticalSpeed /** deltaTime / 1000000000*/);
-                verticalAcceleration = 0;
-                horizontalSpeed = 0;
-                verticalSpeed=0;
-                grounded = true;
+                if (vOrH == 0) {
+                    move(position.getX() + horizontalSpeed, position.getY());
+                    horizontalAcceleration = 0;
+                    horizontalSpeed = 0;
+                    grounded = true;
+                } else if (vOrH == 1) {
+                    move(position.getX(), position.getY() + verticalSpeed);
+                    verticalAcceleration = 0;
+                    verticalSpeed = 0;
+                    grounded = true;
+                }
             }
         }
     }
@@ -111,14 +115,9 @@ public abstract class Mover extends GameObject {
                 || g1UpperLeft.getY() > g2LowerRight.getY() || g1LowerRight.getY() < g2UpperLeft.getY()) {
             return false;
         }
-        Log.d("G1", this.getClass()+"left: " + g1UpperLeft.getX() + ". right: " + g1LowerRight.getX());
-        Log.d("G2", g.getClass()+"left: " + g2UpperLeft.getX() + ". right: " + g2LowerRight.getX());
+        //Log.d("G1", this.getClass()+"left: " + g1UpperLeft.getX() + ". right: " + g1LowerRight.getX());
+        //Log.d("G2", g.getClass()+"left: " + g2UpperLeft.getX() + ". right: " + g2LowerRight.getX());
 
         return true;
     }
-
-
-
-
-
 }

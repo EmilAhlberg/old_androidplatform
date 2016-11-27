@@ -112,10 +112,6 @@ public class World {
         levelCreator.setLevel();
     }
 
-    public void setClickPosition(double clickX, double clickY) {
-        player.updateClickPosition(clickX, clickY);
-    }
-
     public void decodeTouchEvent(MotionEvent event, Point p) {
         player.decodeTouchEvent(event, p);
     }

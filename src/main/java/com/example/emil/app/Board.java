@@ -46,15 +46,7 @@ public class Board extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent event) {
         Point p = new Point();
         getWindowManager().getDefaultDisplay().getSize(p);
-        double clickX = event.getRawX() * canvas.getWidth() / p.x;
-        double clickY = event.getRawY() * canvas.getHeight() / p.y;
-
-
         world.decodeTouchEvent(event, p);
-        world.setClickPosition(clickX, clickY);
-
-
-        //Log.d("X : Y", "onTouchEvent: X= " + clickX + " : Y= " + clickY + " Maxsize = " + p.x + " : " + p.y);
 
         if (time - System.currentTimeMillis() > 30) {
             //cirklar borttagna
