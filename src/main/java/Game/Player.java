@@ -62,16 +62,13 @@ public class Player extends Mover {
     }
 
     public void updateClickPosition(double cx, double cy) {
-
         /*if (touchAction == MotionEvent.ACTION_DOWN) {
             firstClickPos.setX(cx);
             firstClickPos.setY(cy);
         } else if () {
-
         }*/
         clickX = cx;
         clickY = cy;
-
         if (isGrounded()) {
             jump();
         }
