@@ -30,7 +30,7 @@ public class World {
     private Handler h;
     private Handler s;
     private LevelCreator levelCreator;
-    private Player player = new Player(new Position(300,300));
+    private Player player;
     private ArrayList<GameObject> list;
     private GameLoop loop;
 
@@ -42,6 +42,7 @@ public class World {
         handlerSetup();
 
         GameObject.initialize(canvas, this, board);
+        player = new Player(new Position(300,300));
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(s, player);
         setLevel();
@@ -115,5 +116,4 @@ public class World {
     public void decodeTouchEvent(MotionEvent event, Point p) {
         player.decodeTouchEvent(event, p);
     }
-    
 }
