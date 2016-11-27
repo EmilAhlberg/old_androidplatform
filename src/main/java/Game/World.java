@@ -1,7 +1,9 @@
 package Game;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -27,6 +29,8 @@ public class World {
     private Board board;
     private LinearLayout ll;
     private Canvas canvas;
+    private Canvas finalCanvas;
+    private Bitmap finalBitmap;
     private Handler h;
     private Handler s;
     private LevelCreator levelCreator;
@@ -40,6 +44,9 @@ public class World {
         this.ll = ll;
         this.canvas = canvas;
         this.board = board;
+        Bitmap temp = board.getBitmap();
+        finalBitmap = Bitmap.createBitmap(temp.getWidth(), temp.getHeight(), Bitmap.Config.ARGB_8888);
+        finalCanvas = new Canvas(finalBitmap);
         handlerSetup();
 
         GameObject.initialize(canvas, this, board);
@@ -65,7 +72,7 @@ public class World {
         h = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message inputMessage) {
 
-                ll.setBackground(new BitmapDrawable(board.getResources(), board.getBitmap()));
+                ll.setBackground(new BitmapDrawable(board.getResources(), finalBitmap));
 
             }
         };
@@ -107,6 +114,7 @@ public class World {
             gameObject.update();
             gameObject.draw();
         }
+        finalCanvas.drawBitmap(board.getBitmap(), 0, 0, new Paint());
     }
 
     //filthy set-methods
