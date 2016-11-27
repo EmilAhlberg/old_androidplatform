@@ -79,21 +79,55 @@ public abstract class Mover extends GameObject {
     }
 
     private void handleCollisions(ArrayList<GameObject> colliders, int vOrH) {
+        switch (vOrH) {
+            case 0:
+                handleHorizontalCollision(colliders);
+                break;
+            case 1:
+                handleVerticalCollision(colliders);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+//        for (GameObject g : colliders) {
+//            if (g instanceof Block) {
+//                if (vOrH == 0) {
+//                    move(position.getX() + horizontalSpeed, position.getY());
+//                    horizontalAcceleration = 0;
+//                    horizontalSpeed = 0;
+//                    //grounded = true;                    //     <--- löser infinite wall jump
+//                } else if (vOrH == 1) {
+//                    move(position.getX(), position.getY() + verticalSpeed);
+//                    verticalAcceleration = 0;
+//                    verticalSpeed = 0;
+//                    grounded = true;                     //      <---- borde bara ske om objekten intersectar "players nedre halva med g övre halva", annars kan man hänga i taket
+//                }
+//            }
+//        }
+    }
+
+    private void handleVerticalCollision(ArrayList<GameObject> colliders) {
         for (GameObject g : colliders) {
             if (g instanceof Block) {
-                if (vOrH == 0) {
-                    move(position.getX() + horizontalSpeed, position.getY());
-                    horizontalAcceleration = 0;
-                    horizontalSpeed = 0;
-                    grounded = true;
-                } else if (vOrH == 1) {
-                    move(position.getX(), position.getY() + verticalSpeed);
-                    verticalAcceleration = 0;
-                    verticalSpeed = 0;
-                    grounded = true;
-                }
+                move(position.getX(), position.getY() + verticalSpeed);
+                verticalAcceleration = 0;
+                verticalSpeed = 0;
+                grounded = true;                     //      <---- borde bara ske om objekten intersectar enl: "players nedre halva med g övre halva", annars kan man hänga i taket
             }
         }
+    }
+
+    private void handleHorizontalCollision(ArrayList<GameObject> colliders) {
+
+        for (GameObject g : colliders) {
+            if (g instanceof Block) {
+                move(position.getX() + horizontalSpeed, position.getY());
+                horizontalAcceleration = 0;
+                horizontalSpeed = 0;
+                //grounded = true;                    //     <--- löser infinite wall jump
+            }
+        }
+
     }
 
     public boolean isGrounded() {
@@ -104,7 +138,6 @@ public abstract class Mover extends GameObject {
         Position g1UpperLeft = new Position(getPosition().getX(), getPosition().getY());
         Position g1LowerRight = new Position(getPosition().getX() + width,
                 getPosition().getY() + height);
-
 
 
         Position g2UpperLeft = g.getPosition();

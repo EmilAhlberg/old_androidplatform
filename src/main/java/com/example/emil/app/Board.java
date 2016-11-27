@@ -46,6 +46,7 @@ public class Board extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getSize(p);
         world.decodeTouchEvent(event, p);
 
+
         return true;
     }
 
