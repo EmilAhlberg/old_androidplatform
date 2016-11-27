@@ -98,7 +98,6 @@ public class World {
 
     public void updateWorld() {
         background.draw(canvas);
-        //canvas.drawColor(Color.WHITE);
         //ConcurrentModificationException fix
         List<GameObject> temp = createTempGameObjects();
         for (GameObject gameObject : temp) {

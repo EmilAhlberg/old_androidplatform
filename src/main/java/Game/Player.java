@@ -40,7 +40,6 @@ public class Player extends Mover {
         super(position, 30, PLAYER_WIDTH, PLAYER_HEIGHT);
         paint.setColor(Color.GREEN);
         touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()),new Position(position.getX(), position.getY()), canvas);
-
         picture = board.getResources().getDrawable(R.drawable.test);
     }
 
@@ -49,7 +48,6 @@ public class Player extends Mover {
     public void draw() {
         picture.setBounds((int)position.getX(), (int)position.getY(), (int)position.getX()+PLAYER_WIDTH, (int)position.getY()+PLAYER_HEIGHT);
         picture.draw(canvas);
-        //canvas.drawCircle((int) position.getX(), (int) position.getY(), 20, paint);
 
         paint.setColor(Color.BLUE);
         canvas.drawCircle((int) touchEventDecoder.getFirstClickPos().getX(), (int) touchEventDecoder.getFirstClickPos().getY(), 50, paint);

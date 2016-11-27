@@ -17,7 +17,6 @@ import Game.World;
 public class Board extends AppCompatActivity {
 
     private Canvas canvas;
-    private long time = System.currentTimeMillis();
     private World world;
     private Bitmap bg;
 
@@ -32,7 +31,6 @@ public class Board extends AppCompatActivity {
         bg = Bitmap.createBitmap(800, 480, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bg);
         world = new World(canvas, ll, this);
-
     }
 
 
