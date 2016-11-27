@@ -12,13 +12,17 @@ import com.example.emil.app.Board;
 
 public abstract class GameObject {
 
-    protected Position position;
     protected static Canvas canvas;
     protected static World world;
     protected static Board board;
+    protected Position position;
+    protected int width;
+    protected int height;
 
-    public GameObject(Position position) {
-       this.position = position;
+    public GameObject(Position position, int width, int height) {
+        this.position = position;
+        this.width = width;
+        this.height = height;
     }
     public Position getPosition() {
         return position;

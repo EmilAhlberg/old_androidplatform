@@ -1,17 +1,17 @@
 package com.example.emil.app;
 
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import Game.Player;
 import Game.World;
 
 public class Board extends AppCompatActivity {
@@ -30,9 +30,9 @@ public class Board extends AppCompatActivity {
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.board);
         bg = Bitmap.createBitmap(800, 480, Bitmap.Config.ARGB_8888);
-
         canvas = new Canvas(bg);
         world = new World(canvas, ll, this);
+
     }
 
 

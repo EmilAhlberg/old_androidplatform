@@ -62,9 +62,9 @@ public class TouchEventDecoder {
         firstClickPos = new Position(firstClickPos.getX() * canvas.getWidth() / p.x, firstClickPos.getY() * canvas.getHeight() / p.y);
         secondClickPos = new Position(secondClickPos.getX() * canvas.getWidth() / p.x, secondClickPos.getY() * canvas.getHeight() / p.y);
 
-        Log.d("MultiTouch", "FirstClickPos = (" + firstClickPos.getX() + ", " + firstClickPos.getY() + ")" + " : SecondClickPos = (" + secondClickPos.getX() + ", " + secondClickPos.getY() + ")");
+        //Log.d("MultiTouch", "FirstClickPos = (" + firstClickPos.getX() + ", " + firstClickPos.getY() + ")" + " : SecondClickPos = (" + secondClickPos.getX() + ", " + secondClickPos.getY() + ")");
 
-        Log.d("MultiTouch", "" + firstPointerId + " : " + secondPointerId);
+        //Log.d("MultiTouch", "" + firstPointerId + " : " + secondPointerId);
         debugMultiTouch();
     }
 

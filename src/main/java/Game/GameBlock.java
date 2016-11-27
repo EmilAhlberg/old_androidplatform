@@ -20,7 +20,7 @@ public class GameBlock extends Block {
 
     @Override
     public void draw() {
-        canvas.drawRect((float)position.getX(),(float)position.getY(),(float)(position.getX()+18),(float)(position.getY()+18),paint);
+        canvas.drawRect((float)position.getX(),(float)position.getY(),(float)(position.getX()+width),(float)(position.getY()+height),paint);
 
 
     }

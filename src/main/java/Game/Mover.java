@@ -11,16 +11,16 @@ import java.util.ArrayList;
  */
 
 public abstract class Mover extends GameObject {
-    protected double direction;
+
     protected final double GRAVITY = -35;
     protected boolean grounded;
 
     protected double verticalForce, horizontalForce, horizontalAcceleration, verticalAcceleration, horizontalSpeed, verticalSpeed, mass;
 
-    public Mover(Position position, int direction, int mass) {
-        super(position);
+    public Mover(Position position, int mass, int width, int height) {
+        super(position, width, height);
         this.mass = mass;
-        this.direction = direction;
+
         horizontalForce = horizontalAcceleration = verticalAcceleration = horizontalSpeed = verticalSpeed = 0;
         verticalForce = GRAVITY;
         grounded = false;
@@ -96,20 +96,24 @@ public abstract class Mover extends GameObject {
         return grounded;
     }
 
-    //lär behöva förbättras
     private boolean intersects(GameObject g) {
-        Position g1UpperLeft = new Position(getPosition().getX()-15, getPosition().getY()-15);                                   //:::: HÅRDKODAD OBJEKTSTORLEK :::::
-        Position g1LowerRight = new Position(getPosition().getX() + 15,         // getWidth()
-                getPosition().getY() + 15);                                     //getHeight
+        Position g1UpperLeft = new Position(getPosition().getX(), getPosition().getY());
+        Position g1LowerRight = new Position(getPosition().getX() + width,
+                getPosition().getY() + height);
+
+
 
         Position g2UpperLeft = g.getPosition();
-        Position g2LowerRight = new Position(g.getPosition().getX() + 18,       //getWidth()
-                g.getPosition().getY() + 18);                                   //getHeight
+        Position g2LowerRight = new Position(g.getPosition().getX() + g.width,
+                g.getPosition().getY() + g.height);
 
         if (g1UpperLeft.getX() > g2LowerRight.getX() || g1LowerRight.getX() < g2UpperLeft.getX()
                 || g1UpperLeft.getY() > g2LowerRight.getY() || g1LowerRight.getY() < g2UpperLeft.getY()) {
             return false;
         }
+        Log.d("G1", this.getClass()+"left: " + g1UpperLeft.getX() + ". right: " + g1LowerRight.getX());
+        Log.d("G2", g.getClass()+"left: " + g2UpperLeft.getX() + ". right: " + g2LowerRight.getX());
+
         return true;
     }
 

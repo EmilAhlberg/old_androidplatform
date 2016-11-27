@@ -1,19 +1,18 @@
 package Game;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
 
 import com.example.emil.app.Board;
 import com.example.emil.app.GameLoop;
+import com.example.emil.app.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +32,7 @@ public class World {
     private Player player;
     private ArrayList<GameObject> list;
     private GameLoop loop;
+    private Drawable background;
 
 
     public World(Canvas canvas, LinearLayout ll, Board board) {
@@ -42,13 +42,15 @@ public class World {
         handlerSetup();
 
         GameObject.initialize(canvas, this, board);
-        player = new Player(new Position(300,300));
+        player = new Player(new Position(300,200));
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(s, player);
         setLevel();
         loop = new GameLoop(this, h);
         loop.startLoop();
 
+        background = board.getResources().getDrawable(R.drawable.textur);
+        background.setBounds(0, 0, 800, 480);
     }
 
     private void handlerSetup() {
@@ -95,7 +97,8 @@ public class World {
     }
 
     public void updateWorld() {
-        canvas.drawColor(Color.WHITE);
+        background.draw(canvas);
+        //canvas.drawColor(Color.WHITE);
         //ConcurrentModificationException fix
         List<GameObject> temp = createTempGameObjects();
         for (GameObject gameObject : temp) {

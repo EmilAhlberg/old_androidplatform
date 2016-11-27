@@ -14,14 +14,18 @@ import java.util.ArrayList;
 public class Circle extends Mover {
 
     private int radius;
+    protected static final int CIRCLE_WIDTH = 40;
+    protected static final int CIRCLE_HEIGHT = 40;
     private final static int CIRCLE_SPEED = 5;
     protected static Paint paint = new Paint();
+    protected double direction; //bort?
 
 
     public Circle(Position position, int radius) {
-        super(position, CIRCLE_SPEED, 1);
+        super(position, CIRCLE_SPEED,CIRCLE_WIDTH,CIRCLE_HEIGHT);
         this.radius = radius;
         paint.setColor(Color.BLUE);
+        direction = 1;
     }
 
     @Override
