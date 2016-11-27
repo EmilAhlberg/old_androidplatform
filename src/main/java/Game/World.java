@@ -41,7 +41,7 @@ public class World {
         this.board = board;
         handlerSetup();
 
-        GameObject.initialize(canvas, this);
+        GameObject.initialize(canvas, this, board);
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(s, player);
         setLevel();
@@ -115,9 +115,5 @@ public class World {
     public void decodeTouchEvent(MotionEvent event, Point p) {
         player.decodeTouchEvent(event, p);
     }
-
-
-    //public Player getPlayer() {
-    //    return player;
-    //}
+    
 }

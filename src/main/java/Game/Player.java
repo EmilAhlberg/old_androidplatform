@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.media.midi.MidiOutputPort;
+
+import android.graphics.Picture;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -22,6 +24,8 @@ public class Player extends Mover {
     private long savedSpeedTime, savedPositionTime;
     private boolean fingerDown, secondFingerDown;
     private int touchAction, firstPointerId, secondPointerId;
+    //private Picture pic = new Picture();
+
 
 
     public Player(Position position) {
@@ -31,6 +35,7 @@ public class Player extends Mover {
         secondClickPos = new Position(position.getX(), position.getY());
         savedSpeedTime = savedPositionTime = System.nanoTime();
         fingerDown = secondFingerDown = false;
+      //  board.getResources().getDrawable(R.drawable.test.png);
     }
 
 
@@ -63,7 +68,7 @@ public class Player extends Mover {
         clickY = cy;
 
 
-        //hoppcheck hamnade här nu
+
         if (isGrounded()) {
             jump();
         }
@@ -79,7 +84,7 @@ public class Player extends Mover {
         applyForce(0, 650);
         grounded = false;
         //changeVerticalForce(750);
-        update();
+        //update(); // dubbel uppdatering?
     }
 
     public void decodeTouchEvent (MotionEvent event, Point p) {
