@@ -12,37 +12,39 @@ import java.util.ArrayList;
 
 public abstract class Mover extends GameObject {
 
-    protected final double GRAVITY = -35;
+   // protected final double GRAVITY = -35;
     protected boolean grounded;
+    protected MovementVector mv;
 
-    protected double verticalForce, horizontalForce, horizontalAcceleration, verticalAcceleration, horizontalSpeed, verticalSpeed, mass;
+    //protected double verticalForce, horizontalForce, horizontalAcceleration, verticalAcceleration, horizontalSpeed, verticalSpeed, mass;
 
-    public Mover(Position position, int mass, int width, int height) {
+    public Mover(Position position, int width, int height) {
         super(position, width, height);
-        this.mass = mass;
+//        this.mass = mass;
+        mv = new MovementVector();
 
-        horizontalForce = horizontalAcceleration = verticalAcceleration = horizontalSpeed = verticalSpeed = 0;
-        verticalForce = GRAVITY;
+//        horizontalForce = horizontalAcceleration = verticalAcceleration = horizontalSpeed = verticalSpeed = 0;
+//        verticalForce = GRAVITY;
         grounded = false;
     }
 
     protected void updateSpeed() {
-        updateAcceleration();
-        verticalForce = GRAVITY;
-        horizontalForce = 0;
-        verticalSpeed = verticalSpeed + verticalAcceleration;
-        horizontalSpeed = horizontalSpeed + horizontalAcceleration;
+        mv.updateSpeed();
+//        updateAcceleration();
+//        verticalForce = GRAVITY;
+//        horizontalForce = 0;
+//        verticalSpeed = verticalSpeed + verticalAcceleration;
+//        horizontalSpeed = horizontalSpeed + horizontalAcceleration;
     }
 
 
-    private void updateAcceleration() {
-        verticalAcceleration = verticalForce / mass;
-        horizontalAcceleration = horizontalForce / mass;
-    }
+//    private void updateAcceleration() {
+//        verticalAcceleration = verticalForce / mass;
+//        horizontalAcceleration = horizontalForce / mass;
+//    }
 
-    public void applyForce(double horizontalChange, double verticalChange) {
-        verticalForce += verticalChange;
-        horizontalForce += horizontalChange;
+    protected void applyForce(double horizontalChange, double verticalChange) {
+       mv.applyForce(horizontalChange, verticalChange);
     }
 
     protected abstract void updatePosition(int vOrH);
@@ -94,27 +96,35 @@ public abstract class Mover extends GameObject {
     private void handleVerticalCollision(ArrayList<GameObject> colliders) {
         for (GameObject g : colliders) {
             if (g instanceof Block) {
-                move(position.getX(), position.getY() + verticalSpeed);
-                verticalAcceleration = 0;
-                verticalSpeed = 0;
-                grounded = intersects(g,1);                     //      <---- borde bara ske om objekten intersectar enl: "players nedre halva med g övre halva", annars kan man hänga i taket
-                //System.out.println(grounded);
+                move(position.getX(), position.getY() + mv.verticalSpeed);
+                mv.verticalAcceleration = 0;
+                mv.verticalSpeed = 0;
+                grounded = intersects(g,1);
+            } else {
+                specificCollision(0,g );
             }
         }
     }
 
     private void handleHorizontalCollision(ArrayList<GameObject> colliders) {
-
         for (GameObject g : colliders) {
             if (g instanceof Block) {
-                move(position.getX() + horizontalSpeed, position.getY());
-                horizontalAcceleration = 0;
-                horizontalSpeed = 0;
-                //grounded = intersects(g,1);                    //     <--- löser infinite wall jump
+                move(position.getX() + mv.horizontalSpeed, position.getY());
+                mv.horizontalAcceleration = 0;
+                mv.horizontalSpeed = 0;
+            }
+            else {
+                specificCollision(1, g);
             }
         }
-
     }
+
+    /**
+     * Handles collision consequences for specific movers.
+     * @param collisionType Int, which gives type of collision, 0 for vertical, 1 for horizontal.
+     * @param g  GameObject which mover collides with.
+     */
+    protected abstract void specificCollision(int collisionType, GameObject g);
 
     public boolean isGrounded() {
         return grounded;
@@ -128,19 +138,15 @@ public abstract class Mover extends GameObject {
     private boolean intersects(GameObject g, int mode) {
         Position g1UpperLeft = new Position(getPosition().getX(), (getPosition().getY() + mode * width / 2));
         Position g1LowerRight = new Position(getPosition().getX() + width,
-                getPosition().getY() + height + mode*g.height/2);                              // mode*g.height/2 eller liknande krävs för intersection i mode = 1,
-
-
+                getPosition().getY() + height + mode*g.height/2);                              // ::::mode*g.height/2:::: eller liknande krävs för intersection i mode = 1,
         Position g2UpperLeft = g.getPosition();
         Position g2LowerRight = new Position(g.getPosition().getX() + g.width,
                 g.getPosition().getY() + g.height - (g.height / 2) * mode);
-
 
         if (g1UpperLeft.getX() > g2LowerRight.getX() || g1LowerRight.getX() < g2UpperLeft.getX()
                 || g1UpperLeft.getY() > g2LowerRight.getY() || g1LowerRight.getY() < g2UpperLeft.getY()) {
             return false;
         }
-
         return true;
     }
 }

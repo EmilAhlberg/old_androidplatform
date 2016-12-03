@@ -34,10 +34,8 @@ public class Player extends Mover {
     private TouchEventDecoder touchEventDecoder;
     private Drawable picture;
 
-
-
     public Player(Position position) {
-        super(position, 30, PLAYER_WIDTH, PLAYER_HEIGHT);
+        super(position, PLAYER_WIDTH, PLAYER_HEIGHT);
         paint.setColor(Color.GREEN);
         touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()),new Position(position.getX(), position.getY()), canvas);
         picture = board.getResources().getDrawable(R.drawable.test);
@@ -80,9 +78,9 @@ public class Player extends Mover {
         }
         if (nbrFingers > 0) {
             if (clickX <= canvas.getWidth() / 2) {
-                applyForce(30 - horizontalSpeed * 2, 0);
+                applyForce(30 - mv.horizontalSpeed * 2, 0);
             } else {
-                applyForce(-30 - horizontalSpeed * 2, 0);
+                applyForce(-30 - mv.horizontalSpeed* 2, 0);
             }
         }
     }
@@ -104,16 +102,25 @@ public class Player extends Mover {
             //Friktion typ
             ////////////////////////////////////////
             if (grounded) {
-                horizontalSpeed *= 0.95;
-                if (touchEventDecoder.getNbrFingersDown() == 0 && (horizontalSpeed > 0.5 || horizontalSpeed < -0.5)) {
-                    horizontalSpeed -= horizontalSpeed / Math.abs(horizontalSpeed) * 0.5;
+                mv.horizontalSpeed *= 0.95;
+                if (touchEventDecoder.getNbrFingersDown() == 0 && (mv.horizontalSpeed > 0.5 || mv.horizontalSpeed < -0.5)) {
+                    mv.horizontalSpeed -= mv.horizontalSpeed / Math.abs(mv.horizontalSpeed) * 0.5;
                 }
             }
             ////////////////////////////////////////
-            move(position.getX() - horizontalSpeed, position.getY());
+            move(position.getX() - mv.horizontalSpeed, position.getY());
         } else if (vOrH == 1) {
-            move(position.getX(), position.getY() - verticalSpeed);
+            move(position.getX(), position.getY() - mv.verticalSpeed);
         }
+    }
+
+    @Override
+    protected void specificCollision(int collisionType, GameObject g) {
+        if(g instanceof Goal) {
+            world.nextLevel();
+            move(100, 100);
+        }
+
     }
 }
 

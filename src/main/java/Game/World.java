@@ -36,6 +36,7 @@ public class World {
     private LevelCreator levelCreator;
     private Player player;
     private ArrayList<GameObject> list;
+    private int level = 0;
     private GameLoop loop;
     private Drawable background;
 
@@ -53,7 +54,7 @@ public class World {
         player = new Player(new Position(300,200));
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(s, player,board);
-        setLevel();
+        nextLevel();
         background = board.getResources().getDrawable(R.drawable.textur);
         background.setBounds(0, 0, 800, 480);
         loop = new GameLoop(this, h);
@@ -119,8 +120,9 @@ public class World {
     }
 
     //filthy set-methods
-    public void setLevel() {
-        levelCreator.setLevel();
+    public void nextLevel() {
+        level++;
+        levelCreator.setLevel(level);
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {

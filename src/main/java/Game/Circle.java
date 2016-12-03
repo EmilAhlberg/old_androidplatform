@@ -22,7 +22,7 @@ public class Circle extends Mover {
 
 
     public Circle(Position position, int radius) {
-        super(position, CIRCLE_SPEED,CIRCLE_WIDTH,CIRCLE_HEIGHT);
+        super(position, CIRCLE_WIDTH,CIRCLE_HEIGHT);
         this.radius = radius;
         paint.setColor(Color.BLUE);
         direction = 1;
@@ -54,6 +54,11 @@ public class Circle extends Mover {
         double dx = cos * speed;
         double dy = sin * speed;
         move(x + dx, y + dy);*/
+    }
+
+    @Override
+    protected void specificCollision(int collisionType, GameObject g) {
+
     }
 
     protected boolean edgeCollision() {
