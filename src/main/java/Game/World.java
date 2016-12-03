@@ -52,7 +52,7 @@ public class World {
         GameObject.initialize(canvas, this, board);
         player = new Player(new Position(300,200));
         list = new ArrayList<GameObject>();
-        levelCreator = new LevelCreator(s, player);
+        levelCreator = new LevelCreator(s, player,board);
         setLevel();
         background = board.getResources().getDrawable(R.drawable.textur);
         background.setBounds(0, 0, 800, 480);

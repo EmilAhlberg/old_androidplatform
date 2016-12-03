@@ -34,7 +34,7 @@ public abstract class Mover extends GameObject {
         horizontalSpeed = horizontalSpeed + horizontalAcceleration;
     }
 
-    //OBS: privat nu,  kanske behöver ändras
+
     private void updateAcceleration() {
         verticalAcceleration = verticalForce / mass;
         horizontalAcceleration = horizontalForce / mass;
@@ -62,7 +62,7 @@ public abstract class Mover extends GameObject {
     }
 
     /**
-     * Checks whether or not the Movers intersects with any game object, by calling the mover-objects
+     * Checks whether or not the Movers intersects with any game object, by calling the mover-object's
      * intersects method.
      */
     protected ArrayList<GameObject> getIntersectingObjects() {
@@ -70,7 +70,7 @@ public abstract class Mover extends GameObject {
         //ArrayList<Mover> tempMovers = world.createTempMovers();
         ArrayList<GameObject> colliders = new ArrayList<GameObject>();
         for (GameObject g : tempGameObjects) {
-            if (this != g && intersects(g)) {
+            if (this != g && intersects(g, 0)) {
                 colliders.add(g);
                 //Log.d("COLLISION", this.getClass() + ", " + g.getClass());
             }
@@ -89,21 +89,6 @@ public abstract class Mover extends GameObject {
             default:
                 throw new IllegalArgumentException();
         }
-//        for (GameObject g : colliders) {
-//            if (g instanceof Block) {
-//                if (vOrH == 0) {
-//                    move(position.getX() + horizontalSpeed, position.getY());
-//                    horizontalAcceleration = 0;
-//                    horizontalSpeed = 0;
-//                    //grounded = true;                    //     <--- löser infinite wall jump
-//                } else if (vOrH == 1) {
-//                    move(position.getX(), position.getY() + verticalSpeed);
-//                    verticalAcceleration = 0;
-//                    verticalSpeed = 0;
-//                    grounded = true;                     //      <---- borde bara ske om objekten intersectar "players nedre halva med g övre halva", annars kan man hänga i taket
-//                }
-//            }
-//        }
     }
 
     private void handleVerticalCollision(ArrayList<GameObject> colliders) {
@@ -112,7 +97,8 @@ public abstract class Mover extends GameObject {
                 move(position.getX(), position.getY() + verticalSpeed);
                 verticalAcceleration = 0;
                 verticalSpeed = 0;
-                grounded = true;                     //      <---- borde bara ske om objekten intersectar enl: "players nedre halva med g övre halva", annars kan man hänga i taket
+                grounded = intersects(g,1);                     //      <---- borde bara ske om objekten intersectar enl: "players nedre halva med g övre halva", annars kan man hänga i taket
+                //System.out.println(grounded);
             }
         }
     }
@@ -124,7 +110,7 @@ public abstract class Mover extends GameObject {
                 move(position.getX() + horizontalSpeed, position.getY());
                 horizontalAcceleration = 0;
                 horizontalSpeed = 0;
-                //grounded = true;                    //     <--- löser infinite wall jump
+                //grounded = intersects(g,1);                    //     <--- löser infinite wall jump
             }
         }
 
@@ -134,22 +120,26 @@ public abstract class Mover extends GameObject {
         return grounded;
     }
 
-    private boolean intersects(GameObject g) {
-        Position g1UpperLeft = new Position(getPosition().getX(), getPosition().getY());
+    /*
+        Mode:   0 - normal intersection check between two rectangular objects.
+                1 - special intersection check between the bottom half rectangle of 'this',
+                    and upper half of 'g'
+     */
+    private boolean intersects(GameObject g, int mode) {
+        Position g1UpperLeft = new Position(getPosition().getX(), (getPosition().getY() + mode * width / 2));
         Position g1LowerRight = new Position(getPosition().getX() + width,
-                getPosition().getY() + height);
+                getPosition().getY() + height + mode*g.height/2);                              // mode*g.height/2 eller liknande krävs för intersection i mode = 1,
 
 
         Position g2UpperLeft = g.getPosition();
         Position g2LowerRight = new Position(g.getPosition().getX() + g.width,
-                g.getPosition().getY() + g.height);
+                g.getPosition().getY() + g.height - (g.height / 2) * mode);
+
 
         if (g1UpperLeft.getX() > g2LowerRight.getX() || g1LowerRight.getX() < g2UpperLeft.getX()
                 || g1UpperLeft.getY() > g2LowerRight.getY() || g1LowerRight.getY() < g2UpperLeft.getY()) {
             return false;
         }
-        //Log.d("G1", this.getClass()+"left: " + g1UpperLeft.getX() + ". right: " + g1LowerRight.getX());
-        //Log.d("G2", g.getClass()+"left: " + g2UpperLeft.getX() + ". right: " + g2LowerRight.getX());
 
         return true;
     }
