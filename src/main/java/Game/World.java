@@ -64,6 +64,7 @@ public class World {
 
     private void handlerSetup() {
 
+
         s = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message inputMessage) {
                 list = levelCreator.getNewList();
