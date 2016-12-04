@@ -1,10 +1,14 @@
 package Game;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
+
+import com.example.emil.app.GameOver;
+import com.example.emil.app.LevelCleared;
 import com.example.emil.app.R;
 
 /**
@@ -46,6 +50,7 @@ public class Player extends Mover {
         performAction();
         updateSpeed();
         updatePosition();
+        stillOnScreen();
     }
 
     private void performAction() {
@@ -111,6 +116,17 @@ public class Player extends Mover {
             world.nextLevel();
             move(100, 100);
         }
+    }
+
+    private void stillOnScreen() {
+        if (position.getY()>=canvas.getHeight()) {
+            canvas.drawColor(Color.BLACK);
+            world.pauseGame();
+            Intent intent = new Intent(board, GameOver.class);
+            intent.putExtra("Level",world.getLevel());
+            board.startActivity(intent);
+        }
+
     }
 }
 

@@ -19,10 +19,6 @@ public abstract class GameObject {
     protected int width;
     protected int height;
 
-    //solves parcelable Goal
-    public GameObject() {
-    }
-
     public GameObject(Position position, int width, int height) {
         this.position = position;
         this.width = width;

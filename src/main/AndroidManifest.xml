@@ -24,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Board" />
-        <activity android:name=".LevelCleared"></activity>
+        <activity android:name=".LevelCleared" />
+        <activity android:name=".GameOver"></activity>
     </application>
 
 </manifest>

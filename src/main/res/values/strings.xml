@@ -4,4 +4,5 @@
     <string name="game_description">Save yourself (and the world!)</string>
     <string name="next_level">I must woff deeper!</string>
     <string name="level_cleared">Good boy!</string>
+    <string name="retry_level">Revive dog!</string>
 </resources>

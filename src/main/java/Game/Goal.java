@@ -38,8 +38,6 @@ public class Goal extends GameObject {
             Intent intent = new Intent(board, LevelCleared.class);
             intent.putExtra("Level",world.getLevel());
             board.startActivity(intent);
-
-            //world.startGame();
         }
     }
 }

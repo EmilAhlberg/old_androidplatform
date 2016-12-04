@@ -23,7 +23,6 @@ public class LevelCreator {
     private Handler s;
     private Player player;
     private Board board;
-    private static int level = 1;
 
     public LevelCreator(Handler s, Player player, Board board) {
         this.s = s;
