@@ -37,8 +37,8 @@ public class Circle extends Mover {
     @Override
     public void update() {
         edgeCollision();
-        updatePosition(0);
-        updatePosition(1);
+        updatePosition();
+        updatePosition();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Circle extends Mover {
 
 
     @Override
-    protected void updatePosition(int vOrH) {
+    protected void updatePosition() {
         /*double cos = Math.cos(direction);
         double sin = Math.sin(direction);
         double dx = cos * speed;

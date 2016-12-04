@@ -26,11 +26,12 @@ public class Board extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setFullscreen();
         setContentView(R.layout.activity_board);
+        int level = getIntent().getExtras().getInt("Level");
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.board);
         bg = Bitmap.createBitmap(800, 480, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bg);
-        world = new World(canvas, ll, this);
+        world = new World(canvas, ll, this, level);
     }
 
 

@@ -12,47 +12,31 @@ import java.util.ArrayList;
 
 public abstract class Mover extends GameObject {
 
-   // protected final double GRAVITY = -35;
     protected boolean grounded;
     protected MovementVector mv;
 
-    //protected double verticalForce, horizontalForce, horizontalAcceleration, verticalAcceleration, horizontalSpeed, verticalSpeed, mass;
-
     public Mover(Position position, int width, int height) {
         super(position, width, height);
-//        this.mass = mass;
-        mv = new MovementVector();
 
-//        horizontalForce = horizontalAcceleration = verticalAcceleration = horizontalSpeed = verticalSpeed = 0;
-//        verticalForce = GRAVITY;
+        mv = new MovementVector();
         grounded = false;
     }
 
     protected void updateSpeed() {
         mv.updateSpeed();
-//        updateAcceleration();
-//        verticalForce = GRAVITY;
-//        horizontalForce = 0;
-//        verticalSpeed = verticalSpeed + verticalAcceleration;
-//        horizontalSpeed = horizontalSpeed + horizontalAcceleration;
     }
-
-
-//    private void updateAcceleration() {
-//        verticalAcceleration = verticalForce / mass;
-//        horizontalAcceleration = horizontalForce / mass;
-//    }
 
     protected void applyForce(double horizontalChange, double verticalChange) {
        mv.applyForce(horizontalChange, verticalChange);
     }
 
-    protected abstract void updatePosition(int vOrH);
-
+    protected abstract void updatePosition();
 
     /**
      * Check for any collisions between THIS and any other GameObject. If any collision occurs,
      * they are handled one by one, in the order they were registered.
+     * @param vOrH - 0 handles vertical collisions
+     *             - 1 handles horizontal collisions
      */
     protected boolean checkCollision(int vOrH) {
         ArrayList<GameObject> collisions = getIntersectingObjects();
@@ -69,12 +53,11 @@ public abstract class Mover extends GameObject {
      */
     protected ArrayList<GameObject> getIntersectingObjects() {
         ArrayList<GameObject> tempGameObjects = world.createTempGameObjects();
-        //ArrayList<Mover> tempMovers = world.createTempMovers();
         ArrayList<GameObject> colliders = new ArrayList<GameObject>();
         for (GameObject g : tempGameObjects) {
             if (this != g && intersects(g, 0)) {
                 colliders.add(g);
-                //Log.d("COLLISION", this.getClass() + ", " + g.getClass());
+
             }
         }
         return colliders;
@@ -133,7 +116,7 @@ public abstract class Mover extends GameObject {
     /*
         Mode:   0 - normal intersection check between two rectangular objects.
                 1 - special intersection check between the bottom half rectangle of 'this',
-                    and upper half of 'g'
+                    and upper half of 'g' (collision from "above")
      */
     private boolean intersects(GameObject g, int mode) {
         Position g1UpperLeft = new Position(getPosition().getX(), (getPosition().getY() + mode * width / 2));

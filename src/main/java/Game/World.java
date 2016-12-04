@@ -33,18 +33,19 @@ public class World {
     private Bitmap finalBitmap;
     private Handler h;
     private Handler s;
+    private int level;
     private LevelCreator levelCreator;
     private Player player;
     private ArrayList<GameObject> list;
-    private int level = 0;
     private GameLoop loop;
     private Drawable background;
 
 
-    public World(Canvas canvas, LinearLayout ll, Board board) {
+    public World(Canvas canvas, LinearLayout ll, Board board, int level) {
         this.ll = ll;
         this.canvas = canvas;
         this.board = board;
+        this.level = level;
         Bitmap temp = board.getBitmap();
         finalBitmap = Bitmap.createBitmap(temp.getWidth(), temp.getHeight(), Bitmap.Config.ARGB_8888);
         finalCanvas = new Canvas(finalBitmap);
@@ -119,10 +120,19 @@ public class World {
         finalCanvas.drawBitmap(board.getBitmap(), 0, 0, new Paint());
     }
 
+    public void pauseGame() {
+        loop.pause();
+    }
+    public void startGame() {
+        loop.startLoop();
+    }
+
     //filthy set-methods
     public void nextLevel() {
-        level++;
         levelCreator.setLevel(level);
+    }
+    public int getLevel() {
+        return level;
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {

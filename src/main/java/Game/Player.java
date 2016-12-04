@@ -1,24 +1,11 @@
 package Game;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.PictureDrawable;
-import android.media.midi.MidiOutputPort;
-
-import android.graphics.Picture;
-import android.text.method.Touch;
-import android.util.Log;
 import android.view.MotionEvent;
-
 import com.example.emil.app.R;
-
-import java.util.ArrayList;
-
-import static com.example.emil.app.R.drawable.test;
 
 /**
  * Created by Emil on 2016-11-24.
@@ -37,7 +24,7 @@ public class Player extends Mover {
     public Player(Position position) {
         super(position, PLAYER_WIDTH, PLAYER_HEIGHT);
         paint.setColor(Color.GREEN);
-        touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()),new Position(position.getX(), position.getY()), canvas);
+        touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()), new Position(position.getX(), position.getY()), canvas);
         picture = board.getResources().getDrawable(R.drawable.test);
 
     }
@@ -45,9 +32,8 @@ public class Player extends Mover {
 
     @Override
     public void draw() {
-        picture.setBounds((int)position.getX(), (int)position.getY(), (int)position.getX()+PLAYER_WIDTH, (int)position.getY()+PLAYER_HEIGHT);
+        picture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + PLAYER_WIDTH, (int) position.getY() + PLAYER_HEIGHT);
         picture.draw(canvas);
-        //canvas.drawCircle((int)position.getX(), (int)position.getY(), 30, paint);
 
         paint.setColor(Color.BLUE);
         canvas.drawCircle((int) touchEventDecoder.getFirstClickPos().getX(), (int) touchEventDecoder.getFirstClickPos().getY(), 50, paint);
@@ -59,15 +45,10 @@ public class Player extends Mover {
     public void update() {
         performAction();
         updateSpeed();
-        //horizontal
-        updatePosition(0);
-        checkCollision(0);
-        //vertical
-        updatePosition(1);
-        checkCollision(1);
+        updatePosition();
     }
 
-    private void performAction () {
+    private void performAction() {
         int nbrFingers = touchEventDecoder.getNbrFingersDown();
         if (isGrounded() && nbrFingers == 2) {
             int cTemp = canvas.getWidth() / 2;
@@ -80,7 +61,7 @@ public class Player extends Mover {
             if (clickX <= canvas.getWidth() / 2) {
                 applyForce(30 - mv.horizontalSpeed * 2, 0);
             } else {
-                applyForce(-30 - mv.horizontalSpeed* 2, 0);
+                applyForce(-30 - mv.horizontalSpeed * 2, 0);
             }
         }
     }
@@ -90,37 +71,46 @@ public class Player extends Mover {
         grounded = false;
     }
 
-    public void decodeTouchEvent (MotionEvent event, Point p) {
+    public void decodeTouchEvent(MotionEvent event, Point p) {
         touchEventDecoder.decodeTouchEvent(event, p);
         clickX = touchEventDecoder.getFirstClickPos().getX();
         clickY = touchEventDecoder.getFirstClickPos().getY();
     }
 
+    /*
+        i = 0: vertical movement and collisionHandling
+        i = 1: horizontal movement and collisionHandling
+     */
     @Override
-    protected void updatePosition(int vOrH) {
-        if (vOrH == 0) {
-            //Friktion typ
-            ////////////////////////////////////////
-            if (grounded) {
-                mv.horizontalSpeed *= 0.95;
-                if (touchEventDecoder.getNbrFingersDown() == 0 && (mv.horizontalSpeed > 0.5 || mv.horizontalSpeed < -0.5)) {
-                    mv.horizontalSpeed -= mv.horizontalSpeed / Math.abs(mv.horizontalSpeed) * 0.5;
-                }
+    protected void updatePosition() {
+        for (int i = 0; i < 2; i++) {
+            if (i == 0) {
+                applyFriction();
+                move(position.getX() - mv.horizontalSpeed, position.getY());
+            } else if (i == 1) {
+                move(position.getX(), position.getY() - mv.verticalSpeed);
             }
-            ////////////////////////////////////////
-            move(position.getX() - mv.horizontalSpeed, position.getY());
-        } else if (vOrH == 1) {
-            move(position.getX(), position.getY() - mv.verticalSpeed);
+            checkCollision(i);
+
+        }
+    }
+
+    private void applyFriction() {
+        if (grounded) {
+            mv.horizontalSpeed *= 0.95;
+            if (touchEventDecoder.getNbrFingersDown() == 0 && (mv.horizontalSpeed > 0.5 || mv.horizontalSpeed < -0.5)) {
+                mv.horizontalSpeed -= mv.horizontalSpeed / Math.abs(mv.horizontalSpeed) * 0.5;
+            }
         }
     }
 
     @Override
     protected void specificCollision(int collisionType, GameObject g) {
-        if(g instanceof Goal) {
+        if (g instanceof Goal) {
+            ((Goal) g).playerReachedGoal();
             world.nextLevel();
             move(100, 100);
         }
-
     }
 }
 

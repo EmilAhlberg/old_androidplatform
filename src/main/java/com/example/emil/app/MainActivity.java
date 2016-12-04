@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void newGame(View view) {
         Intent intent = new Intent(this, Board.class);
+        intent.putExtra("Level", 1); //start at level 1
         startActivity(intent);
 
     }

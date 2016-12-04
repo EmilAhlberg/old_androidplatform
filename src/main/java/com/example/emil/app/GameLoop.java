@@ -14,6 +14,7 @@ public class GameLoop {
     private World world;
     private final int timeLimit = 30;
     private Handler handler;
+    private boolean running;
 
     private double elapsedTime;
 
@@ -24,7 +25,7 @@ public class GameLoop {
     }
 
     public void startLoop() {
-
+        running = true;
         new Thread(new Runnable() {
             public void run() {
                 double currentTime = System.currentTimeMillis();
@@ -35,7 +36,9 @@ public class GameLoop {
                         currentTime = newTime;
                     }
                     newTime = System.currentTimeMillis();
-
+                    if (!running) {
+                        break;
+                    }
                 }
             }
         }).start();
@@ -45,6 +48,10 @@ public class GameLoop {
         world.updateWorld();
         Message m = handler.obtainMessage();
         m.sendToTarget();
+    }
+
+    public void pause() {
+        running = false;
     }
 
 

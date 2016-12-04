@@ -23,7 +23,7 @@ public class LevelCreator {
     private Handler s;
     private Player player;
     private Board board;
-    private int level;
+    private static int level = 1;
 
     public LevelCreator(Handler s, Player player, Board board) {
         this.s = s;
@@ -33,12 +33,12 @@ public class LevelCreator {
 
     public void setLevel(int level) {
         newList = new ArrayList<GameObject>();
-        final int fLevel = level;
+        final int newLevel = level;
         newList.add(player);
 
         new Thread(new Runnable() {
             public void run() {
-                createLevel(newList, getLevelArray(fLevel));
+                createLevel(newList, getLevelArray(newLevel));
             }
         }).start();
         s.obtainMessage().sendToTarget();
