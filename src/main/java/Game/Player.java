@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Rect;
+import android.graphics.Region;
 import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 
@@ -51,6 +53,7 @@ public class Player extends Mover {
         updateSpeed();
         updatePosition();
         stillOnScreen();
+        centerPlayer();
     }
 
     private void performAction() {
@@ -115,6 +118,19 @@ public class Player extends Mover {
             ((Goal) g).playerReachedGoal();
             world.nextLevel();
             move(100, 100);
+        }
+    }
+
+    private void centerPlayer() {
+        if (position.getX()>=canvas.getWidth()-350) {
+            canvas.translate((float)mv.horizontalSpeed,0);
+        } else if (position.getX()<=canvas.getWidth()-650) {
+            canvas.translate((float)mv.horizontalSpeed,0);
+        }
+        if (position.getY()<=canvas.getHeight()-250) {
+            canvas.translate(0,(float)mv.verticalSpeed);
+        }else if (position.getY()>canvas.getHeight()-150) {
+            canvas.translate(0,(float)mv.verticalSpeed);
         }
     }
 

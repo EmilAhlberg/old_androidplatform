@@ -56,8 +56,8 @@ public class World {
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(s, player,board);
         nextLevel();
-        background = board.getResources().getDrawable(R.drawable.textur);
-        background.setBounds(0, 0, 800, 480);
+        background = board.getResources().getDrawable(R.drawable.background);
+        background.setBounds(0, 0, 2000, 1000);
         loop = new GameLoop(this, h);
         loop.startLoop();
 
