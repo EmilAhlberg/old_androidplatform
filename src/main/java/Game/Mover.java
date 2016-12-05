@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 /**
@@ -76,13 +77,30 @@ public abstract class Mover extends GameObject {
         }
     }
 
+
     private void handleVerticalCollision(ArrayList<GameObject> colliders) {
-        for (GameObject g : colliders) {
+        Iterator<GameObject> itr = colliders.iterator();
+        while (itr.hasNext()) {
+            GameObject g = itr.next();
             if (g instanceof Block) {
-                move(position.getX(), position.getY() + mv.verticalSpeed);
+                /////////NYTT!!!
+                if (!grounded) {
+                /////////
+                    grounded = intersects(g, 1);
+                }
                 mv.verticalAcceleration = 0;
                 mv.verticalSpeed = 0;
-                grounded = intersects(g,1);
+                /////////////////////////////////NYTT!!!
+                while (true) {
+                    move(position.getX(), position.getY() + mv.verticalSpeed / Math.abs(mv.verticalSpeed));
+                    if (!intersects(g, 0)) {
+                        colliders.remove(g);
+                        break;
+                    }
+                }
+                /////////////////////////////////
+                // move(position.getX(), position.getY() + mv.verticalSpeed); GAMMALT!!!
+
             } else {
                 specificCollision(0,g );
             }
