@@ -16,19 +16,14 @@ public class GameBlock extends Block {
         paint.setColor(Color.RED);
     }
 
-
-
     @Override
     public void draw() {
         canvas.drawRect((float)position.getX(),(float)position.getY(),(float)(position.getX()+width),(float)(position.getY()+height),paint);
-
-
     }
 
     @Override
     public void update() {
 
     }
-
 }
 

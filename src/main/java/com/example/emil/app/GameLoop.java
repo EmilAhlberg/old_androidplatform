@@ -30,15 +30,12 @@ public class GameLoop {
             public void run() {
                 double currentTime = System.currentTimeMillis();
                 double newTime = 0;
-                while (true) {
+                while (running) {
                     if (newTime - currentTime > timeLimit) {
                         updateLoop();
                         currentTime = newTime;
                     }
                     newTime = System.currentTimeMillis();
-                    if (!running) {
-                        break;
-                    }
                 }
             }
         }).start();

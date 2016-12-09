@@ -99,7 +99,6 @@ public class Player extends Mover {
                 move(position.getX(), position.getY() - mv.verticalSpeed);
             }
             checkCollision(i);
-
         }
     }
 
