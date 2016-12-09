@@ -52,6 +52,8 @@ public class LevelCreator {
                 case 'B': newList.add(new EdgeBlock(new Position(k*20,i*20)));
                     break;
                 case 'g': newList.add(new Goal(new Position(k*20, i*20)));
+                    break;
+                case 'F': newList.add(new Fire(new Position(k*20, i*20)));
                 //default: throw new IllegalArgumentException();
             }
         }
