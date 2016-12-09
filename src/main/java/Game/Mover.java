@@ -80,7 +80,10 @@ public abstract class Mover extends GameObject {
 
     private void handleVerticalCollision(ArrayList<GameObject> colliders) {
         Iterator<GameObject> itr = colliders.iterator();
+        double tempSpeed = 0;
         while (itr.hasNext()) {
+            if (mv.verticalSpeed != 0)
+                tempSpeed = mv.verticalSpeed;
             GameObject g = itr.next();
             if (g instanceof Block) {
                 /////////NYTT!!!
@@ -92,9 +95,9 @@ public abstract class Mover extends GameObject {
                 mv.verticalSpeed = 0;
                 /////////////////////////////////NYTT!!!
                 while (true) {
-                    move(position.getX(), position.getY() + mv.verticalSpeed / Math.abs(mv.verticalSpeed));
+                    move(position.getX(), position.getY() + tempSpeed / Math.abs(tempSpeed));
                     if (!intersects(g, 0)) {
-                        colliders.remove(g);
+                        //colliders.remove(g);
                         break;
                     }
                 }
