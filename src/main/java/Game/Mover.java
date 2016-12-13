@@ -1,7 +1,10 @@
 package Game;
 
-import android.graphics.Canvas;
+import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
+
+import com.example.emil.app.GameOver;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -58,7 +61,6 @@ public abstract class Mover extends GameObject {
         for (GameObject g : tempGameObjects) {
             if (this != g && intersects(g, 0)) {
                 colliders.add(g);
-
             }
         }
         return colliders;
@@ -99,6 +101,12 @@ public abstract class Mover extends GameObject {
                 /////////////////////////////////
                 // move(position.getX(), position.getY() + mv.verticalSpeed); GAMMALT!!!
 
+            } else if (g instanceof Hazard) {
+                canvas.drawColor(Color.BLACK);
+                world.pauseGame();
+                Intent intent = new Intent(board, GameOver.class);
+                intent.putExtra("Level",world.getLevel());
+                board.startActivity(intent);
             } else {
                 specificCollision(0,g );
             }
