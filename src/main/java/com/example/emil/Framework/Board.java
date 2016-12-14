@@ -1,4 +1,4 @@
-package com.example.emil.app;
+package com.example.emil.Framework;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+
+import com.example.emil.app.R;
 
 import Game.World;
 

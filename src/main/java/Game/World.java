@@ -12,8 +12,8 @@ import android.os.Message;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
 
-import com.example.emil.app.Board;
-import com.example.emil.app.GameLoop;
+import com.example.emil.Framework.Board;
+import com.example.emil.Framework.GameLoop;
 import com.example.emil.app.R;
 
 import java.util.ArrayList;
@@ -51,12 +51,12 @@ public class World {
         handlerSetup();
 
         GameObject.initialize(canvas, this, board);
-        player = new Player(new Position(300,200));
+        player = new Player(new Position(300,800));
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(s, player,board);
         nextLevel();
-        background = board.getResources().getDrawable(R.drawable.textur);
-        background.setBounds(0, 0, 2000, 1000);
+        background = board.getResources().getDrawable(R.drawable.background);
+        background.setBounds(0, 0, 2000, 1000); //(left, top, right, bottom)
         loop = new GameLoop(this, h);
         loop.startLoop();
 

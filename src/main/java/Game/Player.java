@@ -5,12 +5,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.Region;
 import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 
-import com.example.emil.app.GameOver;
-import com.example.emil.app.LevelCleared;
+import com.example.emil.Framework.GameOver;
 import com.example.emil.app.R;
 
 /**
@@ -41,10 +39,10 @@ public class Player extends Mover {
         picture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + PLAYER_WIDTH, (int) position.getY() + PLAYER_HEIGHT);
         picture.draw(canvas);
 
-        paint.setColor(Color.BLUE);
-        canvas.drawCircle((int) touchEventDecoder.getFirstClickPos().getX(), (int) touchEventDecoder.getFirstClickPos().getY(), 50, paint);
-        paint.setColor(Color.RED);
-        canvas.drawCircle((int) touchEventDecoder.getSecondClickPos().getX(), (int) touchEventDecoder.getSecondClickPos().getY(), 50, paint);
+//        paint.setColor(Color.BLUE);
+//        canvas.drawCircle((int) touchEventDecoder.getFirstClickPos().getX(), (int) touchEventDecoder.getFirstClickPos().getY(), 50, paint);
+//        paint.setColor(Color.RED);
+//        canvas.drawCircle((int) touchEventDecoder.getSecondClickPos().getX(), (int) touchEventDecoder.getSecondClickPos().getY(), 50, paint);
     }
 
     @Override
@@ -121,27 +119,46 @@ public class Player extends Mover {
     }
 
     private void centerPlayer() {
-        if (position.getX()>=canvas.getWidth()-350) {
-            canvas.translate((float)mv.horizontalSpeed,0);
-        } else if (position.getX()<=canvas.getWidth()-650) {
-            canvas.translate((float)mv.horizontalSpeed,0);
+        //horisontella kanter
+        Rect r = canvas.getClipBounds();
+        int centerX = r.centerX();
+        int centerY = r.centerY();
+        double dx = centerX - position.getX();
+        double dy = centerY - position.getY()+40;
+        //horizontal check
+        if (r.left <= 0) {
+            if (dx > 0) {
+                dx = 0;
+            }
         }
-        if (position.getY()<=canvas.getHeight()-250) {
-            canvas.translate(0,(float)mv.verticalSpeed);
-        }else if (position.getY()>canvas.getHeight()-150) {
-            canvas.translate(0,(float)mv.verticalSpeed);
+        if (r.right >= 2000) {
+            if (dx < 0) {
+                dx = 0;
+            }
         }
+        //vertical check
+        if (r.top <= 0) {
+            if (dy > 0) {
+                dx = 0;
+            }
+        }
+        if (r.bottom >= 1000) {
+            if (dy < 0) {
+                dy = 0;
+            }
+        }
+        canvas.translate((float) dx, (float) dy);
+
     }
 
     private void stillOnScreen() {
-        if (position.getY()>=canvas.getHeight()) {
+        if (position.getY() >= 1000) {
             canvas.drawColor(Color.BLACK);
             world.pauseGame();
             Intent intent = new Intent(board, GameOver.class);
-            intent.putExtra("Level",world.getLevel());
+            intent.putExtra("Level", world.getLevel());
             board.startActivity(intent);
         }
-
     }
 }
 

@@ -1,10 +1,8 @@
 package Game;
 
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Point;
 
-import com.example.emil.app.Board;
+import com.example.emil.Framework.Board;
 
 /**
  * Created by Emil on 2016-11-20.

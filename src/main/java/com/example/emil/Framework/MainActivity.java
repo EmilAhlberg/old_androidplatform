@@ -1,10 +1,12 @@
-package com.example.emil.app;
+package com.example.emil.Framework;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+
+import com.example.emil.app.R;
 
 public class MainActivity extends AppCompatActivity {
 

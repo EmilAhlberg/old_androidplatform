@@ -1,27 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-§                                                                                          BBBBBBBBBBBBB
-§                                                                               g                      B
-§                                                                                                      B
-§                                                                          bbbbbb                      B
-§                                                                                                      B
-§                                                                                                      B
-§                                                                                                      B
-§                                                                                                      B
-§                                                                                                      B
-§                                                          bbbbbbb                                     B
-§                   bbbbbbbb                                                                           B
-§                                                                                                      B
-§                                                                                                      B
-§                                                                           bb                         B
-§         F                               bbbbbbbb                                                     B
-§    bbbbbbb                                                                                           B
-§                                                                                                      B
-§                                                                                        bbbbbbb       B
-§                                                                                                      B
-§                                                                                                      B
-§                                                                                                      B
-§                                                                                                      B
-§                                                                                                      B
-§BBBBBBBBBBBBBBBBBBBBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBBBBBBBBBBBBBBBBBBBBBBBB              B
+    §                                                                                          BBBBBBBBBBBBB
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §
+    §                                                                               g                      B
+    §                                                                                                      B
+    §                                                                          bbbbbb                      B
+    §                                                                                                      B
+    §                                                                                                      B
+    §                                                                                                      B
+    §                                                                                                      B
+    §                                                                                                      B
+    §                      C                                    bbbbbbb                                     B
+    §                   bbbbbbbb                                                                           B
+    §                                                                                                      B
+    §                                                                                                      B
+    §                                                                           bb                         B
+    §         F                               bbbbbbbb                                                     B
+    §    bbbbbbb                                                                                           B
+    §                                                                                                      B
+    §                                                                                        bbbbbbb       B
+    §                                                                                                      B
+    §                                                                                                      B
+    §                                                                                                      B
+    §                                                                                                      B
+    §             C   g                                                                                      B
+    §BBBBBBBBBBBBBBBBBBBBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBBBBBBBBBBBBBBBBBBBBBBBB              B
 </selector>

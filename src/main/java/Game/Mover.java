@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 
-import com.example.emil.app.GameOver;
+import com.example.emil.Framework.GameOver;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,7 +39,7 @@ public abstract class Mover extends GameObject {
     /**
      * Check for any collisions between THIS and any other GameObject. If any collision occurs,
      * they are handled one by one, in the order they were registered.
-     * @param vOrH - 0 handles vertical collisions
+     * @param vOrH - 0 handles vertical collisions  (horizontal egentligen?)
      *             - 1 handles horizontal collisions
      */
     protected boolean checkCollision(int vOrH) {
@@ -101,6 +101,7 @@ public abstract class Mover extends GameObject {
                 /////////////////////////////////
                 // move(position.getX(), position.getY() + mv.verticalSpeed); GAMMALT!!!
 
+                //detta kommer så småningom pausa spelet då en annan mover går in i elden, är nog en specific collision
             } else if (g instanceof Hazard) {
                 canvas.drawColor(Color.BLACK);
                 world.pauseGame();
@@ -116,6 +117,9 @@ public abstract class Mover extends GameObject {
     private void handleHorizontalCollision(ArrayList<GameObject> colliders) {
         for (GameObject g : colliders) {
             if (g instanceof Block) {
+//                if (this instanceof Cat) {
+//                    Log.d("CatCollision", ""+(this.position.getX()+w) + "  "+ g.position.getY());
+//                }
                 move(position.getX() + mv.horizontalSpeed, position.getY());
                 mv.horizontalAcceleration = 0;
                 mv.horizontalSpeed = 0;

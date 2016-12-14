@@ -3,11 +3,8 @@ package Game;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Parcel;
-import android.os.Parcelable;
 
-import com.example.emil.app.Board;
-import com.example.emil.app.LevelCleared;
+import com.example.emil.Framework.LevelCleared;
 
 /**
  * Created by Emil on 2016-12-03.

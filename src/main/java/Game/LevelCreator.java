@@ -3,7 +3,7 @@ package Game;
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.emil.app.Board;
+import com.example.emil.Framework.Board;
 import com.example.emil.app.R;
 
 import java.io.BufferedReader;
@@ -54,16 +54,13 @@ public class LevelCreator {
                 case 'g': newList.add(new Goal(new Position(k*20, i*20)));
                     break;
                 case 'F': newList.add(new Fire(new Position(k*20, i*20)));
+                    break;
+                case 'C': newList.add(new Cat(new Position(k*20, i*20)));
                 //default: throw new IllegalArgumentException();
             }
         }
 
     }
-
-
-
-
-
     private String[] getLevelArray(int level) {
         String[] map;
         try {
@@ -95,7 +92,7 @@ public class LevelCreator {
         StringBuilder sb = new StringBuilder();
         String line = null;
         while ((line = reader.readLine()) != null) {
-            if (line.charAt(0) == '§') {         //skalar bort ram, unviker null vid tom rad
+            if (line.charAt(4) == '§') {         //skalar bort ram, unviker null vid tom rad
                 strings.add(line.substring(1));
                 //sb.append(line.substring(1)).append("\n");
             }
