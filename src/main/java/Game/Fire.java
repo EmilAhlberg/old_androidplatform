@@ -4,11 +4,15 @@ package Game;
  * Created by Emil on 12/10/2016.
  */
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+
+import com.example.emil.Framework.GameOver;
 import com.example.emil.app.R;
 
 /**
- *  "Supa hot fire"
+ * "Supa hot fire"
  */
 
 public class Fire extends Hazard {
@@ -38,5 +42,14 @@ public class Fire extends Hazard {
         if (animation == 19)
             animation = 0;
         animation++;
+    }
+
+    @Override
+    protected void affectPlayer() {
+        canvas.drawColor(Color.BLACK);
+        world.pauseGame();
+        Intent intent = new Intent(board, GameOver.class);
+        intent.putExtra("Level", world.getLevel());
+        board.startActivity(intent);
     }
 }

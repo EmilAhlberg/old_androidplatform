@@ -44,9 +44,12 @@ public abstract class Mover extends GameObject {
      */
     protected boolean checkCollision(int vOrH) {
         ArrayList<GameObject> collisions = getIntersectingObjects();
-        if (collisions != null) {
+        if (collisions.size() > 0) {
             handleCollisions(collisions, vOrH);
             return true;
+        }
+        if(this instanceof GameObjectProbe) {
+            return false;
         }
         return false;
     }
@@ -59,7 +62,7 @@ public abstract class Mover extends GameObject {
         ArrayList<GameObject> tempGameObjects = world.createTempGameObjects();
         ArrayList<GameObject> colliders = new ArrayList<GameObject>();
         for (GameObject g : tempGameObjects) {
-            if (this != g && intersects(g, 0)) {
+            if (this != g && intersects(g)) {
                 colliders.add(g);
             }
         }
@@ -74,6 +77,8 @@ public abstract class Mover extends GameObject {
             case 1:
                 handleVerticalCollision(colliders);
                 break;
+            case 2: //om ingen handling behövs
+                break;
             default:
                 throw new IllegalArgumentException();
         }
@@ -85,31 +90,16 @@ public abstract class Mover extends GameObject {
         while (itr.hasNext()) {
             GameObject g = itr.next();
             if (g instanceof Block) {
-                /////////NYTT!!!
-                if (!grounded) {
-                /////////
-                    grounded = intersects(g, 1);
-                }
+                grounded = bottomIntersection(g);   //kontinuerlig check krävs
                 mv.verticalAcceleration = 0;
                 mv.verticalSpeed = 0;
-                /////////////////////////////////NYTT!!!
                 if (grounded) {
                     move(position.getX(), g.getPosition().getY() - height-1);
                 } else {
                     move(position.getX(), g.getPosition().getY() + g.height+1);
                 }
-                /////////////////////////////////
-                // move(position.getX(), position.getY() + mv.verticalSpeed); GAMMALT!!!
-
-                //detta kommer så småningom pausa spelet då en annan mover går in i elden, är nog en specific collision
-            } else if (g instanceof Hazard) {
-                canvas.drawColor(Color.BLACK);
-                world.pauseGame();
-                Intent intent = new Intent(board, GameOver.class);
-                intent.putExtra("Level",world.getLevel());
-                board.startActivity(intent);
             } else {
-                specificCollision(0,g );
+                specificCollision(g);
             }
         }
     }
@@ -117,45 +107,53 @@ public abstract class Mover extends GameObject {
     private void handleHorizontalCollision(ArrayList<GameObject> colliders) {
         for (GameObject g : colliders) {
             if (g instanceof Block) {
-//                if (this instanceof Cat) {
-//                    Log.d("CatCollision", ""+(this.position.getX()+w) + "  "+ g.position.getY());
-//                }
                 move(position.getX() + mv.horizontalSpeed, position.getY());
                 mv.horizontalAcceleration = 0;
                 mv.horizontalSpeed = 0;
             }
             else {
-                specificCollision(1, g);
+                specificCollision(g);
             }
         }
     }
-
     /**
      * Handles collision consequences for specific movers.
-     * @param collisionType Int, which gives type of collision, 0 for vertical, 1 for horizontal.
      * @param g  GameObject which mover collides with.
      */
-    protected abstract void specificCollision(int collisionType, GameObject g);
+    protected abstract void specificCollision(GameObject g);
 
     public boolean isGrounded() {
         return grounded;
     }
 
     /*
-        Mode:   0 - normal intersection check between two rectangular objects.
-                1 - special intersection check between the bottom half rectangle of 'this',
+        normal intersection check between two rectangular objects.
+     */
+    private boolean intersects(GameObject g) {
+       return(checkRectIntersection(getRectBounds(g,0)));
+    }
+    /*
+        special intersection check between the bottom half rectangle of 'this',
                     and upper half of 'g' (collision from "above")
      */
-    private boolean intersects(GameObject g, int mode) {
-        Position g1UpperLeft = new Position(getPosition().getX(), (getPosition().getY() + mode * width / 2));
-        Position g1LowerRight = new Position(getPosition().getX() + width,
-                getPosition().getY() + height + mode*g.height/2);                              // ::::mode*g.height/2:::: eller liknande krävs för intersection i mode = 1,
-        Position g2UpperLeft = g.getPosition();
-        Position g2LowerRight = new Position(g.getPosition().getX() + g.width,
-                g.getPosition().getY() + g.height - (g.height / 2) * mode);
+    protected boolean bottomIntersection(GameObject g) {
+        return checkRectIntersection(getRectBounds(g,1));
+    }
 
-        if (g1UpperLeft.getX() > g2LowerRight.getX() || g1LowerRight.getX() < g2UpperLeft.getX()
-                || g1UpperLeft.getY() > g2LowerRight.getY() || g1LowerRight.getY() < g2UpperLeft.getY()) {
+    private Position[] getRectBounds(GameObject g, int collisionType) {
+        Position[] v = new Position[4];
+        v[0] = new Position(getPosition().getX(), getPosition().getY()+collisionType*height/2);
+        v[1]= new Position(getPosition().getX() + width,
+                getPosition().getY() + height + collisionType*g.height/2);  // ::::mode*g.height/2:::: eller liknande krävs för intersection i mode = 1,
+        v[2]= g.getPosition();
+        v[3]= new Position(g.getPosition().getX() + g.width,
+                g.getPosition().getY() + g.height-collisionType*g.height/2);
+        return v;
+    }
+
+    private boolean checkRectIntersection(Position[] v) {
+        if (v[0].getX() > v[3].getX() || v[1].getX() < v[2].getX()
+                || v[0].getY() > v[3].getY() || v[1].getY() < v[2].getY()) {
             return false;
         }
         return true;

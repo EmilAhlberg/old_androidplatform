@@ -57,7 +57,7 @@ public class Circle extends Mover {
     }
 
     @Override
-    protected void specificCollision(int collisionType, GameObject g) {
+    protected void specificCollision(GameObject g) {
 
     }
 

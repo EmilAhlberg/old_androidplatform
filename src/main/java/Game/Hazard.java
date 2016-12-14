@@ -8,4 +8,6 @@ public abstract class Hazard extends GameObject{
     public Hazard(Position position, int width, int height) {
         super(position, width, height);
     }
+
+    protected abstract void affectPlayer();
 }

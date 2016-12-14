@@ -110,11 +110,15 @@ public class Player extends Mover {
     }
 
     @Override
-    protected void specificCollision(int collisionType, GameObject g) {
+    protected void specificCollision(GameObject g) {
         if (g instanceof Goal) {
             ((Goal) g).playerReachedGoal();
             world.nextLevel();
             move(100, 100);
+        } else if (g instanceof Hazard) {
+            ((Hazard) g).affectPlayer();
+        } else if (g instanceof Cat) {
+            ((Cat) g).affectPlayer();
         }
     }
 
