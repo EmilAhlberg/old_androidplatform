@@ -3,7 +3,6 @@ package Game;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.example.emil.Framework.GameOver;
 import com.example.emil.app.R;
@@ -27,8 +26,9 @@ public class Cat extends Mover {
 
     @Override
     protected void updatePosition() {
-        if (!(isBlockAhead())) {
-            direction = direction * -1;
+        GameObjectProbe probe = probePath();
+        if (!(probe.objectAhead()) || probe.getLatestCollider() instanceof Hazard) {
+            changeDirection();
         }
         move(position.getX() - mv.horizontalSpeed * direction, position.getY() - mv.verticalSpeed);
     }
@@ -39,10 +39,21 @@ public class Cat extends Mover {
     }
 
     @Override
+    protected void specificCollisionVertical(GameObject g) {
+
+    }
+
+    @Override
+    protected void specificCollisionHorizontal(GameObject g) {
+        if (g instanceof Block || g instanceof Hazard) {
+            changeDirection();
+        }
+    }
+
+    @Override
     public void draw() {
         picture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
         picture.draw(canvas);
-
     }
 
     @Override
@@ -53,16 +64,15 @@ public class Cat extends Mover {
         checkCollision(0);
     }
 
-    private boolean isBlockAhead() {
-        int probeXOffset =direction*-2 + width*direction;
-        int probeYOffset = height +2;
-        if (direction >0) {
-            probeXOffset=probeXOffset - width;
+    private GameObjectProbe probePath() {
+        int probeXOffset = direction * -2 + width * direction;
+        int probeYOffset = height + 2;
+        if (direction > 0) {
+            probeXOffset = probeXOffset - width;
         }
-        GameObjectProbe probe = new GameObjectProbe(new Position(position.getX() - probeXOffset, position.getY() +probeYOffset),2,1);
-//        Log.d("CatCollision", "" + "Cat X:" + position.getX() + "  " + "Probe X:" +probe.position.getX()+"\n" +
-//                "Cat Y:" + position.getY() + "  " + "Probe Y:" +probe.position.getY()+"\n" + "    \n" + probe.checkCollision(2)+"\n     "+ direction);
-        return probe.checkCollision(2);
+        GameObjectProbe probe = new GameObjectProbe(new Position(position.getX() - probeXOffset, position.getY() + probeYOffset), 2, 5);
+        probe.setClearPath(probe.checkCollision(0));
+        return probe;
     }
 
     public void affectPlayer() {
@@ -71,5 +81,9 @@ public class Cat extends Mover {
         Intent intent = new Intent(board, GameOver.class);
         intent.putExtra("Level", world.getLevel());
         board.startActivity(intent);
+    }
+
+    private void changeDirection() {
+        direction = direction * -1;
     }
 }

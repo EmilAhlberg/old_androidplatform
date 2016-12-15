@@ -39,7 +39,7 @@ public abstract class Mover extends GameObject {
     /**
      * Check for any collisions between THIS and any other GameObject. If any collision occurs,
      * they are handled one by one, in the order they were registered.
-     * @param vOrH - 0 handles vertical collisions  (horizontal egentligen?)
+     * @param vOrH - 0 handles vertical collisions  >>(horizontal egentligen?)<<
      *             - 1 handles horizontal collisions
      */
     protected boolean checkCollision(int vOrH) {
@@ -47,9 +47,6 @@ public abstract class Mover extends GameObject {
         if (collisions.size() > 0) {
             handleCollisions(collisions, vOrH);
             return true;
-        }
-        if(this instanceof GameObjectProbe) {
-            return false;
         }
         return false;
     }
@@ -106,14 +103,7 @@ public abstract class Mover extends GameObject {
 
     private void handleHorizontalCollision(ArrayList<GameObject> colliders) {
         for (GameObject g : colliders) {
-            if (g instanceof Block) {
-                move(position.getX() + mv.horizontalSpeed, position.getY());
-                mv.horizontalAcceleration = 0;
-                mv.horizontalSpeed = 0;
-            }
-            else {
-                specificCollision(g);
-            }
+            specificCollisionHorizontal(g);
         }
     }
     /**
@@ -121,6 +111,8 @@ public abstract class Mover extends GameObject {
      * @param g  GameObject which mover collides with.
      */
     protected abstract void specificCollision(GameObject g);
+    protected abstract void specificCollisionVertical(GameObject g);
+    protected abstract void specificCollisionHorizontal(GameObject g);
 
     public boolean isGrounded() {
         return grounded;

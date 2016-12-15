@@ -100,13 +100,21 @@ public class Player extends Mover {
         }
     }
 
-    private void applyFriction() {
-        if (grounded) {
-            mv.horizontalSpeed *= 0.95;
-            if (touchEventDecoder.getNbrFingersDown() == 0 && (mv.horizontalSpeed > 0.5 || mv.horizontalSpeed < -0.5)) {
-                mv.horizontalSpeed -= mv.horizontalSpeed / Math.abs(mv.horizontalSpeed) * 0.5;
-            }
+    @Override
+    protected void specificCollisionVertical(GameObject g) {
+
+    }
+
+    @Override
+    protected void specificCollisionHorizontal(GameObject g) {
+        if (g instanceof Block) {
+            move(position.getX() + mv.horizontalSpeed, position.getY());
+            mv.horizontalAcceleration = 0;
+            mv.horizontalSpeed = 0;
+        } else {
+            specificCollision(g);
         }
+
     }
 
     @Override
@@ -121,6 +129,17 @@ public class Player extends Mover {
             ((Cat) g).affectPlayer();
         }
     }
+    //denna metod hör bättre samman med "movementVector"?
+    private void applyFriction() {
+        if (grounded) {
+            mv.horizontalSpeed *= 0.95;
+            if (touchEventDecoder.getNbrFingersDown() == 0 && (mv.horizontalSpeed > 0.5 || mv.horizontalSpeed < -0.5)) {
+                mv.horizontalSpeed -= mv.horizontalSpeed / Math.abs(mv.horizontalSpeed) * 0.5;
+            }
+        }
+    }
+
+
 
     private void centerPlayer() {
         //horisontella kanter

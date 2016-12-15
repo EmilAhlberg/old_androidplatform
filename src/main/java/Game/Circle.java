@@ -61,6 +61,16 @@ public class Circle extends Mover {
 
     }
 
+    @Override
+    protected void specificCollisionVertical(GameObject g) {
+
+    }
+
+    @Override
+    protected void specificCollisionHorizontal(GameObject g) {
+
+    }
+
     protected boolean edgeCollision() {
         //left or right edge collision
         if (position.getX() - radius <= 0 || position.getX() + radius >= canvas.getWidth()) {
