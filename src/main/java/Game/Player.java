@@ -60,7 +60,7 @@ public class Player extends Mover {
             int cTemp = canvas.getWidth() / 2;
             double sClickTemp = touchEventDecoder.getSecondClickPos().getX();
             if ((clickX <= cTemp && sClickTemp > cTemp) || (clickX > cTemp && sClickTemp <= cTemp)) {
-                jump();
+                jump(650);
             }
         }
         if (nbrFingers > 0) {
@@ -72,8 +72,8 @@ public class Player extends Mover {
         }
     }
 
-    public void jump() {
-        applyForce(0, 650);
+    public void jump(int force) {
+        applyForce(0, force);
         grounded = false;
     }
 
@@ -126,7 +126,15 @@ public class Player extends Mover {
         } else if (g instanceof Hazard) {
             ((Hazard) g).affectPlayer();
         } else if (g instanceof Cat) {
-            ((Cat) g).affectPlayer();
+            if(mv.verticalSpeed < -5 ) {
+                world.removeObject(g);
+                DeathAnimator d = new DeathAnimator((Mover)g);
+                mv.verticalSpeed=0;
+                mv.verticalForce=0;
+                jump(150);
+            } else {
+                ((Cat) g).affectPlayer();
+            }
         }
     }
 

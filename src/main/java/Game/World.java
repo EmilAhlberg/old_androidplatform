@@ -119,6 +119,14 @@ public class World {
         finalCanvas.drawBitmap(board.getBitmap(), 0, 0, new Paint());
     }
 
+    public void addObject(GameObject g) {
+        list.add(g);
+    }
+
+    public void removeObject(GameObject g) {
+        list.remove(g);
+    }
+
     public void pauseGame() {
         loop.pause();
     }
