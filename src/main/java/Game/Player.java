@@ -129,6 +129,7 @@ public class Player extends Mover {
             ((Cat) g).affectPlayer();
         }
     }
+
     //denna metod hör bättre samman med "movementVector"?
     private void applyFriction() {
         if (grounded) {
@@ -140,14 +141,13 @@ public class Player extends Mover {
     }
 
 
-
     private void centerPlayer() {
         //horisontella kanter
         Rect r = canvas.getClipBounds();
         int centerX = r.centerX();
         int centerY = r.centerY();
         double dx = centerX - position.getX();
-        double dy = centerY - position.getY()+40;
+        double dy = centerY - position.getY() + 40;
         //horizontal check
         if (r.left <= 0) {
             if (dx > 0) {
@@ -170,7 +170,9 @@ public class Player extends Mover {
                 dy = 0;
             }
         }
-        canvas.translate((float) dx, (float) dy);
+        if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
+            canvas.translate((float) dx, (float) dy);
+        }
 
     }
 

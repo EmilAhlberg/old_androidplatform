@@ -17,7 +17,6 @@ public class GameOver extends AppCompatActivity {
 
     public void retryLevel(View view) {
         int level = getIntent().getExtras().getInt("Level");
-
         Intent intent = new Intent (this, Board.class);
         intent.putExtra("Level", level);
         this.startActivity(intent);
