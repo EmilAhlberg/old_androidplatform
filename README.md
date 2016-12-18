@@ -1,17 +1,18 @@
-# README #
 
-###Fixlist:###
+#Fixlist:#
 
-##Refactor-Related ##
-* translation exceeds map edge
-* image size/animation, size too big
-* GameObject draw method, move to superclass?
+##Refactoring suggestions ##
+* GameObject draw method, move to superclass
+
+
+##Gameplay suggestions ##
 * set limit to verticalSpeed?
+* air jump?
 
 
+##Bugs##
+* translation exceeds map edge
 
-### What is this repository for? ###
 
-* Mysteries!
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+##Other fix##
+* image size too big/get other images
