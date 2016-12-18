@@ -87,7 +87,7 @@ public abstract class Mover extends GameObject {
         while (itr.hasNext()) {
             GameObject g = itr.next();
             if (g instanceof Block) {
-                grounded = bottomIntersection(g);   //kontinuerlig check krävs
+                grounded = bottomIntersection(g);   //tvek om detta fungerar, även enda stället bottomIntersection anropas från
                 mv.verticalAcceleration = 0;
                 mv.verticalSpeed = 0;
                 if (grounded) {

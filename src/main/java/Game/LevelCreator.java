@@ -47,9 +47,9 @@ public class LevelCreator {
         for (int i= 0; i < mapString.length; i++) {
             for (int k = 0; k<mapString[i].length(); k++)
             switch (mapString[i].charAt(k)) {
-                case 'b': newList.add(new GameBlock(new Position(k*20,i*20)));
+                case 'b': newList.add(new Block(new Position(k*20,i*20),2));
                     break;
-                case 'B': newList.add(new EdgeBlock(new Position(k*20,i*20)));
+                case 'B': newList.add(new Block(new Position(k*20,i*20),1));
                     break;
                 case 'g': newList.add(new Goal(new Position(k*20, i*20)));
                     break;

@@ -138,7 +138,6 @@ public class Player extends Mover {
         }
     }
 
-    //denna metod hör bättre samman med "movementVector"?
     private void applyFriction() {
         if (grounded) {
             mv.horizontalSpeed *= 0.95;
@@ -150,7 +149,6 @@ public class Player extends Mover {
 
 
     private void centerPlayer() {
-        //horisontella kanter
         Rect r = canvas.getClipBounds();
         int centerX = r.centerX();
         int centerY = r.centerY();
@@ -178,6 +176,32 @@ public class Player extends Mover {
                 dy = 0;
             }
         }
+//        if (r.left + dx <= 0) {
+//            double overShoot = r.left + dx;
+//            dx = dx - overShoot;
+//        }
+//        if (r.right >= 2000) {
+//            if (dx < 0) {
+//                dx = 0;
+//            }
+//        }
+//        //vertical check
+//        if (r.top <= 0) {
+//            if (dy > 0) {
+//                dx = 0;
+//            }
+//        }
+//        if (r.bottom >= 1000) {
+//            if (dy < 0) {
+//                dy = 0;
+//            }
+//        }
+
+
+
+
+
+        //förhindrar 'flimmer' vid stillastående
         if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
             canvas.translate((float) dx, (float) dy);
         }
