@@ -1,6 +1,11 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Fixlist:
+* translation exceeds map edge
+* image size/animation, size too big
+* GameObject draw method, move to superclass?
+
+
 
 ### What is this repository for? ###
 
