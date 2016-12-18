@@ -1,29 +1,18 @@
-# README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+#Fixlist:#
 
-### What is this repository for? ###
+##Refactoring suggestions ##
+* GameObject draw method, move to superclass
 
-* Mysteries!
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
-### How do I get set up? ###
+##Gameplay suggestions ##
+* set limit to verticalSpeed?
+* air jump?
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
 
-### Contribution guidelines ###
+##Bugs##
+* translation exceeds map edge
 
-* Writing tests
-* Code review
-* Other guidelines
 
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+##Other fix##
+* image size too big/get other images
