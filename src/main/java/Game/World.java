@@ -51,7 +51,7 @@ public class World {
         handlerSetup();
 
         GameObject.initialize(canvas, this, board);
-        player = new Player(new Position(300,800));
+        player = new Player(new Position(100,800));
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(s, player,board);
         nextLevel();

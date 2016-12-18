@@ -56,6 +56,8 @@ public class LevelCreator {
                 case 'F': newList.add(new Fire(new Position(k*20, i*20)));
                     break;
                 case 'C': newList.add(new Cat(new Position(k*20, i*20)));
+                    break;
+                case 'V': newList.add(new Vetrinarian(new Position(k*20, i*20-20)));
                 //default: throw new IllegalArgumentException();
             }
         }

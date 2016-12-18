@@ -24,6 +24,8 @@ public class Player extends Mover {
     private double clickY = position.getY();
     private TouchEventDecoder touchEventDecoder;
     private Drawable picture;
+    private boolean awake = true;
+    private int sleepTime = 0;
 
     public Player(Position position) {
         super(position, PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -47,7 +49,14 @@ public class Player extends Mover {
 
     @Override
     public void update() {
-        performAction();
+        if (awake) {
+            performAction();
+        } else {
+            sleepTime--;
+            if (sleepTime == 0) {
+                awake = true;
+            }
+        }
         updateSpeed();
         updatePosition();
         stillOnScreen();
@@ -125,17 +134,30 @@ public class Player extends Mover {
             move(100, 100);
         } else if (g instanceof Hazard) {
             ((Hazard) g).affectPlayer();
-        } else if (g instanceof Cat) {
-            if(mv.verticalSpeed < -5 ) {
-                world.removeObject(g);
-                DeathAnimator d = new DeathAnimator((Mover)g);
-                mv.verticalSpeed=0;
-                mv.verticalForce=0;
-                jump(150);
-            } else {
+        } else if (g instanceof Cat || g instanceof Vetrinarian) { //instanceof enemy?
+            if (mv.verticalSpeed < -5) {
+                kill(g);
+//                world.removeObject(g);
+//                DeathAnimator d = new DeathAnimator((Mover)g);
+//                mv.verticalSpeed=0;
+//                mv.verticalForce=0;
+//                jump(150);
+            } else if (g instanceof Cat) {
                 ((Cat) g).affectPlayer();
+            } else if (g instanceof Vetrinarian) {
+                ((Vetrinarian) g).affectPlayer();
             }
         }
+
+    }
+
+    private void kill(GameObject g) {
+        world.removeObject(g);
+        DeathAnimator d = new DeathAnimator(g);
+        mv.verticalSpeed = 0;
+        mv.verticalForce = 0;
+        jump(150);
+
     }
 
     private void applyFriction() {
@@ -198,9 +220,6 @@ public class Player extends Mover {
 //        }
 
 
-
-
-
         //förhindrar 'flimmer' vid stillastående
         if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
             canvas.translate((float) dx, (float) dy);
@@ -216,6 +235,13 @@ public class Player extends Mover {
             intent.putExtra("Level", world.getLevel());
             board.startActivity(intent);
         }
+    }
+
+    public void sedated() {
+        awake = false;
+        sleepTime = 50;
+
+
     }
 }
 

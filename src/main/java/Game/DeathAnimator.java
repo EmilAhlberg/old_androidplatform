@@ -13,17 +13,23 @@ public class DeathAnimator extends GameObject {
     private Drawable picture;
     private MovementVector mv;
 
-    public DeathAnimator(Mover g) {
-        super(g.getPosition(),g.width,g.height);
-        addToUpdateList(this);
-        picture = board.getResources().getDrawable(R.drawable.cat);
+    public DeathAnimator(GameObject g) {
+        super(g.getPosition(), g.width, g.height);
+        world.addObject(this);
+        initializeImage(g);
+
         mv = new MovementVector();
-        mv.applyForce(20,400);
+        mv.applyForce(20, 400);
     }
 
-    private void addToUpdateList(GameObject g) {
-        world.addObject(g);
+    private void initializeImage(GameObject g) {
+        if (g instanceof Cat) {
+            picture = board.getResources().getDrawable(R.drawable.cat);
+        } else if (g instanceof Vetrinarian) {
+            picture = board.getResources().getDrawable(R.drawable.vet); //kan vara andra objekt        }
+        }
     }
+
 
     @Override
     public void draw() {
@@ -33,7 +39,7 @@ public class DeathAnimator extends GameObject {
 
     @Override
     public void update() {
-        if(mv.verticalForce > -100) {
+        if (mv.verticalForce > -100) {
             mv.updateSpeed();
             updatePosition();
         } else {
@@ -43,7 +49,7 @@ public class DeathAnimator extends GameObject {
     }
 
     protected void updatePosition() {
-        move(position.getX() - mv.horizontalSpeed, position.getY()-mv.verticalSpeed);
-       // move(position.getX(), position.getY() - mv.verticalSpeed);
+        move(position.getX() - mv.horizontalSpeed, position.getY() - mv.verticalSpeed);
+        // move(position.getX(), position.getY() - mv.verticalSpeed);
     }
 }
