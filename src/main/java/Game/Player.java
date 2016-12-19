@@ -19,7 +19,6 @@ public class Player extends Mover {
 
     protected static final int PLAYER_WIDTH = 30;
     protected static final int PLAYER_HEIGHT = 30;
-    private Paint paint = new Paint();
     private double clickX = position.getX();
     private double clickY = position.getY();
     private TouchEventDecoder touchEventDecoder;
@@ -29,7 +28,6 @@ public class Player extends Mover {
 
     public Player(Position position) {
         super(position, PLAYER_WIDTH, PLAYER_HEIGHT);
-        paint.setColor(Color.GREEN);
         touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()), new Position(position.getX(), position.getY()), canvas);
         picture = board.getResources().getDrawable(R.drawable.test);
 
@@ -110,46 +108,43 @@ public class Player extends Mover {
     }
 
     @Override
-    protected void specificCollisionVertical(GameObject g) {
-
-    }
-
-    @Override
-    protected void specificCollisionHorizontal(GameObject g) {
-        if (g instanceof Block) {
-            move(position.getX() + mv.horizontalSpeed, position.getY());
-            mv.horizontalAcceleration = 0;
-            mv.horizontalSpeed = 0;
-        } else {
-            specificCollision(g);
+    protected void specificCollision(GameObject g, int collisionType) {
+        if (collisionType == 0) {
+            specificCollisionHorizontal(g);
+        } else if (collisionType == 1) {
+            specificCollisionVertical(g);
         }
 
-    }
-
-    @Override
-    protected void specificCollision(GameObject g) {
+        //kollisioner oberoende av typ
         if (g instanceof Goal) {
             ((Goal) g).playerReachedGoal();
             world.nextLevel();
             move(100, 100);
         } else if (g instanceof Hazard) {
             ((Hazard) g).affectPlayer();
-        } else if (g instanceof Cat || g instanceof Vetrinarian) { //instanceof enemy?
-            if (mv.verticalSpeed < -5) {
-                kill(g);
-//                world.removeObject(g);
-//                DeathAnimator d = new DeathAnimator((Mover)g);
-//                mv.verticalSpeed=0;
-//                mv.verticalForce=0;
-//                jump(150);
-            } else if (g instanceof Cat) {
-                ((Cat) g).affectPlayer();
-            } else if (g instanceof Vetrinarian) {
-                ((Vetrinarian) g).affectPlayer();
-            }
         }
 
     }
+
+    private void specificCollisionHorizontal(GameObject g) {
+        if (g instanceof Block) {
+            horizontalBlockCollision(g);
+        } else if (g instanceof Cat) {
+            ((Cat) g).affectPlayer();
+        } else if (g instanceof Vetrinarian) {
+            ((Vetrinarian) g).affectPlayer();
+        }
+
+    }
+
+    private void specificCollisionVertical(GameObject g) {
+        if (g instanceof Block) {
+            verticalBlockCollision(g);
+        } else if (g instanceof Vetrinarian || g instanceof Cat) {
+            kill(g);
+        }
+    }
+
 
     private void kill(GameObject g) {
         world.removeObject(g);
@@ -240,8 +235,6 @@ public class Player extends Mover {
     public void sedated() {
         awake = false;
         sleepTime = 50;
-
-
     }
 }
 

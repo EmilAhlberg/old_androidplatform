@@ -70,18 +70,7 @@ public class Vetrinarian extends GameObject {
         }
 
         @Override
-        protected void specificCollision(GameObject g) {
-
-        }
-
-        @Override
-        protected void specificCollisionVertical(GameObject g) {
-
-
-        }
-
-        @Override
-        protected void specificCollisionHorizontal(GameObject g) {
+        protected void specificCollision(GameObject g, int collisionType) {
             if (g instanceof Block) {
                 world.removeObject(this);
             } else if(g instanceof Player) {

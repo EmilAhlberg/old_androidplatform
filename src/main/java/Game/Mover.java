@@ -39,8 +39,8 @@ public abstract class Mover extends GameObject {
     /**
      * Check for any collisions between THIS and any other GameObject. If any collision occurs,
      * they are handled one by one, in the order they were registered.
-     * @param vOrH - 0 handles vertical collisions  >>(horizontal egentligen?)<<
-     *             - 1 handles horizontal collisions
+     * @param vOrH - 0 handles horizontal collisions
+     *             - 1 handles vertical collisions
      */
     protected boolean checkCollision(int vOrH) {
         ArrayList<GameObject> collisions = getIntersectingObjects();
@@ -66,53 +66,34 @@ public abstract class Mover extends GameObject {
         return colliders;
     }
 
-    private void handleCollisions(ArrayList<GameObject> colliders, int vOrH) {
-        switch (vOrH) {
-            case 0:
-                handleHorizontalCollision(colliders);
-                break;
-            case 1:
-                handleVerticalCollision(colliders);
-                break;
-            case 2: //om ingen handling behövs
-                break;
-            default:
-                throw new IllegalArgumentException();
-        }
-    }
-
-
-    private void handleVerticalCollision(ArrayList<GameObject> colliders) {
-        Iterator<GameObject> itr = colliders.iterator();
-        while (itr.hasNext()) {
-            GameObject g = itr.next();
-            if (g instanceof Block) {
-                grounded = bottomIntersection(g);   //tvek om detta fungerar, även enda stället bottomIntersection anropas från
-                mv.verticalAcceleration = 0;
-                mv.verticalSpeed = 0;
-                if (grounded) {
-                    move(position.getX(), g.getPosition().getY() - height-1);
-                } else {
-                    move(position.getX(), g.getPosition().getY() + g.height+1);
-                }
-            } else {
-                specificCollision(g);
-            }
-        }
-    }
-
-    private void handleHorizontalCollision(ArrayList<GameObject> colliders) {
+    private void handleCollisions(ArrayList<GameObject> colliders, int collisionType) {
         for (GameObject g : colliders) {
-            specificCollisionHorizontal(g);
+            specificCollision(g, collisionType);
         }
+    }
+
+    protected void horizontalBlockCollision(GameObject g) {
+        move(position.getX() + mv.horizontalSpeed, position.getY());
+        mv.horizontalAcceleration = 0;
+        mv.horizontalSpeed = 0;
+
+    }
+    protected void verticalBlockCollision(GameObject g) {
+        grounded = bottomIntersection(g);   //tvek om detta fungerar, även enda stället bottomIntersection anropas från
+        mv.verticalAcceleration = 0;
+        mv.verticalSpeed = 0;
+        if (grounded) {
+            move(position.getX(), g.getPosition().getY() - height-1);
+        } else {
+            move(position.getX(), g.getPosition().getY() + g.height+1);
+        }
+
     }
     /**
      * Handles collision consequences for specific movers.
      * @param g  GameObject which mover collides with.
      */
-    protected abstract void specificCollision(GameObject g);
-    protected abstract void specificCollisionVertical(GameObject g);
-    protected abstract void specificCollisionHorizontal(GameObject g);
+    protected abstract void specificCollision(GameObject g, int collisionType);
 
     public boolean isGrounded() {
         return grounded;

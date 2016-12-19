@@ -23,7 +23,6 @@ public class Cat extends Mover {
         picture = board.getResources().getDrawable(R.drawable.cat);
     }
 
-
     @Override
     protected void updatePosition() {
         GameObjectProbe probe = probePath();
@@ -34,18 +33,10 @@ public class Cat extends Mover {
     }
 
     @Override
-    protected void specificCollision(GameObject g) {
-
-    }
-
-    @Override
-    protected void specificCollisionVertical(GameObject g) {
-
-    }
-
-    @Override
-    protected void specificCollisionHorizontal(GameObject g) {
-        if (g instanceof Block || g instanceof Hazard) {
+    protected void specificCollision(GameObject g, int collisionType) {
+        if (collisionType == 1 && g instanceof Block) {
+            verticalBlockCollision(g);
+        } else if ((g instanceof Block || g instanceof Hazard) && collisionType == 0) {
             changeDirection();
         }
     }
