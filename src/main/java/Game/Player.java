@@ -2,13 +2,12 @@ package Game;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 
-import com.example.emil.Framework.GameOver;
+import com.example.emil.Framework.GameOverActivity;
 import com.example.emil.app.R;
 
 /**
@@ -29,7 +28,7 @@ public class Player extends Mover {
     public Player(Position position) {
         super(position, PLAYER_WIDTH, PLAYER_HEIGHT);
         touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()), new Position(position.getX(), position.getY()), canvas);
-        picture = board.getResources().getDrawable(R.drawable.test);
+        picture = gameActivity.getResources().getDrawable(R.drawable.test);
 
     }
 
@@ -226,9 +225,9 @@ public class Player extends Mover {
         if (position.getY() >= 1000) {
             canvas.drawColor(Color.BLACK);
             world.pauseGame();
-            Intent intent = new Intent(board, GameOver.class);
+            Intent intent = new Intent(gameActivity, GameOverActivity.class);
             intent.putExtra("Level", world.getLevel());
-            board.startActivity(intent);
+            gameActivity.startActivity(intent);
         }
     }
 

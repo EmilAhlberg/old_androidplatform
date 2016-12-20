@@ -1,7 +1,9 @@
 package Game;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,8 +14,9 @@ import android.os.Message;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
 
-import com.example.emil.Framework.Board;
+import com.example.emil.Framework.GameActivity;
 import com.example.emil.Framework.GameLoop;
+import com.example.emil.Framework.GameOverActivity;
 import com.example.emil.app.R;
 
 import java.util.ArrayList;
@@ -25,13 +28,10 @@ import java.util.List;
 
 public class World {
 
-    private Board board;
-    private LinearLayout ll;
+    private GameActivity gameActivity;
     private Canvas canvas;
     private Canvas finalCanvas;
     private Bitmap finalBitmap;
-    private Handler h;
-    private Handler s;
     private int level;
     private LevelCreator levelCreator;
     private Player player;
@@ -40,61 +40,33 @@ public class World {
     private Drawable background;
 
 
-    public World(Canvas canvas, LinearLayout ll, Board board, int level) {
-        this.ll = ll;
+    public World(Canvas canvas, GameActivity gameActivity, int level, Handler gameLoopThread, Handler levelCreatorThread) {
         this.canvas = canvas;
-        this.board = board;
+        this.gameActivity = gameActivity;
         this.level = level;
-        Bitmap temp = board.getBitmap();
+        Bitmap temp = gameActivity.getBitmap();
         finalBitmap = Bitmap.createBitmap(temp.getWidth(), temp.getHeight(), Bitmap.Config.ARGB_8888);
         finalCanvas = new Canvas(finalBitmap);
-        handlerSetup();
 
-        GameObject.initialize(canvas, this, board);
+        GameObject.initialize(canvas, this, gameActivity);
         player = new Player(new Position(100,800));
         list = new ArrayList<GameObject>();
-        levelCreator = new LevelCreator(s, player,board);
+        levelCreator = new LevelCreator(levelCreatorThread, player, gameActivity);
         nextLevel();
-        background = board.getResources().getDrawable(R.drawable.background);
+        background = gameActivity.getResources().getDrawable(R.drawable.background);
         background.setBounds(0, 0, 2000, 1000); //(left, top, right, bottom)
-        loop = new GameLoop(this, h);
+        loop = new GameLoop(this, gameLoopThread);
         loop.startLoop();
 
 
     }
 
-    private void handlerSetup() {
-
-
-        s = new Handler(Looper.getMainLooper()) {
-            public void handleMessage(Message inputMessage) {
-                list = levelCreator.getNewList();
-            }
-        };
-        h = new Handler(Looper.getMainLooper()) {
-            public void handleMessage(Message inputMessage) {
-
-                ll.setBackground(new BitmapDrawable(board.getResources(), finalBitmap));
-
-            }
-        };
-
+    public void updateList() {
+        list = levelCreator.getNewList();
     }
 
-    /**
-     * Returns a temporary list instance of Mover objects.
-     * @return tempMovers
-     */
-    public ArrayList<Mover> createTempMovers() {
-        ArrayList<GameObject> tempGameObjects = createTempGameObjects();
-        ArrayList<Mover> tempMovers = new ArrayList<Mover>();
-
-        for (GameObject gameObject : list) {
-            if (gameObject instanceof Mover) {
-                tempMovers.add((Mover) gameObject);
-            }
-        }
-        return tempMovers;
+    public Bitmap getFinalBitmap() {
+        return finalBitmap;
     }
 
     /**
@@ -106,6 +78,13 @@ public class World {
         tempGameObjects.addAll(list);
         return tempGameObjects;
     }
+    public void gameOver() {
+        canvas.drawColor(Color.BLACK);
+        pauseGame();
+        Intent intent = new Intent(gameActivity, GameOverActivity.class);
+        intent.putExtra("Level", getLevel());
+        gameActivity.startActivity(intent);
+    }
 
     public void updateWorld() {
         background.draw(canvas);
@@ -116,7 +95,7 @@ public class World {
             gameObject.update();
             gameObject.draw();
         }
-        finalCanvas.drawBitmap(board.getBitmap(), 0, 0, new Paint());
+        finalCanvas.drawBitmap(gameActivity.getBitmap(), 0, 0, new Paint());
     }
 
     public void addObject(GameObject g) {

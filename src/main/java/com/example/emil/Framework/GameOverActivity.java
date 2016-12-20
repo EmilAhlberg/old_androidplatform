@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.example.emil.app.R;
 
-public class GameOver extends AppCompatActivity {
+public class GameOverActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class GameOver extends AppCompatActivity {
 
     public void retryLevel(View view) {
         int level = getIntent().getExtras().getInt("Level");
-        Intent intent = new Intent (this, Board.class);
+        Intent intent = new Intent (this, GameActivity.class);
         intent.putExtra("Level", level);
         this.startActivity(intent);
 

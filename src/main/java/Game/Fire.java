@@ -4,11 +4,8 @@ package Game;
  * Created by Emil on 12/10/2016.
  */
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
-import com.example.emil.Framework.GameOver;
 import com.example.emil.app.R;
 
 /**
@@ -22,8 +19,8 @@ public class Fire extends Hazard {
 
     public Fire(Position position) {
         super(position, Block.BLOCK_WIDTH, Block.BLOCK_HEIGHT);
-        picture1 = board.getResources().getDrawable(R.drawable.hot_fire);
-        picture2 = board.getResources().getDrawable(R.drawable.hot_fire2);
+        picture1 = gameActivity.getResources().getDrawable(R.drawable.hot_fire);
+        picture2 = gameActivity.getResources().getDrawable(R.drawable.hot_fire2);
         picture1.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
         picture2.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
     }
@@ -46,10 +43,11 @@ public class Fire extends Hazard {
 
     @Override
     protected void affectPlayer() {
-        canvas.drawColor(Color.BLACK);
-        world.pauseGame();
-        Intent intent = new Intent(board, GameOver.class);
-        intent.putExtra("Level", world.getLevel());
-        board.startActivity(intent);
+        world.gameOver();
+//        canvas.drawColor(Color.BLACK);
+//        world.pauseGame();
+//        Intent intent = new Intent(gameActivity, GameOverActivity.class);
+//        intent.putExtra("Level", world.getLevel());
+//        gameActivity.startActivity(intent);
     }
 }

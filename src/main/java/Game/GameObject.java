@@ -2,7 +2,7 @@ package Game;
 
 import android.graphics.Canvas;
 
-import com.example.emil.Framework.Board;
+import com.example.emil.Framework.GameActivity;
 
 /**
  * Created by Emil on 2016-11-20.
@@ -12,7 +12,7 @@ public abstract class GameObject {
 
     protected static Canvas canvas;
     protected static World world;
-    protected static Board board;
+    protected static GameActivity gameActivity;
     protected Position position;
     protected int width;
     protected int height;
@@ -35,10 +35,10 @@ public abstract class GameObject {
 
     public abstract void update();
 
-    public static void initialize(Canvas c, World w, Board b) {
+    public static void initialize(Canvas c, World w, GameActivity b) {
         canvas = c;
         world = w;
-        board = b;
+        gameActivity = b;
     }
 
 }

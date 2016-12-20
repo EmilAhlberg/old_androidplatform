@@ -3,7 +3,7 @@ package Game;
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.emil.Framework.Board;
+import com.example.emil.Framework.GameActivity;
 import com.example.emil.app.R;
 
 import java.io.BufferedReader;
@@ -22,12 +22,12 @@ public class LevelCreator {
     private ArrayList<GameObject> newList;
     private Handler s;
     private Player player;
-    private Board board;
+    private GameActivity gameActivity;
 
-    public LevelCreator(Handler s, Player player, Board board) {
+    public LevelCreator(Handler s, Player player, GameActivity gameActivity) {
         this.s = s;
         this.player = player;
-        this.board = board;
+        this.gameActivity = gameActivity;
     }
 
     public void setLevel(int level) {
@@ -107,7 +107,7 @@ public class LevelCreator {
     }
 
     private String[] getStringArrayFromFile (int id) throws Exception {
-        InputStream fin = board.getResources().openRawResource(id);
+        InputStream fin = gameActivity.getResources().openRawResource(id);
         //FileInputStream fin = new FileInputStream(fl);
         String[] ret = convertStreamToStringArray(fin);
         fin.close();

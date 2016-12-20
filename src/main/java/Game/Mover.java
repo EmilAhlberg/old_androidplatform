@@ -1,13 +1,6 @@
 package Game;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.util.Log;
-
-import com.example.emil.Framework.GameOver;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 /**

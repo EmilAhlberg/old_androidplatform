@@ -1,6 +1,5 @@
 package Game;
 
-import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
 import com.example.emil.app.R;
@@ -18,13 +17,13 @@ public class Block extends GameObject{
     public Block(Position position, int blockType) {
         super(position, BLOCK_WIDTH, BLOCK_HEIGHT);
         initializeImage(blockType);
+        picture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() +width, (int) position.getY() + height);
     }
 
 
     @Override
     public void draw() {
         //canvas.drawRect((float)position.getX(),(float)position.getY(),(float)(position.getX()+width),(float)(position.getY()+height),paint);
-        picture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() +width, (int) position.getY() + height);
         picture.draw(canvas);
     }
 
@@ -35,9 +34,9 @@ public class Block extends GameObject{
 
     private void initializeImage(int blockType) {
         if(blockType == 1) {
-            picture = board.getResources().getDrawable(R.drawable.block1);
+            picture = gameActivity.getResources().getDrawable(R.drawable.block1);
         } else if (blockType == 2) {
-            picture = board.getResources().getDrawable(R.drawable.block2);
+            picture = gameActivity.getResources().getDrawable(R.drawable.block2);
         }
     }
 }

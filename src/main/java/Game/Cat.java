@@ -1,10 +1,7 @@
 package Game;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
-import com.example.emil.Framework.GameOver;
 import com.example.emil.app.R;
 
 /**
@@ -20,7 +17,7 @@ public class Cat extends Mover {
         super(p, 20, 20);
         applyForce(35, 0);
         direction = 1;
-        picture = board.getResources().getDrawable(R.drawable.cat);
+        picture = gameActivity.getResources().getDrawable(R.drawable.cat);
     }
 
     @Override
@@ -67,11 +64,7 @@ public class Cat extends Mover {
     }
 
     public void affectPlayer() {
-        canvas.drawColor(Color.BLACK);
-        world.pauseGame();
-        Intent intent = new Intent(board, GameOver.class);
-        intent.putExtra("Level", world.getLevel());
-        board.startActivity(intent);
+        world.gameOver();
     }
 
     private void changeDirection() {

@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.example.emil.app.R;
 
-public class MainActivity extends AppCompatActivity {
+public class StartMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newGame(View view) {
-        Intent intent = new Intent(this, Board.class);
+        Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("Level", 1); //start at level 1
         startActivity(intent);
 

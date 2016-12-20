@@ -1,7 +1,6 @@
 package Game;
 
 import android.graphics.drawable.Drawable;
-import android.view.View;
 
 import com.example.emil.app.R;
 
@@ -24,9 +23,9 @@ public class DeathAnimator extends GameObject {
 
     private void initializeImage(GameObject g) {
         if (g instanceof Cat) {
-            picture = board.getResources().getDrawable(R.drawable.cat);
+            picture = gameActivity.getResources().getDrawable(R.drawable.cat);
         } else if (g instanceof Vetrinarian) {
-            picture = board.getResources().getDrawable(R.drawable.vet); //kan vara andra objekt        }
+            picture = gameActivity.getResources().getDrawable(R.drawable.vet); //kan vara andra objekt        }
         }
     }
 
@@ -50,6 +49,5 @@ public class DeathAnimator extends GameObject {
 
     protected void updatePosition() {
         move(position.getX() - mv.horizontalSpeed, position.getY() - mv.verticalSpeed);
-        // move(position.getX(), position.getY() - mv.verticalSpeed);
     }
 }

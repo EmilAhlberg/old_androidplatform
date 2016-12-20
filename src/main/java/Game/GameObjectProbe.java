@@ -3,7 +3,7 @@ package Game;
 //import Mover;
 
 /**
- * Class used to probe for GameObjects at future positions. Only uses Mover methods.
+ * 'Mock object', which checks for collisions on assigned locations.
  * Created by Emil on 2016-12-14.
  */
 

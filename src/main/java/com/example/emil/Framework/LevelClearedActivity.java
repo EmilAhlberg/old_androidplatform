@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.example.emil.app.R;
 
-public class LevelCleared extends AppCompatActivity {
+public class LevelClearedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class LevelCleared extends AppCompatActivity {
     public void nextLevel(View view){
         int level = getIntent().getExtras().getInt("Level");
 
-        Intent intent = new Intent (this, Board.class);
+        Intent intent = new Intent (this, GameActivity.class);
         intent.putExtra("Level", ++level);
         this.startActivity(intent);
         super.finish();

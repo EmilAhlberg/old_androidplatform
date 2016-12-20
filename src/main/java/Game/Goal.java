@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.example.emil.Framework.LevelCleared;
+import com.example.emil.Framework.LevelClearedActivity;
 
 /**
  * Created by Emil on 2016-12-03.
@@ -32,9 +32,9 @@ public class Goal extends GameObject {
         if (goalReached) {
             canvas.drawColor(Color.BLACK);
             world.pauseGame();
-            Intent intent = new Intent(board, LevelCleared.class);
+            Intent intent = new Intent(gameActivity, LevelClearedActivity.class);
             intent.putExtra("Level",world.getLevel());
-            board.startActivity(intent);
+            gameActivity.startActivity(intent);
         }
     }
 }
