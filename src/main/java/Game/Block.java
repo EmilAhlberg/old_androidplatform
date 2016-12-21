@@ -8,7 +8,7 @@ import com.example.emil.app.R;
  * Created by Emil on 2016-11-22.
  */
 
-public class Block extends GameObject{
+public class Block extends GameObject {
 
     protected static final int BLOCK_WIDTH = 18;
     protected static final int BLOCK_HEIGHT = 18;
@@ -17,7 +17,7 @@ public class Block extends GameObject{
     public Block(Position position, int blockType) {
         super(position, BLOCK_WIDTH, BLOCK_HEIGHT);
         initializeImage(blockType);
-        picture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() +width, (int) position.getY() + height);
+        picture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
     }
 
 
@@ -33,7 +33,7 @@ public class Block extends GameObject{
     }
 
     private void initializeImage(int blockType) {
-        if(blockType == 1) {
+        if (blockType == 1) {
             picture = gameActivity.getResources().getDrawable(R.drawable.block1);
         } else if (blockType == 2) {
             picture = gameActivity.getResources().getDrawable(R.drawable.block2);
