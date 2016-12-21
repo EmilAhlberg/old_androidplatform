@@ -42,6 +42,7 @@ public class World {
 
     public World(Canvas canvas, GameActivity gameActivity, int level, Handler gameLoopThread, Handler levelCreatorThread) {
         this.canvas = canvas;
+        canvas.translate(0,0); //börjar nere direkt i vänstra  hörnet
         this.gameActivity = gameActivity;
         this.level = level;
         Bitmap temp = gameActivity.getBitmap();
@@ -49,7 +50,7 @@ public class World {
         finalCanvas = new Canvas(finalBitmap);
 
         GameObject.initialize(canvas, this, gameActivity);
-        player = new Player(new Position(100,800));
+        player = new Player(new Position(40,800));
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(levelCreatorThread, player, gameActivity);
         nextLevel();

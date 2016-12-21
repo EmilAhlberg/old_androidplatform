@@ -44,37 +44,50 @@ public class LevelCreator {
     }
 
     private void createLevel(ArrayList<GameObject> newList, String[] mapString) {
-        for (int i= 0; i < mapString.length; i++) {
-            for (int k = 0; k<mapString[i].length(); k++)
-            switch (mapString[i].charAt(k)) {
-                case 'b': newList.add(new Block(new Position(k*20,i*20),2));
-                    break;
-                case 'B': newList.add(new Block(new Position(k*20,i*20),1));
-                    break;
-                case 'g': newList.add(new Goal(new Position(k*20, i*20)));
-                    break;
-                case 'F': newList.add(new Fire(new Position(k*20, i*20)));
-                    break;
-                case 'C': newList.add(new Cat(new Position(k*20, i*20)));
-                    break;
-                case 'V': newList.add(new Vetrinarian(new Position(k*20, i*20-20)));
-                //default: throw new IllegalArgumentException();
+        for (int i = 0; i < mapString.length; i++) {
+            for (int k = 0; k < mapString[i].length(); k++) {
+                Position p = new Position((k-1) * 20, i * 20); //k-1 vänsterorienterar objekt
+                switch (mapString[i].charAt(k)) {
+                    case 'b':
+                        newList.add(new Block(p, 2));
+                        break;
+                    case 'B':
+                        newList.add(new Block(p, 1));
+                        break;
+                    case 'g':
+                        newList.add(new Goal(p));
+                        break;
+                    case 'F':
+                        newList.add(new Fire(p));
+                        break;
+                    case 'C':
+                        newList.add(new Cat(p));
+                        break;
+                    case 'V':
+                        p.setY(p.getY()-20);
+                        newList.add(new Vetrinarian(p));
+                        //default: throw new IllegalArgumentException();
+                }
             }
         }
 
     }
+
     private String[] getLevelArray(int level) {
         String[] map;
         try {
             switch (level) {
-                case 1:  map = getStringArrayFromFile(R.raw.level1);
+                case 1:
+                    map = getStringArrayFromFile(R.raw.level1);
                     break;
-                case 2: map = getStringArrayFromFile(R.raw.level2);
+                case 2:
+                    map = getStringArrayFromFile(R.raw.level2);
                     break;
-                default: map = null;
+                default:
+                    map = null;
             }
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.d("LevelCreator Error", "getStringFromFile Failed");
             map = null;
         }
@@ -95,7 +108,7 @@ public class LevelCreator {
         String line = null;
         while ((line = reader.readLine()) != null) {
             if (line.charAt(4) == '§') {         //skalar bort ram, unviker null vid tom rad
-                strings.add(line.substring(1));
+                strings.add(line.substring(4));
                 //sb.append(line.substring(1)).append("\n");
             }
         }
@@ -106,7 +119,7 @@ public class LevelCreator {
         return stringArray;
     }
 
-    private String[] getStringArrayFromFile (int id) throws Exception {
+    private String[] getStringArrayFromFile(int id) throws Exception {
         InputStream fin = gameActivity.getResources().openRawResource(id);
         //FileInputStream fin = new FileInputStream(fl);
         String[] ret = convertStreamToStringArray(fin);

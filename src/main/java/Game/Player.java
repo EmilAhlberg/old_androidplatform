@@ -29,6 +29,8 @@ public class Player extends Mover {
         super(position, PLAYER_WIDTH, PLAYER_HEIGHT);
         touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()), new Position(position.getX(), position.getY()), canvas);
         picture = gameActivity.getResources().getDrawable(R.drawable.test);
+      /*  Rect r = canvas.getClipBounds();
+        canvas.translate();*/
 
     }
 
@@ -166,68 +168,60 @@ public class Player extends Mover {
 
     private void centerPlayer() {
         Rect r = canvas.getClipBounds();
-        int centerX = r.centerX();
-        int centerY = r.centerY();
-        double dx = centerX - position.getX();
-        double dy = centerY - position.getY() + 40;
+       /* int centerX = r.centerX();
+        int centerY = r.centerY();*/
+        double dx = calculateDx(r);
+        double dy = calculateDy(r);
         //horizontal check
-        if (r.left <= 0) {
-            if (dx > 0) {
-                dx = 0;
-            }
-        }
-        if (r.right >= 2000) {
-            if (dx < 0) {
-                dx = 0;
-            }
+        /*if (position.getX() >= 400 && position.getX() <= 1600) {
+            dx = centerX - position.getX();
+        } else if (position.getX() <= 400) {
+            dx = r.left;
+        } else if (position.getX() >= 1600) {
+            dx = r.right - 2000;
         }
         //vertical check
-        if (r.top <= 0) {
-            if (dy > 0) {
-                dx = 0;
-            }
-        }
-        if (r.bottom >= 1000) {
-            if (dy < 0) {
-                dy = 0;
-            }
-        }
-//        if (r.left + dx <= 0) {
-//            double overShoot = r.left + dx;
-//            dx = dx - overShoot;
-//        }
-//        if (r.right >= 2000) {
-//            if (dx < 0) {
-//                dx = 0;
-//            }
-//        }
-//        //vertical check
-//        if (r.top <= 0) {
-//            if (dy > 0) {
-//                dx = 0;
-//            }
-//        }
-//        if (r.bottom >= 1000) {
-//            if (dy < 0) {
-//                dy = 0;
-//            }
-//        }
-
+        if (position.getY() >= 240 && position.getY() <= 760) {
+            dy = centerY - position.getY();
+        } else if (position.getY() < 240) {
+            dy = r.top;  //icke testad
+        } else if (position.getY() >= 760) {
+            dy = r.bottom - 1000;
+        }*/
 
         //förhindrar 'flimmer' vid stillastående
         if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
             canvas.translate((float) dx, (float) dy);
         }
+    }
 
+    private double calculateDx(Rect r) {
+        double dx = 0;
+        if (position.getX() >= 400 && position.getX() <= 1600) {
+            dx = r.centerX() - position.getX();
+        } else if (position.getX() <= 400) {
+            dx = r.left;
+        } else if (position.getX() >= 1600) {
+            dx = r.right - 2000;
+        }
+        return dx;
+    }
+
+    private double calculateDy(Rect r) {
+        double dy = 0;
+        if (position.getY() >= 240 && position.getY() <= 760) {
+            dy = r.centerY() - position.getY();
+        } else if (position.getY() < 240) {
+            dy = r.top;  //icke testad
+        } else if (position.getY() >= 760) {
+            dy = r.bottom - 1000;
+        }
+        return dy;
     }
 
     private void stillOnScreen() {
         if (position.getY() >= 1000) {
-            canvas.drawColor(Color.BLACK);
-            world.pauseGame();
-            Intent intent = new Intent(gameActivity, GameOverActivity.class);
-            intent.putExtra("Level", world.getLevel());
-            gameActivity.startActivity(intent);
+            world.gameOver();
         }
     }
 
