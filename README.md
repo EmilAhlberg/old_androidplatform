@@ -16,7 +16,7 @@
 
 ##Bugs##
 * translation exceeds map edge  FIXED
-* activity switch
+* activity switch, needs improvement
 
 
 ##Other fix##
