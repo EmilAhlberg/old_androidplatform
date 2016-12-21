@@ -58,7 +58,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void setFullscreen() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide(); //denna är farlig
         //Gör så att appen kör i landscape-mode
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
