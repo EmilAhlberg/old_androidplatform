@@ -42,7 +42,6 @@ public class World {
 
     public World(Canvas canvas, GameActivity gameActivity, int level, Handler gameLoopThread, Handler levelCreatorThread) {
         this.canvas = canvas;
-        canvas.translate(0,0); //börjar nere direkt i vänstra  hörnet
         this.gameActivity = gameActivity;
         this.level = level;
         Bitmap temp = gameActivity.getBitmap();

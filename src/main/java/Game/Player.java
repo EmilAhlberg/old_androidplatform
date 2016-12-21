@@ -29,9 +29,6 @@ public class Player extends Mover {
         super(position, PLAYER_WIDTH, PLAYER_HEIGHT);
         touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()), new Position(position.getX(), position.getY()), canvas);
         picture = gameActivity.getResources().getDrawable(R.drawable.test);
-      /*  Rect r = canvas.getClipBounds();
-        canvas.translate();*/
-
     }
 
 
@@ -115,7 +112,6 @@ public class Player extends Mover {
         } else if (collisionType == 1) {
             specificCollisionVertical(g);
         }
-
         //kollisioner oberoende av typ
         if (g instanceof Goal) {
             ((Goal) g).playerReachedGoal();
@@ -168,26 +164,8 @@ public class Player extends Mover {
 
     private void centerPlayer() {
         Rect r = canvas.getClipBounds();
-       /* int centerX = r.centerX();
-        int centerY = r.centerY();*/
         double dx = calculateDx(r);
         double dy = calculateDy(r);
-        //horizontal check
-        /*if (position.getX() >= 400 && position.getX() <= 1600) {
-            dx = centerX - position.getX();
-        } else if (position.getX() <= 400) {
-            dx = r.left;
-        } else if (position.getX() >= 1600) {
-            dx = r.right - 2000;
-        }
-        //vertical check
-        if (position.getY() >= 240 && position.getY() <= 760) {
-            dy = centerY - position.getY();
-        } else if (position.getY() < 240) {
-            dy = r.top;  //icke testad
-        } else if (position.getY() >= 760) {
-            dy = r.bottom - 1000;
-        }*/
 
         //förhindrar 'flimmer' vid stillastående
         if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
