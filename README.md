@@ -8,18 +8,22 @@
 ##Gameplay suggestions ##
 * set limit to verticalSpeed
 * air jump remove
-* reduce vertical jump force
+* balance vertical jump force FIXED
 * rotate 'syringes' as they curve
 * cutscenes/bosses
 * fps-meter
 * 'coin' system
 
 ##Bugs##
-* translation exceeds map edge  FIXED
-* activity switch, needs improvement
+*
 * flimmer efter telefonen går i viloläge
 * saknar handling för vanliga android-kommandon("bakåt, till startmeny, "alt-tab"")
+* translation exceeds map edge  FIXED
+* activity switch, needs improvement (typ) FIXED
 
 ##Other fix##
+* lagg?
 * image size too big/get other images
+* write new levels
+* level selector FIXED
 * remove application bar from startscreen activity etc FIXED
