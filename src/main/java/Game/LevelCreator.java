@@ -66,11 +66,14 @@ public class LevelCreator {
                     case 'V':
                         p.setY(p.getY()-20);
                         newList.add(new Vetrinarian(p));
+                        break;
+                    case 'P':
+                        player.move((k-1)*20,(i*20));
+                        break;
                         //default: throw new IllegalArgumentException();
                 }
             }
         }
-
     }
 
     private String[] getLevelArray(int level) {
@@ -88,7 +91,7 @@ public class LevelCreator {
             }
 
         } catch (Exception e) {
-            Log.d("LevelCreator Error", "getStringFromFile Failed");
+            e.printStackTrace();
             map = null;
         }
 

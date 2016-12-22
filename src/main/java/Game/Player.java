@@ -65,7 +65,7 @@ public class Player extends Mover {
             int cTemp = canvas.getWidth() / 2;
             double sClickTemp = touchEventDecoder.getSecondClickPos().getX();
             if ((clickX <= cTemp && sClickTemp > cTemp) || (clickX > cTemp && sClickTemp <= cTemp)) {
-                jump(650);
+                jump(600);
             }
         }
         if (nbrFingers > 0) {

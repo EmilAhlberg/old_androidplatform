@@ -19,7 +19,7 @@ public class SplashScreen extends AppCompatActivity implements ActivityConstants
             @Override
             public void run() {
                 try {
-                    sleep(3000);
+                    sleep(2000);
                     Intent intent = createIntent();
                     startActivity(intent);
                     finish();

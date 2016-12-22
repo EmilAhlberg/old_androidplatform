@@ -51,7 +51,7 @@ public class World {
         finalCanvas = new Canvas(finalBitmap);
 
         GameObject.initialize(canvas, this, gameActivity);
-        player = new Player(new Position(40,800));
+        player = new Player(new Position(0,0));
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(levelCreatorThread, player, gameActivity);
         nextLevel();
