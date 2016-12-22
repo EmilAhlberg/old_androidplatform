@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.example.emil.Framework.ActivityConstants;
 import com.example.emil.Framework.LevelClearedActivity;
+import com.example.emil.Framework.SplashScreen;
 
 /**
  * Created by Emil on 2016-12-03.
@@ -32,8 +34,9 @@ public class Goal extends GameObject {
         if (goalReached) {
             canvas.drawColor(Color.BLACK);
             world.pauseGame();
-            Intent intent = new Intent(gameActivity, LevelClearedActivity.class);
-            intent.putExtra("Level",world.getLevel());
+            Intent intent = new Intent(gameActivity, SplashScreen.class);
+            intent.putExtra("level",world.getLevel());
+            intent.putExtra("activityID", ActivityConstants.LEVELCLEARED);
             gameActivity.startActivity(intent);
         }
     }

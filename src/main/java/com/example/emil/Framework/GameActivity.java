@@ -33,7 +33,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setFullscreen();
         setContentView(R.layout.activity_game);
-        int level = getIntent().getExtras().getInt("Level");
+        int level = getIntent().getExtras().getInt("level");
         handlerSetup();
 
         ll = (LinearLayout) findViewById(R.id.gameActivity);

@@ -14,9 +14,11 @@ import android.os.Message;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
 
+import com.example.emil.Framework.ActivityConstants;
 import com.example.emil.Framework.GameActivity;
 import com.example.emil.Framework.GameLoop;
 import com.example.emil.Framework.GameOverActivity;
+import com.example.emil.Framework.SplashScreen;
 import com.example.emil.app.R;
 
 import java.util.ArrayList;
@@ -79,10 +81,10 @@ public class World {
         return tempGameObjects;
     }
     public void gameOver() {
-        canvas.drawColor(Color.BLACK);
         pauseGame();
-        Intent intent = new Intent(gameActivity, GameOverActivity.class);
-        intent.putExtra("Level", getLevel());
+        Intent intent = new Intent(gameActivity, SplashScreen.class);
+        intent.putExtra("level", getLevel());
+        intent.putExtra("activityID", ActivityConstants.GAMEOVER);
         gameActivity.startActivity(intent);
     }
 

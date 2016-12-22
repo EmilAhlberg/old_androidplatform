@@ -16,10 +16,11 @@ public class GameOverActivity extends AppCompatActivity {
     }
 
     public void retryLevel(View view) {
-        int level = getIntent().getExtras().getInt("Level");
+        int level = getIntent().getExtras().getInt("level");
         Intent intent = new Intent (this, GameActivity.class);
-        intent.putExtra("Level", level);
-        this.startActivity(intent);
+        intent.putExtra("level", level);
+        startActivity(intent);
+
 
     }
 }

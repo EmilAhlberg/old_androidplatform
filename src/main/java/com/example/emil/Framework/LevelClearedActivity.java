@@ -16,10 +16,10 @@ public class LevelClearedActivity extends AppCompatActivity {
     }
 
     public void nextLevel(View view){
-        int level = getIntent().getExtras().getInt("Level");
+        int level = getIntent().getExtras().getInt("level");
 
         Intent intent = new Intent (this, GameActivity.class);
-        intent.putExtra("Level", ++level);
+        intent.putExtra("level", ++level);
         this.startActivity(intent);
         super.finish();
     }

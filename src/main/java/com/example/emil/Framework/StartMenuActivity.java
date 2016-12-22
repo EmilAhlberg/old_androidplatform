@@ -25,7 +25,7 @@ public class StartMenuActivity extends AppCompatActivity {
 
     public void newGame(View view) {
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra("Level", 1); //start at level 1
+        intent.putExtra("level", 1); //start at level 1
         startActivity(intent);
 
     }
