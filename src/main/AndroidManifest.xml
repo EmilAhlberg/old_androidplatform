@@ -29,7 +29,8 @@
         <activity android:name="com.example.emil.Framework.GameActivity" />
         <activity android:name="com.example.emil.Framework.LevelClearedActivity" />
         <activity android:name="com.example.emil.Framework.GameOverActivity" />
-        <activity android:name="com.example.emil.Framework.StartMenuActivity"></activity>
+        <activity android:name="com.example.emil.Framework.StartMenuActivity" />
+        <activity android:name="com.example.emil.Framework.SelectLevelActivity"></activity>
     </application>
 
 </manifest>

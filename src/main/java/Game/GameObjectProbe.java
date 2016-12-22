@@ -25,7 +25,6 @@ public class GameObjectProbe extends Mover {
         if (collisionType == 0) {
             latestCollider = g;
         }
-
     }
 
 
