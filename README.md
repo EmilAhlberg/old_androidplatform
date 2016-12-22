@@ -15,7 +15,7 @@
 * 'coin' system
 
 ##Bugs##
-*
+
 * flimmer efter telefonen går i viloläge
 * saknar handling för vanliga android-kommandon("bakåt, till startmeny, "alt-tab"")
 * translation exceeds map edge  FIXED
