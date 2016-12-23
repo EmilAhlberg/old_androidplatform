@@ -10,7 +10,7 @@ import com.example.emil.app.R;
 
 public abstract class Cat extends Mover {
     private Drawable picture;
-    private int direction;
+    protected int direction;
 
 
     public Cat(Position p, Drawable d) {
@@ -22,8 +22,17 @@ public abstract class Cat extends Mover {
 
     @Override
     protected void updatePosition() {
-        move(position.getX() - mv.horizontalSpeed * direction, position.getY() - mv.verticalSpeed);
+        for (int i = 1; i >=0 ; i--) {
+            if (i == 0) {
+                move(position.getX() - mv.horizontalSpeed*direction, position.getY());
+            } else if (i == 1) {
+                move(position.getX(), position.getY() - mv.verticalSpeed);
+            }
+            checkCollision(i);
+           // move(position.getX() - mv.horizontalSpeed * direction, position.getY() - mv.verticalSpeed);
+        }
     }
+    protected abstract void specificCatCollision(GameObject g,int collisionType);
 
     @Override
     protected void specificCollision(GameObject g, int collisionType) {
@@ -32,6 +41,7 @@ public abstract class Cat extends Mover {
         } else if ((g instanceof Block || g instanceof Hazard) && collisionType == 0) {
             changeDirection();
         }
+        specificCatCollision(g,collisionType);
     }
 
     @Override
@@ -47,20 +57,10 @@ public abstract class Cat extends Mover {
         catAction();
         updateSpeed();
         updatePosition();
-        checkCollision(1); //ordning på collisionCheck viktig, annars bugg
-        checkCollision(0);
+    /*    checkCollision(1); //ordning på collisionCheck viktig, annars bugg
+        checkCollision(0);*/
     }
 
-    protected GameObjectProbe probePath() {
-        int probeXOffset = direction * -2 + width * direction;
-        int probeYOffset = height + 2;
-        if (direction > 0) {
-            probeXOffset = probeXOffset - width;
-        }
-        GameObjectProbe probe = new GameObjectProbe(new Position(position.getX() - probeXOffset, position.getY() + probeYOffset), 2, 5);
-        probe.setClearPath(probe.checkCollision(0));
-        return probe;
-    }
 
     public void affectPlayer() {
         world.gameOver();

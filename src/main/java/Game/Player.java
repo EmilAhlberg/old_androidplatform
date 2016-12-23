@@ -120,7 +120,6 @@ public class Player extends Mover {
         } else if (g instanceof Hazard) {
             ((Hazard) g).affectPlayer();
         }
-
     }
 
     private void specificCollisionHorizontal(GameObject g) {
@@ -143,7 +142,7 @@ public class Player extends Mover {
     }
 
 
-    private void kill(GameObject g) {
+    public void kill(GameObject g) {
         world.removeObject(g);
         DeathAnimator d = new DeathAnimator(g);
         mv.verticalSpeed = 0;
