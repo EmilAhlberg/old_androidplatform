@@ -61,7 +61,7 @@ public class LevelCreator {
                         newList.add(new Fire(p));
                         break;
                     case 'C':
-                        newList.add(new Cat(p));
+                        newList.add(new StandardCat(p));
                         break;
                     case 'V':
                         p.setY(p.getY()-20);
@@ -69,6 +69,9 @@ public class LevelCreator {
                         break;
                     case 'P':
                         player.move((k-1)*20,(i*20));
+                        break;
+                    case 's':
+                        newList.add(new SuicideCat(p));
                         break;
                         //default: throw new IllegalArgumentException();
                 }
@@ -85,6 +88,9 @@ public class LevelCreator {
                     break;
                 case 2:
                     map = getStringArrayFromFile(R.raw.level2);
+                    break;
+                case 3:
+                    map = getStringArrayFromFile(R.raw.level3);
                     break;
                 default:
                     map = null;

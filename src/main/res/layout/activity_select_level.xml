@@ -31,4 +31,14 @@
         android:layout_marginLeft="24dp"
         android:layout_marginStart="24dp"/>
 
+    <Button
+        android:tag="3"
+        android:layout_height = "wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/level_3"
+        android:text="@string/level_3"
+        android:onClick="playLevel"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"/>
+
 </LinearLayout>

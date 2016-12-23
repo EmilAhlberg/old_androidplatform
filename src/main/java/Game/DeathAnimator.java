@@ -22,10 +22,12 @@ public class DeathAnimator extends GameObject {
     }
 
     private void initializeImage(GameObject g) {
-        if (g instanceof Cat) {
+        if (g instanceof StandardCat) {
             picture = gameActivity.getResources().getDrawable(R.drawable.cat);
+        } else if (g instanceof SuicideCat) {
+            picture = gameActivity.getResources().getDrawable(R.drawable.suicidecat);
         } else if (g instanceof Vetrinarian) {
-            picture = gameActivity.getResources().getDrawable(R.drawable.vet); //kan vara andra objekt        }
+            picture = gameActivity.getResources().getDrawable(R.drawable.vet);
         }
     }
 

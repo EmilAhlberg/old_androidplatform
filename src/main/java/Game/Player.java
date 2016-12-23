@@ -77,10 +77,10 @@ public class Player extends Mover {
         }
     }
 
-    public void jump(int force) {
+    /*public void jump(int force) {
         applyForce(0, force);
         grounded = false;
-    }
+    }*/
 
     public void decodeTouchEvent(MotionEvent event, Point p) {
         touchEventDecoder.decodeTouchEvent(event, p);
@@ -149,7 +149,6 @@ public class Player extends Mover {
         mv.verticalSpeed = 0;
         mv.verticalForce = 0;
         jump(150);
-
     }
 
     private void applyFriction() {

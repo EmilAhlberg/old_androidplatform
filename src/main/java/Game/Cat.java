@@ -8,24 +8,20 @@ import com.example.emil.app.R;
  * Created by Emil on 2016-12-14.
  */
 
-public class Cat extends Mover {
+public abstract class Cat extends Mover {
     private Drawable picture;
     private int direction;
 
 
-    public Cat(Position p) {
+    public Cat(Position p, Drawable d) {
         super(p, 20, 20);
         applyForce(35, 0);
         direction = 1;
-        picture = gameActivity.getResources().getDrawable(R.drawable.cat);
+        picture = d;
     }
 
     @Override
     protected void updatePosition() {
-        GameObjectProbe probe = probePath();
-        if (!(probe.objectAhead()) || probe.getLatestCollider() instanceof Hazard) {
-            changeDirection();
-        }
         move(position.getX() - mv.horizontalSpeed * direction, position.getY() - mv.verticalSpeed);
     }
 
@@ -44,15 +40,18 @@ public class Cat extends Mover {
         picture.draw(canvas);
     }
 
+    protected abstract void catAction();
+
     @Override
     public void update() {
+        catAction();
         updateSpeed();
         updatePosition();
         checkCollision(1); //ordning på collisionCheck viktig, annars bugg
         checkCollision(0);
     }
 
-    private GameObjectProbe probePath() {
+    protected GameObjectProbe probePath() {
         int probeXOffset = direction * -2 + width * direction;
         int probeYOffset = height + 2;
         if (direction > 0) {
@@ -67,7 +66,7 @@ public class Cat extends Mover {
         world.gameOver();
     }
 
-    private void changeDirection() {
+    protected void changeDirection() {
         direction = direction * -1;
     }
 }

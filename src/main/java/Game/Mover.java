@@ -14,7 +14,6 @@ public abstract class Mover extends GameObject {
 
     public Mover(Position position, int width, int height) {
         super(position, width, height);
-
         mv = new MovementVector();
         grounded = false;
     }
@@ -25,6 +24,11 @@ public abstract class Mover extends GameObject {
 
     protected void applyForce(double horizontalChange, double verticalChange) {
        mv.applyForce(horizontalChange, verticalChange);
+    }
+
+    protected void jump(int force) {
+        applyForce(0, force);
+        grounded = false;
     }
 
     protected abstract void updatePosition();
