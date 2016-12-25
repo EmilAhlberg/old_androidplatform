@@ -156,6 +156,8 @@ public class Player extends Mover {
             if (touchEventDecoder.getNbrFingersDown() == 0 && (mv.horizontalSpeed > 0.5 || mv.horizontalSpeed < -0.5)) {
                 mv.horizontalSpeed -= mv.horizontalSpeed / Math.abs(mv.horizontalSpeed) * 0.5;
             }
+        } else {
+            mv.horizontalSpeed *= 0.96;
         }
     }
 
