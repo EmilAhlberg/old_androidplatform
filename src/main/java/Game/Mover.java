@@ -1,5 +1,8 @@
 package Game;
 
+import android.util.Log;
+import android.widget.HorizontalScrollView;
+
 import java.util.ArrayList;
 
 
@@ -11,11 +14,14 @@ public abstract class Mover extends GameObject {
 
     protected boolean grounded;
     protected MovementVector mv;
+    protected int WJDirection;
+    private int WJDirectionHelper;
 
     public Mover(Position position, int width, int height) {
         super(position, width, height);
         mv = new MovementVector();
         grounded = false;
+        WJDirection = WJDirectionHelper = 0;
     }
 
     protected void updateSpeed() {
@@ -70,11 +76,14 @@ public abstract class Mover extends GameObject {
     }
 
     protected void horizontalBlockCollision(GameObject g) {
-        move(position.getX() + mv.horizontalSpeed, position.getY());
+        double tempSpeed = mv.horizontalSpeed;
+        move(position.getX() + tempSpeed, position.getY());
+        WJDirection = WJDirectionHelper;
+        WJDirectionHelper = (int)(-tempSpeed/Math.abs(tempSpeed));
         mv.horizontalAcceleration = 0;
         mv.horizontalSpeed = 0;
-
     }
+
     protected void verticalBlockCollision(GameObject g) {
         grounded = bottomIntersection(g);   //tvek om detta fungerar, även enda stället bottomIntersection anropas från
         mv.verticalAcceleration = 0;
@@ -95,6 +104,8 @@ public abstract class Mover extends GameObject {
     public boolean isGrounded() {
         return grounded;
     }
+
+    public int getWJDirection() { return WJDirection; }
 
     /*
         normal intersection check between two rectangular objects.

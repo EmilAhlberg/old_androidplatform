@@ -69,8 +69,8 @@ public class TouchEventDecoder {
 
         //Log.d("MultiTouch", "FirstClickPos = (" + firstClickPos.getX() + ", " + firstClickPos.getY() + ")" + " : SecondClickPos = (" + secondClickPos.getX() + ", " + secondClickPos.getY() + ")");
 
-        Log.d("MultiTouch", "" + firstPointerId + " : " + secondPointerId + " : " + nbrFingersDown);
-        debugMultiTouch();
+        //Log.d("MultiTouch", "" + firstPointerId + " : " + secondPointerId + " : " + nbrFingersDown);
+        //debugMultiTouch();
     }
 
     private void debugMultiTouch() {

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.emil.Framework.GameOverActivity;
@@ -61,11 +62,17 @@ public class Player extends Mover {
 
     private void performAction() {
         int nbrFingers = touchEventDecoder.getNbrFingersDown();
-        if (isGrounded() && nbrFingers == 2) {
-            int cTemp = canvas.getWidth() / 2;
-            double sClickTemp = touchEventDecoder.getSecondClickPos().getX();
-            if ((clickX <= cTemp && sClickTemp > cTemp) || (clickX > cTemp && sClickTemp <= cTemp)) {
-                jump(600);
+        if (nbrFingers == 2) {
+            if (WJDirection != 0) {
+                mv.verticalSpeed = 0;
+                applyForce(WJDirection * 300, 600);
+                grounded = false;
+            } else if (grounded) {
+                int cTemp = canvas.getWidth() / 2;
+                double sClickTemp = touchEventDecoder.getSecondClickPos().getX();
+                if ((clickX <= cTemp && sClickTemp > cTemp) || (clickX > cTemp && sClickTemp <= cTemp)) {
+                    jump(600);
+                }
             }
         }
         if (nbrFingers > 0) {
@@ -94,6 +101,7 @@ public class Player extends Mover {
      */
     @Override
     protected void updatePosition() {
+        WJDirection = 0;
         for (int i = 0; i < 2; i++) {
             if (i == 0) {
                 applyFriction();
