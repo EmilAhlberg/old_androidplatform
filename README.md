@@ -27,3 +27,4 @@
 * write new levels
 * level selector FIXED
 * remove application bar from startscreen activity etc FIXED
+* lägga till "teman". Typ att du börjar med ett specifikt tema, och efter 3-4 banor eller nåt möter du en boss. Slår du bossen avancerar du till nästa "tema"
