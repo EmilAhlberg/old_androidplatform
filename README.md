@@ -3,6 +3,7 @@
 
 ##Refactoring suggestions ##
 * blocks uppdateras i updateWorld, men behöver endast ritas. typ 100 redundanta anrop per uppdateringscykel
+* vi skulle istället för att rita alla fasta block och bakgrunden för sig kunna sätta ihop dem och rita allihopa som en gemensam bitmap, borde förbättra prestandan en del, men verkar hyfsat jobbigt att fixa
 
 
 ##Gameplay suggestions ##
