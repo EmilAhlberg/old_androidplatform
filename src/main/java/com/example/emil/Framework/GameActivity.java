@@ -20,9 +20,7 @@ import Game.World;
 
 public class GameActivity extends AppCompatActivity {
 
-    private Canvas canvas;
     private World world;
-    private Bitmap bg;
     private Handler gameLoopThread;
     private Handler levelCreatorThread;
     private LinearLayout ll;
@@ -37,9 +35,8 @@ public class GameActivity extends AppCompatActivity {
         handlerSetup();
 
         ll = (LinearLayout) findViewById(R.id.gameActivity);
-        bg = Bitmap.createBitmap(800, 480, Bitmap.Config.ARGB_8888);
-        canvas = new Canvas(bg);
-        world = new World(canvas, this, level, gameLoopThread,levelCreatorThread);
+        //https://www.youtube.com/watch?v=2xYaTGRvpv4
+        world = new World(this, level, gameLoopThread,levelCreatorThread);
     }
 
     private void handlerSetup() {
@@ -50,7 +47,7 @@ public class GameActivity extends AppCompatActivity {
         };
         gameLoopThread = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message inputMessage) {
-                ll.setBackground(new BitmapDrawable(getResources(), world.getFinalBitmap()));
+                ll.setBackground(new BitmapDrawable(getResources(), world.getBitmap()));
             }
         };
     }
@@ -58,7 +55,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void setFullscreen() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //getSupportActionBar().hide(); //denna är farlig
         //Gör så att appen kör i landscape-mode
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
@@ -72,8 +68,8 @@ public class GameActivity extends AppCompatActivity {
         return true;
     }
 
-    public Bitmap getBitmap() {
+    /*public Bitmap getBitmap() {
         return bg;
-    }
+    }*/
 
 }

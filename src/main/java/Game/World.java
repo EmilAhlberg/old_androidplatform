@@ -32,8 +32,7 @@ public class World {
 
     private GameActivity gameActivity;
     private Canvas canvas;
-    private Canvas finalCanvas;
-    private Bitmap finalBitmap;
+    private Bitmap bitmap;
     private int level;
     private LevelCreator levelCreator;
     private Player player;
@@ -42,13 +41,11 @@ public class World {
     private Drawable background;
 
 
-    public World(Canvas canvas, GameActivity gameActivity, int level, Handler gameLoopThread, Handler levelCreatorThread) {
-        this.canvas = canvas;
+    public World(GameActivity gameActivity, int level, Handler gameLoopThread, Handler levelCreatorThread) {
         this.gameActivity = gameActivity;
         this.level = level;
-        Bitmap temp = gameActivity.getBitmap();
-        finalBitmap = Bitmap.createBitmap(temp.getWidth(), temp.getHeight(), Bitmap.Config.ARGB_8888);
-        finalCanvas = new Canvas(finalBitmap);
+        bitmap = Bitmap.createBitmap(800, 480, Bitmap.Config.RGB_565);
+        canvas = new Canvas(bitmap);
 
         GameObject.initialize(canvas, this, gameActivity);
         player = new Player(new Position(0,0));
@@ -67,8 +64,8 @@ public class World {
         list = levelCreator.getNewList();
     }
 
-    public Bitmap getFinalBitmap() {
-        return finalBitmap;
+    public Bitmap getBitmap() {
+        return bitmap;
     }
 
     /**
@@ -89,6 +86,8 @@ public class World {
     }
 
     public void updateWorld() {
+        Bitmap tempMap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
+        canvas.setBitmap(tempMap);
         background.draw(canvas);
         //canvas.drawColor(Color.WHITE);
         //ConcurrentModificationException fix
@@ -97,7 +96,7 @@ public class World {
             gameObject.update();
             gameObject.draw();
         }
-        finalCanvas.drawBitmap(gameActivity.getBitmap(), 0, 0, new Paint());
+        bitmap = tempMap;
     }
 
     public void addObject(GameObject g) {
