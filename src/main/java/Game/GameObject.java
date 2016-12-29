@@ -1,6 +1,7 @@
 package Game;
 
 import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 
 import com.example.emil.Framework.GameActivity;
 
@@ -10,12 +11,13 @@ import com.example.emil.Framework.GameActivity;
 
 public abstract class GameObject {
 
-    protected static Canvas canvas;
+   /* protected static Canvas canvas;*/
     protected static World world;
     protected static GameActivity gameActivity;
     protected Position position;
     protected int width;
     protected int height;
+    protected Drawable activePicture;
 
     public GameObject(Position position, int width, int height) {
         this.position = position;
@@ -31,12 +33,14 @@ public abstract class GameObject {
         position.setY(y);
     }
 
-    public abstract void draw();
+    public Drawable getDrawable() {
+        return activePicture;
+    }
 
     public abstract void update();
 
-    public static void initialize(Canvas c, World w, GameActivity b) {
-        canvas = c;
+    public static void initialize(World w, GameActivity b) {
+   /*     canvas = c;*/
         world = w;
         gameActivity = b;
     }

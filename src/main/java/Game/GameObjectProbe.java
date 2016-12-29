@@ -21,6 +21,11 @@ public class GameObjectProbe extends Mover {
     }
 
     @Override
+    protected void updatePicture() {
+
+    }
+
+    @Override
     protected void specificCollision(GameObject g, int collisionType) {
         if (collisionType == 0) {
             latestCollider = g;
@@ -28,10 +33,10 @@ public class GameObjectProbe extends Mover {
     }
 
 
-    @Override
+  /*  @Override
     public void draw() {
 
-    }
+    }*/
 
     @Override
     public void update() {

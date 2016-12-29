@@ -22,18 +22,18 @@ public class Player extends Mover {
     private double clickX = position.getX();
     private double clickY = position.getY();
     private TouchEventDecoder touchEventDecoder;
-    private Drawable picture;
+    /*private Drawable picture;*/
     private boolean awake = true;
     private int sleepTime = 0;
 
     public Player(Position position) {
         super(position, PLAYER_WIDTH, PLAYER_HEIGHT);
-        touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()), new Position(position.getX(), position.getY()), canvas);
-        picture = gameActivity.getResources().getDrawable(R.drawable.test);
+        touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()), new Position(position.getX(), position.getY()));
+        activePicture = gameActivity.getResources().getDrawable(R.drawable.test);
     }
 
 
-    @Override
+   /* @Override
     public void draw() {
         picture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + PLAYER_WIDTH, (int) position.getY() + PLAYER_HEIGHT);
         picture.draw(canvas);
@@ -42,7 +42,7 @@ public class Player extends Mover {
 //        canvas.drawCircle((int) touchEventDecoder.getFirstClickPos().getX(), (int) touchEventDecoder.getFirstClickPos().getY(), 50, paint);
 //        paint.setColor(Color.RED);
 //        canvas.drawCircle((int) touchEventDecoder.getSecondClickPos().getX(), (int) touchEventDecoder.getSecondClickPos().getY(), 50, paint);
-    }
+    }*/
 
     @Override
     public void update() {
@@ -56,8 +56,9 @@ public class Player extends Mover {
         }
         updateSpeed();
         updatePosition();
+        updatePicture();
         stillOnScreen();
-        centerPlayer();
+        /*centerPlayer();*/
     }
 
     private void performAction() {
@@ -68,7 +69,7 @@ public class Player extends Mover {
                 applyForce(WJDirection * 300, 600);
                 grounded = false;
             } else if (grounded) {
-                int cTemp = canvas.getWidth() / 2;
+                int cTemp = world.getCanvas().getWidth() / 2;
                 double sClickTemp = touchEventDecoder.getSecondClickPos().getX();
                 if ((clickX <= cTemp && sClickTemp > cTemp) || (clickX > cTemp && sClickTemp <= cTemp)) {
                     jump(600);
@@ -76,7 +77,7 @@ public class Player extends Mover {
             }
         }
         if (nbrFingers > 0) {
-            if (clickX <= canvas.getWidth() / 2) {
+            if (clickX <= world.getCanvas().getWidth() / 2) {
                 applyForce(30 - mv.horizontalSpeed * 2, 0);
             } else {
                 applyForce(-30 - mv.horizontalSpeed * 2, 0);
@@ -90,7 +91,7 @@ public class Player extends Mover {
     }*/
 
     public void decodeTouchEvent(MotionEvent event, Point p) {
-        touchEventDecoder.decodeTouchEvent(event, p);
+        touchEventDecoder.decodeTouchEvent(event, p, world.getCanvas());
         clickX = touchEventDecoder.getFirstClickPos().getX();
         clickY = touchEventDecoder.getFirstClickPos().getY();
     }
@@ -111,6 +112,11 @@ public class Player extends Mover {
             }
             checkCollision(i);
         }
+    }
+
+    @Override
+    protected void updatePicture() {
+        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
     }
 
     @Override
@@ -170,7 +176,7 @@ public class Player extends Mover {
     }
 
 
-    private void centerPlayer() {
+   /* private void centerPlayer() {
         Rect r = canvas.getClipBounds();
         double dx = calculateDx(r);
         double dy = calculateDy(r);
@@ -203,7 +209,7 @@ public class Player extends Mover {
             dy = r.bottom - 1000;
         }
         return dy;
-    }
+    }*/
 
     private void stillOnScreen() {
         if (position.getY() >= 1000) {

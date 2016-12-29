@@ -14,7 +14,7 @@ import com.example.emil.app.R;
 
 public class Fire extends Hazard {
 
-    private Drawable picture1, picture2, drawingPic;
+    private Drawable picture1, picture2;// drawingPic;
     int animation = 0;
 
     public Fire(Position position) {
@@ -25,17 +25,18 @@ public class Fire extends Hazard {
         picture2.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
     }
 
-    @Override
+  /*  @Override
     public void draw() {
         drawingPic.draw(canvas);
     }
+*/
 
     @Override
     public void update() {
         if (animation < 10)
-            drawingPic = picture1;
+            activePicture = picture1;
         else
-            drawingPic = picture2;
+            activePicture = picture2;
         if (animation == 19)
             animation = 0;
         animation++;

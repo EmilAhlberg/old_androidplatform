@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.example.emil.Framework.ActivityConstants;
 import com.example.emil.Framework.GameActivity;
+import com.example.emil.Framework.GameDisplay;
 import com.example.emil.Framework.GameLoop;
 import com.example.emil.Framework.GameOverActivity;
 import com.example.emil.Framework.SplashScreen;
@@ -31,33 +32,37 @@ import java.util.List;
 public class World {
 
     private GameActivity gameActivity;
-    private Canvas canvas;
-    private Bitmap bitmap;
+   /* private Canvas canvas;
+    private Bitmap bitmap;*/
     private int level;
     private LevelCreator levelCreator;
     private Player player;
     private ArrayList<GameObject> list;
     private GameLoop loop;
-    private Drawable background;
+ /*   private Drawable background;*/
+    private GameDisplay display;
 
 
     public World(GameActivity gameActivity, int level, Handler gameLoopThread, Handler levelCreatorThread) {
         this.gameActivity = gameActivity;
         this.level = level;
-        bitmap = Bitmap.createBitmap(800, 480, Bitmap.Config.RGB_565);
-        canvas = new Canvas(bitmap);
 
-        GameObject.initialize(canvas, this, gameActivity);
+       /* bitmap = Bitmap.createBitmap(800, 480, Bitmap.Config.RGB_565);
+        canvas = new Canvas(bitmap);*/
+       /* display = new GameDisplay(gameActivity,canvas, bitmap);*/
+        display = new GameDisplay(gameActivity);
+
+  /*      GameObject.initialize(canvas, this, gameActivity);*/
+        GameObject.initialize(this, gameActivity);
+
         player = new Player(new Position(0,0));
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(levelCreatorThread, player, gameActivity);
         nextLevel();
-        background = gameActivity.getResources().getDrawable(R.drawable.background);
-        background.setBounds(0, 0, 2000, 1000); //(left, top, right, bottom)
+       /* background = gameActivity.getResources().getDrawable(R.drawable.background);
+        background.setBounds(0, 0, 2000, 1000); //(left, top, right, bottom)*/
         loop = new GameLoop(this, gameLoopThread);
         loop.startLoop();
-
-
     }
 
     public void updateList() {
@@ -65,7 +70,7 @@ public class World {
     }
 
     public Bitmap getBitmap() {
-        return bitmap;
+        return display.getBitmap();
     }
 
     /**
@@ -86,17 +91,18 @@ public class World {
     }
 
     public void updateWorld() {
-        Bitmap tempMap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
+       /* Bitmap tempMap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
         canvas.setBitmap(tempMap);
-        background.draw(canvas);
+        background.draw(canvas);*/
         //canvas.drawColor(Color.WHITE);
         //ConcurrentModificationException fix
         List<GameObject> temp = createTempGameObjects();
         for (GameObject gameObject : temp) {
             gameObject.update();
-            gameObject.draw();
+           /* gameObject.draw();*/
         }
-        bitmap = tempMap;
+        display.drawWorld(temp);
+       /* bitmap = tempMap;*/
     }
 
     public void addObject(GameObject g) {
@@ -124,5 +130,8 @@ public class World {
 
     public void decodeTouchEvent(MotionEvent event, Point p) {
         player.decodeTouchEvent(event, p);
+    }
+    public Canvas getCanvas() {
+        return display.getCanvas();
     }
 }

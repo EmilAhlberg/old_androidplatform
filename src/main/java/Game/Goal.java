@@ -3,6 +3,7 @@ package Game;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import com.example.emil.app.R;
 
 import com.example.emil.Framework.ActivityConstants;
 import com.example.emil.Framework.LevelClearedActivity;
@@ -13,18 +14,19 @@ import com.example.emil.Framework.SplashScreen;
  */
 
 public class Goal extends GameObject {
-    protected static Paint paint = new Paint();
+/*    protected static Paint paint = new Paint();*/
     protected boolean goalReached = false;
 
     public Goal(Position position) {
         super(position, 20, 20);
-        paint.setColor(Color.MAGENTA);
-
+        /*paint.setColor(Color.MAGENTA);*/
+        activePicture = gameActivity.getResources().getDrawable(R.drawable.loading);
+        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
     }
-    @Override
+    /*@Override
     public void draw() {
         canvas.drawRect((float)position.getX(),(float)position.getY(),(float)(position.getX()+width),(float)(position.getY()+height),paint);
-    }
+    }*/
     public void playerReachedGoal() {
         goalReached=true;
     }
@@ -32,7 +34,6 @@ public class Goal extends GameObject {
     @Override
     public void update() {
         if (goalReached) {
-            canvas.drawColor(Color.BLACK);
             world.pauseGame();
             Intent intent = new Intent(gameActivity, SplashScreen.class);
             intent.putExtra("level",world.getLevel());

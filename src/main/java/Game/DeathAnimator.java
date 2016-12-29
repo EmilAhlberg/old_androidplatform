@@ -9,7 +9,7 @@ import com.example.emil.app.R;
  */
 
 public class DeathAnimator extends GameObject {
-    private Drawable picture;
+ /*   private Drawable picture;*/
     private MovementVector mv;
 
     public DeathAnimator(GameObject g) {
@@ -23,23 +23,27 @@ public class DeathAnimator extends GameObject {
 
     private void initializeImage(GameObject g) {
         if (g instanceof StandardCat) {
-            picture = gameActivity.getResources().getDrawable(R.drawable.cat);
+            activePicture = gameActivity.getResources().getDrawable(R.drawable.cat);
         } else if (g instanceof SuicideCat) {
-            picture = gameActivity.getResources().getDrawable(R.drawable.suicidecat);
+            activePicture = gameActivity.getResources().getDrawable(R.drawable.suicidecat);
         } else if (g instanceof Vetrinarian) {
-            picture = gameActivity.getResources().getDrawable(R.drawable.vet);
+            activePicture = gameActivity.getResources().getDrawable(R.drawable.vet);
         }
     }
 
 
-    @Override
+   /* @Override
     public void draw() {
         picture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
         picture.draw(canvas);
     }
-
+*/
+    private void updatePicture() {
+        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
+    }
     @Override
     public void update() {
+        updatePicture();
         if (mv.verticalForce > -100) {
             mv.updateSpeed();
             updatePosition();

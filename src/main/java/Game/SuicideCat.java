@@ -11,11 +11,13 @@ import java.util.Random;
  */
 
 public class SuicideCat extends Cat {
-    Random rdm;
+    private Random rdm;
+    private int jumpTimer;
+    private final int JUMP_TIME = 80;
 
     public SuicideCat(Position position) {
         super(position, gameActivity.getResources().getDrawable(R.drawable.suicidecat));
-        rdm = new Random();
+        jumpTimer= new Random().nextInt(100);
         //changeDirection();
     }
 
@@ -28,8 +30,11 @@ public class SuicideCat extends Cat {
 
     @Override
     protected void catAction() {
-        if (rdm.nextInt(10) > 8 && grounded) {
+        if (jumpTimer == JUMP_TIME && grounded) {
             jump(400);
+            jumpTimer = 0;
+        } else {
+            jumpTimer++;
         }
         if (mv.verticalSpeed > 150) {
             world.removeObject(this);

@@ -17,7 +17,7 @@ public abstract class Cat extends Mover {
         super(p, 20, 20);
         applyForce(35, 0);
         direction = 1;
-        picture = d;
+        activePicture = d;
     }
 
     @Override
@@ -35,6 +35,11 @@ public abstract class Cat extends Mover {
     protected abstract void specificCatCollision(GameObject g,int collisionType);
 
     @Override
+    protected void updatePicture() {
+        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
+    }
+
+    @Override
     protected void specificCollision(GameObject g, int collisionType) {
         if (collisionType == 1 && g instanceof Block) {
             verticalBlockCollision(g);
@@ -44,11 +49,11 @@ public abstract class Cat extends Mover {
         specificCatCollision(g,collisionType);
     }
 
-    @Override
+  /*  @Override
     public void draw() {
         picture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
         picture.draw(canvas);
-    }
+    }*/
 
     protected abstract void catAction();
 
@@ -57,6 +62,7 @@ public abstract class Cat extends Mover {
         catAction();
         updateSpeed();
         updatePosition();
+        updatePicture();
     /*    checkCollision(1); //ordning på collisionCheck viktig, annars bugg
         checkCollision(0);*/
     }

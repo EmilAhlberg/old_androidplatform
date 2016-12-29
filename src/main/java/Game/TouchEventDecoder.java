@@ -15,19 +15,17 @@ public class TouchEventDecoder {
     private Position secondClickPos;
     private int touchAction, firstPointerId, secondPointerId;
     private int nbrFingersDown;
-    private Canvas canvas;
 
 
-    public TouchEventDecoder (Position firstPos, Position secondPos, Canvas canvas) {
+    public TouchEventDecoder (Position firstPos, Position secondPos) {
         this.firstClickPos = firstPos;
         this.secondClickPos = secondPos;
-        this.canvas = canvas;
         nbrFingersDown = 0;
 
     }
 
 
-    public void decodeTouchEvent (MotionEvent event, Point p) {
+    public void decodeTouchEvent (MotionEvent event, Point p, Canvas canvas) {
         int action = event.getAction();
         touchAction = action;
 

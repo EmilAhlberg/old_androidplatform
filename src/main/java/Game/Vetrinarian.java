@@ -18,16 +18,15 @@ public class Vetrinarian extends GameObject {
 
     public Vetrinarian(Position position) {
         super(position, 20, 40);
-        picture = gameActivity.getResources().getDrawable(R.drawable.vet);
-        syringePic = gameActivity.getResources().getDrawable(R.drawable.syringe);
         reloadTimer = new Random().nextInt(75);
-        picture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
+        activePicture = gameActivity.getResources().getDrawable(R.drawable.vet);
+        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
     }
 
-    @Override
+  /*  @Override
     public void draw() {
         picture.draw(canvas);
-    }
+    }*/
 
     @Override
     public void update() {
@@ -51,12 +50,18 @@ public class Vetrinarian extends GameObject {
 
         public Syringe(Position position) {
             super(position, 10, 20);
+            activePicture = gameActivity.getResources().getDrawable(R.drawable.syringe);
             applyForce(200, 300);
         }
 
         @Override
         protected void updatePosition() {
             move(position.getX() - mv.horizontalSpeed, position.getY() - mv.verticalSpeed);
+        }
+
+        @Override
+        protected void updatePicture() {
+            activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
         }
 
         @Override
@@ -71,12 +76,12 @@ public class Vetrinarian extends GameObject {
             }
         }
 
-        @Override
+       /* @Override
         public void draw() {
             syringePic.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
             syringePic.draw(canvas);
 
-        }
+        }*/
 
         @Override
         public void update() {
@@ -86,6 +91,7 @@ public class Vetrinarian extends GameObject {
             if (mv.verticalSpeed > 150) {
                 world.removeObject(this);
             }
+            updatePicture();
         }
     }
 }
