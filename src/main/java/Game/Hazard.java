@@ -5,8 +5,8 @@ package Game;
  */
 public abstract class Hazard extends GameObject{
 
-    public Hazard(Position position, int width, int height) {
-        super(position, width, height);
+    public Hazard(Position position, int width, int height, World world) {
+        super(position, width, height, world);
     }
 
     protected abstract void affectPlayer();

@@ -14,8 +14,8 @@ public class Block extends GameObject {
     protected static final int BLOCK_HEIGHT = 18;
     //private Drawable picture;
 
-    public Block(Position position, int blockType) {
-        super(position, BLOCK_WIDTH, BLOCK_HEIGHT);
+    public Block(Position position, int blockType, World world) {
+        super(position, BLOCK_WIDTH, BLOCK_HEIGHT, world);
         initializeImage(blockType);
         activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
     }
@@ -34,9 +34,9 @@ public class Block extends GameObject {
 
     private void initializeImage(int blockType) {
         if (blockType == 1) {
-            activePicture = gameActivity.getResources().getDrawable(R.drawable.block1);
+            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.block1);
         } else if (blockType == 2) {
-            activePicture = gameActivity.getResources().getDrawable(R.drawable.block2);
+            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.block2);
         }
     }
 }

@@ -17,10 +17,10 @@ public class Goal extends GameObject {
 /*    protected static Paint paint = new Paint();*/
     protected boolean goalReached = false;
 
-    public Goal(Position position) {
-        super(position, 20, 20);
+    public Goal(Position position, World world) {
+        super(position, 20, 20, world);
         /*paint.setColor(Color.MAGENTA);*/
-        activePicture = gameActivity.getResources().getDrawable(R.drawable.loading);
+        activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.loading);
         activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
     }
     /*@Override
@@ -35,10 +35,10 @@ public class Goal extends GameObject {
     public void update() {
         if (goalReached) {
             world.pauseGame();
-            Intent intent = new Intent(gameActivity, SplashScreen.class);
+            Intent intent = new Intent(world.getGameActivity(), SplashScreen.class);
             intent.putExtra("level",world.getLevel());
             intent.putExtra("activityID", ActivityConstants.LEVELCLEARED);
-            gameActivity.startActivity(intent);
+            world.getGameActivity().startActivity(intent);
         }
     }
 }

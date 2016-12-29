@@ -17,8 +17,8 @@ public abstract class Mover extends GameObject {
     protected int WJDirection;
     private int WJDirectionHelper;
 
-    public Mover(Position position, int width, int height) {
-        super(position, width, height);
+    public Mover(Position position, int width, int height, World world) {
+        super(position, width, height, world);
         mv = new MovementVector();
         grounded = false;
         WJDirection = WJDirectionHelper = 0;

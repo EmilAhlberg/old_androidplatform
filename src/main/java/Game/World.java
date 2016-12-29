@@ -53,20 +53,23 @@ public class World {
         display = new GameDisplay(gameActivity);
 
   /*      GameObject.initialize(canvas, this, gameActivity);*/
-        GameObject.initialize(this, gameActivity);
+       /* GameObject.initialize(this);*/
 
-        player = new Player(new Position(0,0));
+        /*player = new Player(new Position(0,0));*/
         list = new ArrayList<GameObject>();
-        levelCreator = new LevelCreator(levelCreatorThread, player, gameActivity);
+        levelCreator = new LevelCreator(levelCreatorThread, gameActivity, this);
         nextLevel();
        /* background = gameActivity.getResources().getDrawable(R.drawable.background);
         background.setBounds(0, 0, 2000, 1000); //(left, top, right, bottom)*/
         loop = new GameLoop(this, gameLoopThread);
-        loop.startLoop();
+        //loop.startLoop();
     }
 
     public void updateList() {
         list = levelCreator.getNewList();
+        loop.startLoop();
+
+
     }
 
     public Bitmap getBitmap() {
@@ -116,6 +119,9 @@ public class World {
     public void pauseGame() {
         loop.pause();
     }
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
     public void startGame() {
         loop.startLoop();
     }
@@ -129,7 +135,14 @@ public class World {
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {
-        player.decodeTouchEvent(event, p);
+        try {
+            player.decodeTouchEvent(event, p);
+        } catch(NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+    public GameActivity getGameActivity() {
+        return gameActivity;
     }
     public Canvas getCanvas() {
         return display.getCanvas();

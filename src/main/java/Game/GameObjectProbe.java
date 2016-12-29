@@ -12,8 +12,8 @@ public class GameObjectProbe extends Mover {
     private GameObject latestCollider = null;
     private boolean clearPath = false;
 
-    public GameObjectProbe(Position p, int width, int height) {
-        super(p, width, height);
+    public GameObjectProbe(Position p, int width, int height, World world) {
+        super(p, width, height, world);
     }
     @Override
     protected void updatePosition() {

@@ -21,19 +21,21 @@ public class LevelCreator {
 
     private ArrayList<GameObject> newList;
     private Handler s;
-    private Player player;
+   /* private Player player;*/
     private GameActivity gameActivity;
+    private World world;
 
-    public LevelCreator(Handler s, Player player, GameActivity gameActivity) {
+    public LevelCreator(Handler s, GameActivity gameActivity, World world) {
         this.s = s;
-        this.player = player;
+        this.world = world;
+    /*    this.player = player;*/
         this.gameActivity = gameActivity;
     }
 
     public void setLevel(int level) {
         newList = new ArrayList<GameObject>();
         final int newLevel = level;
-        newList.add(player);
+      /*  newList.add(player);*/
 
         new Thread(new Runnable() {
             public void run() {
@@ -49,29 +51,31 @@ public class LevelCreator {
                 Position p = new Position((k-1) * 20, i * 20); //k-1 vänsterorienterar objekt
                 switch (mapString[i].charAt(k)) {
                     case 'b':
-                        newList.add(new Block(p, 2));
+                        newList.add(new Block(p, 2, world));
                         break;
                     case 'B':
-                        newList.add(new Block(p, 1));
+                        newList.add(new Block(p, 1, world));
                         break;
                     case 'g':
-                        newList.add(new Goal(p));
+                        newList.add(new Goal(p, world));
                         break;
                     case 'F':
-                        newList.add(new Fire(p));
+                        newList.add(new Fire(p, world));
                         break;
                     case 'C':
-                        newList.add(new StandardCat(p));
+                        newList.add(new StandardCat(p, world));
                         break;
                     case 'V':
                         p.setY(p.getY()-20);
-                        newList.add(new Vetrinarian(p));
+                        newList.add(new Vetrinarian(p, world));
                         break;
                     case 'P':
-                        player.move((k-1)*20,(i*20));
+                        newList.add(0, new Player(p, world)); //added to front of list
+                        world.setPlayer((Player)newList.get(0));
+                       /* player.move((k-1)*20,(i*20));*/
                         break;
                     case 's':
-                        newList.add(new SuicideCat(p));
+                        newList.add(new SuicideCat(p, world));
                         break;
                         //default: throw new IllegalArgumentException();
                 }

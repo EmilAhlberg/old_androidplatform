@@ -26,10 +26,10 @@ public class Player extends Mover {
     private boolean awake = true;
     private int sleepTime = 0;
 
-    public Player(Position position) {
-        super(position, PLAYER_WIDTH, PLAYER_HEIGHT);
+    public Player(Position position, World world) {
+        super(position, PLAYER_WIDTH, PLAYER_HEIGHT, world);
         touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()), new Position(position.getX(), position.getY()));
-        activePicture = gameActivity.getResources().getDrawable(R.drawable.test);
+        activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.test);
     }
 
 
@@ -158,7 +158,7 @@ public class Player extends Mover {
 
     public void kill(GameObject g) {
         world.removeObject(g);
-        DeathAnimator d = new DeathAnimator(g);
+        DeathAnimator d = new DeathAnimator(g, world);
         mv.verticalSpeed = 0;
         mv.verticalForce = 0;
         jump(150);

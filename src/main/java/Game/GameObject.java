@@ -12,17 +12,18 @@ import com.example.emil.Framework.GameActivity;
 public abstract class GameObject {
 
    /* protected static Canvas canvas;*/
-    protected static World world;
-    protected static GameActivity gameActivity;
+    protected World world;
+  /*  protected static GameActivity gameActivity;*/
     protected Position position;
     protected int width;
     protected int height;
     protected Drawable activePicture;
 
-    public GameObject(Position position, int width, int height) {
+    public GameObject(Position position, int width, int height, World world) {
         this.position = position;
         this.width = width;
         this.height = height;
+        this.world = world;
     }
     public Position getPosition() {
         return position;
@@ -39,10 +40,10 @@ public abstract class GameObject {
 
     public abstract void update();
 
-    public static void initialize(World w, GameActivity b) {
-   /*     canvas = c;*/
+ /*   public static void initialize(World w) {
+   *//*     canvas = c;*//*
         world = w;
-        gameActivity = b;
-    }
+      *//*  gameActivity = b;*//*
+    }*/
 
 }

@@ -13,8 +13,8 @@ public abstract class Cat extends Mover {
     protected int direction;
 
 
-    public Cat(Position p, Drawable d) {
-        super(p, 20, 20);
+    public Cat(Position p, Drawable d, World world) {
+        super(p, 20, 20, world);
         applyForce(35, 0);
         direction = 1;
         activePicture = d;

@@ -17,10 +17,10 @@ public class Fire extends Hazard {
     private Drawable picture1, picture2;// drawingPic;
     int animation = 0;
 
-    public Fire(Position position) {
-        super(position, Block.BLOCK_WIDTH, Block.BLOCK_HEIGHT);
-        picture1 = gameActivity.getResources().getDrawable(R.drawable.hot_fire);
-        picture2 = gameActivity.getResources().getDrawable(R.drawable.hot_fire2);
+    public Fire(Position position, World world) {
+        super(position, Block.BLOCK_WIDTH, Block.BLOCK_HEIGHT, world);
+        picture1 = world.getGameActivity().getResources().getDrawable(R.drawable.hot_fire);
+        picture2 = world.getGameActivity().getResources().getDrawable(R.drawable.hot_fire2);
         picture1.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
         picture2.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
     }

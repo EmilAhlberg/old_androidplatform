@@ -15,8 +15,8 @@ public class SuicideCat extends Cat {
     private int jumpTimer;
     private final int JUMP_TIME = 80;
 
-    public SuicideCat(Position position) {
-        super(position, gameActivity.getResources().getDrawable(R.drawable.suicidecat));
+    public SuicideCat(Position position, World world) {
+        super(position, world.getGameActivity().getResources().getDrawable(R.drawable.suicidecat), world);
         jumpTimer= new Random().nextInt(100);
         //changeDirection();
     }

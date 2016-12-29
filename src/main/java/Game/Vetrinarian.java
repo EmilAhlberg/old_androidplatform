@@ -16,10 +16,10 @@ public class Vetrinarian extends GameObject {
     private int reloadTimer;
     private final int RELOAD_TIME = 75;
 
-    public Vetrinarian(Position position) {
-        super(position, 20, 40);
+    public Vetrinarian(Position position, World world) {
+        super(position, 20, 40, world);
         reloadTimer = new Random().nextInt(75);
-        activePicture = gameActivity.getResources().getDrawable(R.drawable.vet);
+        activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.vet);
         activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
     }
 
@@ -38,7 +38,7 @@ public class Vetrinarian extends GameObject {
     }
 
     private void throwSyringe() {
-        world.addObject(new Syringe(new Position(position.getX() - 20, position.getY())));
+        world.addObject(new Syringe(new Position(position.getX() - 20, position.getY()), world));
     }
 
     public void affectPlayer() {
@@ -48,9 +48,9 @@ public class Vetrinarian extends GameObject {
     private class Syringe extends Mover {
 
 
-        public Syringe(Position position) {
-            super(position, 10, 20);
-            activePicture = gameActivity.getResources().getDrawable(R.drawable.syringe);
+        public Syringe(Position position, World world) {
+            super(position, 10, 20, world);
+            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.syringe);
             applyForce(200, 300);
         }
 

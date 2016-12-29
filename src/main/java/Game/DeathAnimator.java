@@ -12,8 +12,8 @@ public class DeathAnimator extends GameObject {
  /*   private Drawable picture;*/
     private MovementVector mv;
 
-    public DeathAnimator(GameObject g) {
-        super(g.getPosition(), g.width, g.height);
+    public DeathAnimator(GameObject g, World world) {
+        super(g.getPosition(), g.width, g.height, world);
         world.addObject(this);
         initializeImage(g);
 
@@ -23,11 +23,11 @@ public class DeathAnimator extends GameObject {
 
     private void initializeImage(GameObject g) {
         if (g instanceof StandardCat) {
-            activePicture = gameActivity.getResources().getDrawable(R.drawable.cat);
+            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.cat);
         } else if (g instanceof SuicideCat) {
-            activePicture = gameActivity.getResources().getDrawable(R.drawable.suicidecat);
+            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.suicidecat);
         } else if (g instanceof Vetrinarian) {
-            activePicture = gameActivity.getResources().getDrawable(R.drawable.vet);
+            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.vet);
         }
     }
 

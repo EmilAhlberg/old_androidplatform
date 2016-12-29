@@ -10,8 +10,8 @@ import com.example.emil.app.R;
 
 public class StandardCat extends Cat {
 
-    public StandardCat(Position p) {
-        super(p, gameActivity.getResources().getDrawable(R.drawable.cat));
+    public StandardCat(Position p, World world) {
+        super(p, world.getGameActivity().getResources().getDrawable(R.drawable.cat), world);
     }
 
 
@@ -34,7 +34,7 @@ public class StandardCat extends Cat {
         if (direction > 0) {
             probeXOffset = probeXOffset - width;
         }
-        GameObjectProbe probe = new GameObjectProbe(new Position(position.getX() - probeXOffset, position.getY() + probeYOffset), 2, 5);
+        GameObjectProbe probe = new GameObjectProbe(new Position(position.getX() - probeXOffset, position.getY() + probeYOffset), 2, 5, world);
         probe.setClearPath(probe.checkCollision(0));
         return probe;
     }

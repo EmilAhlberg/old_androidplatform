@@ -61,7 +61,7 @@ public class GameActivity extends AppCompatActivity {
 
     public boolean onTouchEvent(MotionEvent event) {
         Point p = new Point();
-        getWindowManager().getDefaultDisplay().getSize(p);
+        getWindowManager().getDefaultDisplay().getSize(p); //behvös denna?
         world.decodeTouchEvent(event, p);
 
 
