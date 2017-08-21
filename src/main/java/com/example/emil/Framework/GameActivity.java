@@ -1,8 +1,6 @@
 package com.example.emil.Framework;
 
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
@@ -16,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.example.emil.app.R;
 
+import Game.LevelCreator;
 import Game.World;
 
 public class GameActivity extends AppCompatActivity {
@@ -24,6 +23,8 @@ public class GameActivity extends AppCompatActivity {
     private Handler gameLoopThread;
     private Handler levelCreatorThread;
     private LinearLayout ll;
+    private GameLoop gameLoop;
+    private LevelCreator levelCreator;
 
 
     @Override
@@ -36,13 +37,17 @@ public class GameActivity extends AppCompatActivity {
 
         ll = (LinearLayout) findViewById(R.id.gameActivity);
         //https://www.youtube.com/watch?v=2xYaTGRvpv4
-        world = new World(this, level, gameLoopThread,levelCreatorThread);
+        world = new World(this, level);
+        gameLoop = new GameLoop(world, gameLoopThread);
+        levelCreator = new LevelCreator(levelCreatorThread, this, world);
+        levelCreator.setLevel(level);
     }
 
     private void handlerSetup() {
         levelCreatorThread = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message inputMessage) {
-                world.updateList();
+                world.initLevel(levelCreator.getNewList());
+                gameLoop.startLoop();
             }
         };
         gameLoopThread = new Handler(Looper.getMainLooper()) {
@@ -50,6 +55,18 @@ public class GameActivity extends AppCompatActivity {
                 ll.setBackground(new BitmapDrawable(getResources(), world.getBitmap()));
             }
         };
+    }
+
+    public void startGame() {
+        gameLoop.startLoop();
+    }
+
+    public void pauseGame() {
+        gameLoop.pauseLoop();
+    }
+
+    public void setLevel (int level) {
+        levelCreator.setLevel(level);
     }
 
     public void setFullscreen() {

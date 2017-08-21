@@ -48,7 +48,7 @@ public class GameLoop {
         m.sendToTarget();
     }
 
-    public void pause() {
+    public void pauseLoop() {
         running = false;
     }
 

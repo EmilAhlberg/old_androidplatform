@@ -35,29 +35,31 @@ public class World {
    /* private Canvas canvas;
     private Bitmap bitmap;*/
     private int level;
-    private LevelCreator levelCreator;
+    //private LevelCreator levelCreator;
     private Player player;
     private ArrayList<GameObject> list;
-    private GameLoop loop;
+    //private GameLoop loop;
  /*   private Drawable background;*/
     private GameDisplay display;
 
 
-    public World(GameActivity gameActivity, int level, Handler gameLoopThread, Handler levelCreatorThread) {
+    public World(GameActivity gameActivity, int level) {
         this.gameActivity = gameActivity;
         this.level = level;
 
         display = new GameDisplay(gameActivity);
         list = new ArrayList<GameObject>();
-        levelCreator = new LevelCreator(levelCreatorThread, gameActivity, this);
-        nextLevel();
-        loop = new GameLoop(this, gameLoopThread);
+
     }
 
-    public void updateList() {
-        list = levelCreator.getNewList();
-        loop.startLoop();
+    public void initLevel( ArrayList<GameObject> newList) {
+        list = newList;
     }
+
+//    public void updateList() {
+//        list = levelCreator.getNewList();
+//        loop.startLoop();
+//    }
 
     public Bitmap getBitmap() {
         return display.getBitmap();
@@ -102,18 +104,18 @@ public class World {
     }
 
     public void pauseGame() {
-        loop.pause();
+        gameActivity.pauseGame();
     }
     public void setPlayer(Player player) {
         this.player = player;
     }
     public void startGame() {
-        loop.startLoop();
+        gameActivity.startGame();
     }
 
     //filthy set-methods
     public void nextLevel() {
-        levelCreator.setLevel(level);
+        gameActivity.setLevel(level);
     }
     public int getLevel() {
         return level;
