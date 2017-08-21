@@ -19,7 +19,7 @@ import java.util.Arrays;
 public class LevelCreator {
 
 
-    private ArrayList<GameObject> newList;
+    private ArrayList<GameObject> newList, blockList;
     private Handler s;
    /* private Player player;*/
     private GameActivity gameActivity;
@@ -34,27 +34,31 @@ public class LevelCreator {
 
     public void setLevel(int level) {
         newList = new ArrayList<GameObject>();
+        blockList = new ArrayList<GameObject>();
         final int newLevel = level;
-      /*  newList.add(player);*/
 
         new Thread(new Runnable() {
             public void run() {
-                createLevel(newList, getLevelArray(newLevel));
+                createLevel(newList, blockList, getLevelArray(newLevel));
             }
         }).start();
         s.obtainMessage().sendToTarget();
     }
 
-    private void createLevel(ArrayList<GameObject> newList, String[] mapString) {
+    private void createLevel(ArrayList<GameObject> newList, ArrayList<GameObject> blockList, String[] mapString) {
         for (int i = 0; i < mapString.length; i++) {
             for (int k = 0; k < mapString[i].length(); k++) {
                 Position p = new Position((k-1) * 20, i * 20); //k-1 vänsterorienterar objekt
                 switch (mapString[i].charAt(k)) {
                     case 'b':
-                        newList.add(new Block(p, 2, world));
+                        Block b = new Block(p, 2, world);
+                        newList.add(b);
+                        blockList.add(b);
                         break;
                     case 'B':
-                        newList.add(new Block(p, 1, world));
+                        Block bl = new Block(p, 1, world);
+                        newList.add(bl);
+                        blockList.add(bl);
                         break;
                     case 'g':
                         newList.add(new Goal(p, world));
@@ -81,6 +85,7 @@ public class LevelCreator {
                 }
             }
         }
+        world.createBackground(blockList);
     }
 
     private String[] getLevelArray(int level) {

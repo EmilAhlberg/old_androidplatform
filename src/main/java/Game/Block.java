@@ -1,6 +1,7 @@
 package Game;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.example.emil.app.R;
 
@@ -36,6 +37,7 @@ public class Block extends GameObject {
         if (blockType == 1) {
             activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.block1);
         } else if (blockType == 2) {
+            Log.d("nisse", "b2");
             activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.block2);
         }
     }

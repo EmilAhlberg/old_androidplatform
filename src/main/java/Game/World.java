@@ -47,29 +47,16 @@ public class World {
         this.gameActivity = gameActivity;
         this.level = level;
 
-       /* bitmap = Bitmap.createBitmap(800, 480, Bitmap.Config.RGB_565);
-        canvas = new Canvas(bitmap);*/
-       /* display = new GameDisplay(gameActivity,canvas, bitmap);*/
         display = new GameDisplay(gameActivity);
-
-  /*      GameObject.initialize(canvas, this, gameActivity);*/
-       /* GameObject.initialize(this);*/
-
-        /*player = new Player(new Position(0,0));*/
         list = new ArrayList<GameObject>();
         levelCreator = new LevelCreator(levelCreatorThread, gameActivity, this);
         nextLevel();
-       /* background = gameActivity.getResources().getDrawable(R.drawable.background);
-        background.setBounds(0, 0, 2000, 1000); //(left, top, right, bottom)*/
         loop = new GameLoop(this, gameLoopThread);
-        //loop.startLoop();
     }
 
     public void updateList() {
         list = levelCreator.getNewList();
         loop.startLoop();
-
-
     }
 
     public Bitmap getBitmap() {
@@ -93,19 +80,17 @@ public class World {
         gameActivity.startActivity(intent);
     }
 
+    public void createBackground(ArrayList<GameObject> blockList) {
+        display.createBackground(blockList);
+    }
+
     public void updateWorld() {
-       /* Bitmap tempMap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
-        canvas.setBitmap(tempMap);
-        background.draw(canvas);*/
-        //canvas.drawColor(Color.WHITE);
         //ConcurrentModificationException fix
         List<GameObject> temp = createTempGameObjects();
         for (GameObject gameObject : temp) {
             gameObject.update();
-           /* gameObject.draw();*/
         }
         display.drawWorld(temp);
-       /* bitmap = tempMap;*/
     }
 
     public void addObject(GameObject g) {

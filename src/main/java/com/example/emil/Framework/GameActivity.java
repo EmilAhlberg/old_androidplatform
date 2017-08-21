@@ -52,7 +52,6 @@ public class GameActivity extends AppCompatActivity {
         };
     }
 
-
     public void setFullscreen() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //Gör så att appen kör i landscape-mode

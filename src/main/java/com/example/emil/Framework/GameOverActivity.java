@@ -19,6 +19,7 @@ public class GameOverActivity extends AppCompatActivity {
         int level = getIntent().getExtras().getInt("level");
         Intent intent = new Intent (this, GameActivity.class);
         intent.putExtra("level", level);
+        finish();
         startActivity(intent);
     }
     public void selectLevel(View view){

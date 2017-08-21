@@ -20,7 +20,7 @@ public class LevelClearedActivity extends AppCompatActivity {
 
         Intent intent = new Intent (this, GameActivity.class);
         intent.putExtra("level", ++level);
-        this.startActivity(intent);
-        super.finish();
+        finish();
+        startActivity(intent);
     }
 }

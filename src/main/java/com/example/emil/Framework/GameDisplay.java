@@ -2,15 +2,17 @@ package com.example.emil.Framework;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Point;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.example.emil.app.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import Game.Block;
 import Game.GameObject;
 import Game.Position;
 
@@ -21,15 +23,25 @@ import Game.Position;
 public class GameDisplay {
     private Bitmap bitmap;
     private Canvas canvas;
-    private Drawable background;
+    private Drawable backgroundImage;
+    private Bitmap background;
 
     public GameDisplay(GameActivity gameActivity) {
    /*     this.bitmap = bitmap;
         this.canvas = canvas;*/
         bitmap = Bitmap.createBitmap(800, 480, Bitmap.Config.RGB_565);
+        background = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
         canvas = new Canvas(bitmap);
-        background = gameActivity.getResources().getDrawable(R.drawable.background);
-        background.setBounds(0, 0, 2000, 1000); //(left, top, right, bottom)
+        backgroundImage = gameActivity.getResources().getDrawable(R.drawable.background);
+        backgroundImage.setBounds(0, 0, 2000, 1000); //(left, top, right, bottom)
+    }
+
+    public void createBackground(ArrayList<GameObject> blockList) {
+        Canvas c = new Canvas(background);
+        backgroundImage.draw(c);
+        for (GameObject g : blockList) {
+            g.getDrawable().draw(c);
+        }
     }
 
     public void drawWorld(List<GameObject> temp) {
@@ -39,9 +51,11 @@ public class GameDisplay {
 
         Bitmap tempMap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
         canvas.setBitmap(tempMap);
-        background.draw(canvas);
+        canvas.drawBitmap(background, null, backgroundImage.getBounds(), null);
         for (GameObject g : temp) {
-            g.getDrawable().draw(canvas);
+            //if (!(g instanceof Block)) {
+                g.getDrawable().draw(canvas);
+            //}
         }
         bitmap = tempMap;
     }
