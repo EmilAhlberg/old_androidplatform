@@ -18,7 +18,7 @@ import java.util.Arrays;
 public class LevelCreator {
 
 
-    public static ArrayList<GameObject> newList, blockList;
+    public static ArrayList<GameObject> GameObjectList, BlockList;
     private Handler s;
    /* private Player player;*/
     private GameActivity gameActivity;
@@ -32,13 +32,13 @@ public class LevelCreator {
     }
 
     public void setLevel() {
-        newList = new ArrayList<GameObject>();
-        blockList = new ArrayList<GameObject>();
-        final int newLevel = World.LEVEL;
+        GameObjectList = new ArrayList<GameObject>();
+        BlockList = new ArrayList<GameObject>();
+        final int newLevel = World.Level;
 
         new Thread(new Runnable() {
             public void run() {
-                createLevel(newList, blockList, getLevelArray(newLevel));
+                createLevel(GameObjectList, BlockList, getLevelArray(newLevel));
                 s.obtainMessage().sendToTarget();
             }
         }).start();
@@ -84,7 +84,7 @@ public class LevelCreator {
                 }
             }
         }
-        world.createBackground(blockList);
+        world.setGameBlocks(blockList);
     }
 
     private String[] getLevelArray(int level) {
@@ -145,7 +145,7 @@ public class LevelCreator {
     }
 
 //    public ArrayList<GameObject> getNewList() {
-//        return newList;
+//        return GameObjectList;
 //    }
 
 

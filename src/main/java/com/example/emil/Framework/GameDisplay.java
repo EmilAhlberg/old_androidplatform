@@ -36,7 +36,7 @@ public class GameDisplay {
         backgroundImage.setBounds(0, 0, 2000, 1000); //(left, top, right, bottom)
     }
 
-    public void createBackground(ArrayList<GameObject> blockList) {
+    public void setGameBlocks(ArrayList<GameObject> blockList) {
         Canvas c = new Canvas(background);
         backgroundImage.draw(c);
         for (GameObject g : blockList) {

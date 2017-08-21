@@ -35,13 +35,13 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setFullscreen();
         setContentView(R.layout.activity_game);
-        int level = getIntent().getExtras().getInt("level");
+        World.Level = getIntent().getExtras().getInt("level");
         handlerSetup();
 
 
         ll = (LinearLayout) findViewById(R.id.gameActivity);
         //https://www.youtube.com/watch?v=2xYaTGRvpv4
-        world = new World(this, level);
+        world = new World(this);
         gameLoop = new GameLoop(world, gameLoopThread);
         levelCreator = new LevelCreator(levelCreatorThread, this, world);
         levelCreator.setLevel();

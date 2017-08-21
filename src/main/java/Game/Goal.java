@@ -1,12 +1,10 @@
 package Game;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
+
 import com.example.emil.app.R;
 
 import com.example.emil.Framework.ActivityConstants;
-import com.example.emil.Framework.LevelClearedActivity;
 import com.example.emil.Framework.SplashScreen;
 
 /**
@@ -36,7 +34,7 @@ public class Goal extends GameObject {
         if (goalReached) {
             world.pauseGame();
             Intent intent = new Intent(world.getGameActivity(), SplashScreen.class);
-            intent.putExtra("level",World.LEVEL);
+            intent.putExtra("level",World.Level);
             intent.putExtra("activityID", ActivityConstants.LEVELCLEARED);
             world.getGameActivity().startActivity(intent);
         }
