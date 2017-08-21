@@ -10,13 +10,13 @@ import java.util.Random;
  * Created by Emil on 2016-12-18.
  */
 
-public class Vetrinarian extends GameObject {
+public class Veterinarian extends GameObject {
     private Drawable picture;
     private Drawable syringePic;
     private int reloadTimer;
     private final int RELOAD_TIME = 75;
 
-    public Vetrinarian(Position position, World world) {
+    public Veterinarian(Position position, World world) {
         super(position, 20, 40, world);
         reloadTimer = new Random().nextInt(75);
         activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.vet);

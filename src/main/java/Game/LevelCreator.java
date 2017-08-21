@@ -1,7 +1,6 @@
 package Game;
 
 import android.os.Handler;
-import android.util.Log;
 
 import com.example.emil.Framework.GameActivity;
 import com.example.emil.app.R;
@@ -19,7 +18,7 @@ import java.util.Arrays;
 public class LevelCreator {
 
 
-    private ArrayList<GameObject> newList, blockList;
+    public static ArrayList<GameObject> newList, blockList;
     private Handler s;
    /* private Player player;*/
     private GameActivity gameActivity;
@@ -32,17 +31,18 @@ public class LevelCreator {
         this.gameActivity = gameActivity;
     }
 
-    public void setLevel(int level) {
+    public void setLevel() {
         newList = new ArrayList<GameObject>();
         blockList = new ArrayList<GameObject>();
-        final int newLevel = level;
+        final int newLevel = World.LEVEL;
 
         new Thread(new Runnable() {
             public void run() {
                 createLevel(newList, blockList, getLevelArray(newLevel));
+                s.obtainMessage().sendToTarget();
             }
         }).start();
-        s.obtainMessage().sendToTarget();
+
     }
 
     private void createLevel(ArrayList<GameObject> newList, ArrayList<GameObject> blockList, String[] mapString) {
@@ -71,11 +71,10 @@ public class LevelCreator {
                         break;
                     case 'V':
                         p.setY(p.getY()-20);
-                        newList.add(new Vetrinarian(p, world));
+                        newList.add(new Veterinarian(p, world));
                         break;
                     case 'P':
                         newList.add(0, new Player(p, world)); //added to front of list
-                        world.setPlayer((Player)newList.get(0));
                        /* player.move((k-1)*20,(i*20));*/
                         break;
                     case 's':
@@ -145,9 +144,9 @@ public class LevelCreator {
         return ret;
     }
 
-    public ArrayList<GameObject> getNewList() {
-        return newList;
-    }
+//    public ArrayList<GameObject> getNewList() {
+//        return newList;
+//    }
 
 
 }

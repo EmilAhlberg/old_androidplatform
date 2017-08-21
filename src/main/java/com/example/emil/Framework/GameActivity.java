@@ -14,6 +14,9 @@ import android.widget.LinearLayout;
 
 import com.example.emil.app.R;
 
+import java.util.ArrayList;
+
+import Game.GameObject;
 import Game.LevelCreator;
 import Game.World;
 
@@ -35,19 +38,19 @@ public class GameActivity extends AppCompatActivity {
         int level = getIntent().getExtras().getInt("level");
         handlerSetup();
 
+
         ll = (LinearLayout) findViewById(R.id.gameActivity);
         //https://www.youtube.com/watch?v=2xYaTGRvpv4
         world = new World(this, level);
         gameLoop = new GameLoop(world, gameLoopThread);
         levelCreator = new LevelCreator(levelCreatorThread, this, world);
-        levelCreator.setLevel(level);
+        levelCreator.setLevel();
     }
 
     private void handlerSetup() {
         levelCreatorThread = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message inputMessage) {
-                world.initLevel(levelCreator.getNewList());
-                gameLoop.startLoop();
+                world.initLevel();
             }
         };
         gameLoopThread = new Handler(Looper.getMainLooper()) {
@@ -65,8 +68,8 @@ public class GameActivity extends AppCompatActivity {
         gameLoop.pauseLoop();
     }
 
-    public void setLevel (int level) {
-        levelCreator.setLevel(level);
+    public void setLevel () {
+        levelCreator.setLevel();
     }
 
     public void setFullscreen() {

@@ -1,7 +1,5 @@
 package Game;
 
-import android.graphics.drawable.Drawable;
-
 import com.example.emil.app.R;
 
 /**
@@ -26,7 +24,7 @@ public class DeathAnimator extends GameObject {
             activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.cat);
         } else if (g instanceof SuicideCat) {
             activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.suicidecat);
-        } else if (g instanceof Vetrinarian) {
+        } else if (g instanceof Veterinarian) {
             activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.vet);
         }
     }

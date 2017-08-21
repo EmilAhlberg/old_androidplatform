@@ -1,14 +1,8 @@
 package Game;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.MotionEvent;
 
-import com.example.emil.Framework.GameOverActivity;
 import com.example.emil.app.R;
 
 /**
@@ -141,8 +135,8 @@ public class Player extends Mover {
             horizontalBlockCollision(g);
         } else if (g instanceof Cat) {
             ((Cat) g).affectPlayer();
-        } else if (g instanceof Vetrinarian) {
-            ((Vetrinarian) g).affectPlayer();
+        } else if (g instanceof Veterinarian) {
+            ((Veterinarian) g).affectPlayer();
         }
 
     }
@@ -150,7 +144,7 @@ public class Player extends Mover {
     private void specificCollisionVertical(GameObject g) {
         if (g instanceof Block) {
             verticalBlockCollision(g);
-        } else if (g instanceof Vetrinarian || g instanceof Cat) {
+        } else if (g instanceof Veterinarian || g instanceof Cat) {
             kill(g);
         }
     }

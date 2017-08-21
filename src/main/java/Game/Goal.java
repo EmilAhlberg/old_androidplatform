@@ -36,7 +36,7 @@ public class Goal extends GameObject {
         if (goalReached) {
             world.pauseGame();
             Intent intent = new Intent(world.getGameActivity(), SplashScreen.class);
-            intent.putExtra("level",world.getLevel());
+            intent.putExtra("level",World.LEVEL);
             intent.putExtra("activityID", ActivityConstants.LEVELCLEARED);
             world.getGameActivity().startActivity(intent);
         }

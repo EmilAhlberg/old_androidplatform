@@ -29,40 +29,24 @@ import java.util.List;
  * Created by Emil on 2016-11-25.
  */
 
-public class World {
+public class World extends Game {
 
-    private GameActivity gameActivity;
-   /* private Canvas canvas;
-    private Bitmap bitmap;*/
-    private int level;
-    //private LevelCreator levelCreator;
-    private Player player;
+
     private ArrayList<GameObject> list;
-    //private GameLoop loop;
- /*   private Drawable background;*/
-    private GameDisplay display;
-
+    public static int LEVEL;
+    protected Player player;
 
     public World(GameActivity gameActivity, int level) {
-        this.gameActivity = gameActivity;
-        this.level = level;
-
-        display = new GameDisplay(gameActivity);
+        super(gameActivity);
+        LEVEL = level; //needed?
         list = new ArrayList<GameObject>();
 
     }
 
-    public void initLevel( ArrayList<GameObject> newList) {
-        list = newList;
-    }
-
-//    public void updateList() {
-//        list = levelCreator.getNewList();
-//        loop.startLoop();
-//    }
-
-    public Bitmap getBitmap() {
-        return display.getBitmap();
+    public void initLevel() {
+        list = LevelCreator.newList;
+        player = (Player)list.get(0);
+        startGame();
     }
 
     /**
@@ -77,13 +61,9 @@ public class World {
     public void gameOver() {
         pauseGame();
         Intent intent = new Intent(gameActivity, SplashScreen.class);
-        intent.putExtra("level", getLevel());
+        intent.putExtra("level", LEVEL);
         intent.putExtra("activityID", ActivityConstants.GAMEOVER);
         gameActivity.startActivity(intent);
-    }
-
-    public void createBackground(ArrayList<GameObject> blockList) {
-        display.createBackground(blockList);
     }
 
     public void updateWorld() {
@@ -92,33 +72,16 @@ public class World {
         for (GameObject gameObject : temp) {
             gameObject.update();
         }
-        display.drawWorld(temp);
+        Draw(temp);
     }
-
+    //OBS
+    //objects should handle their own death animation --> these 2 methods can be removed
     public void addObject(GameObject g) {
         list.add(g);
     }
 
     public void removeObject(GameObject g) {
         list.remove(g);
-    }
-
-    public void pauseGame() {
-        gameActivity.pauseGame();
-    }
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-    public void startGame() {
-        gameActivity.startGame();
-    }
-
-    //filthy set-methods
-    public void nextLevel() {
-        gameActivity.setLevel(level);
-    }
-    public int getLevel() {
-        return level;
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {
@@ -131,7 +94,5 @@ public class World {
     public GameActivity getGameActivity() {
         return gameActivity;
     }
-    public Canvas getCanvas() {
-        return display.getCanvas();
-    }
+
 }
