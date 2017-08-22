@@ -20,7 +20,6 @@ public class World extends Game {
     private ArrayList<GameObject> list;
     public static int Level;
 
-
     public World(GameActivity gameActivity) {
         super(gameActivity);
     }

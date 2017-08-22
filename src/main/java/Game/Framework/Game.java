@@ -1,12 +1,13 @@
 package Game.Framework;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Canvas;
 import Game.*;
 import com.example.emil.Framework.ActivityConstants;
 import com.example.emil.Framework.GameActivity;
 import com.example.emil.Framework.GameDisplay;
-import com.example.emil.Framework.SplashScreen;
+import com.example.emil.Framework.ActivityHandler;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -44,16 +45,18 @@ public class Game {
 
     public void gameOver() {
         pauseGame();
-        Intent intent = new Intent(gameActivity, SplashScreen.class);
+        Intent intent = new Intent(gameActivity.getApplicationContext(), ActivityHandler.class);
         intent.putExtra("level", World.Level);
-        intent.putExtra("activityID", ActivityConstants.GAMEOVER);
+        intent.putExtra("ActivityConstant", ActivityConstants.GAMEOVER);
         gameActivity.startActivity(intent);
+        gameActivity.finish();
     }
 
     public void Draw(List<GameObject> objects) {
         display.drawWorld(objects);
     }
 
+    //onödig?
     public void startGame() {
         gameActivity.startGame();
     }

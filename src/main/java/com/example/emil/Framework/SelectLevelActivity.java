@@ -18,8 +18,10 @@ public class SelectLevelActivity extends AppCompatActivity {
     public void playLevel(View v) {
         String stringLevel = v.getTag().toString();
         int level = Integer.parseInt(stringLevel);
-        Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ActivityHandler.class);
+        intent.putExtra("ActivityConstant", ActivityConstants.GAME);
         intent.putExtra("level", level);
         startActivity(intent);
+        finish();
     }
 }

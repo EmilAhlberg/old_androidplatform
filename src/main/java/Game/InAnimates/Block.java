@@ -40,7 +40,6 @@ public class Block extends GameObject {
         if (blockType == 1) {
             activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.block1);
         } else if (blockType == 2) {
-            Log.d("nisse", "b2");
             activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.block2);
         }
     }
