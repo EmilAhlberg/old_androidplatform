@@ -1,7 +1,9 @@
-package Game;
+package Game.Movers;
 
-import android.util.Log;
-import android.widget.HorizontalScrollView;
+import Game.*;
+import Game.Framework.World;
+import Game.Util.Position;
+import Game.Util.Rectangle;
 
 import java.util.ArrayList;
 
@@ -13,13 +15,13 @@ import java.util.ArrayList;
 public abstract class Mover extends GameObject {
 
     protected boolean grounded;
-    protected MovementVector mv;
+    protected MovePhysics mv;
     protected int WJDirection;
     private int WJDirectionHelper;
 
-    public Mover(Position position, int width, int height, World world) {
-        super(position, width, height, world);
-        mv = new MovementVector();
+    public Mover(Rectangle rect, World world) {
+        super(rect, world);
+        mv = new MovePhysics();
         grounded = false;
         WJDirection = WJDirectionHelper = 0;
     }
@@ -78,7 +80,7 @@ public abstract class Mover extends GameObject {
 
     protected void horizontalBlockCollision(GameObject g) {
         double tempSpeed = mv.horizontalSpeed;
-        move(position.getX() + tempSpeed, position.getY());
+        move(getPosition().getX() + tempSpeed, getPosition().getY());
         WJDirection = WJDirectionHelper;
         WJDirectionHelper = (int)(-tempSpeed/Math.abs(tempSpeed));
         mv.horizontalAcceleration = 0;
@@ -90,9 +92,9 @@ public abstract class Mover extends GameObject {
         mv.verticalAcceleration = 0;
         mv.verticalSpeed = 0;
         if (grounded) {
-            move(position.getX(), g.getPosition().getY() - height-1);
+            move(getPosition().getX(), g.getPosition().getY() - getHeight()-1);
         } else {
-            move(position.getX(), g.getPosition().getY() + g.height+1);
+            move(getPosition().getX(), g.getPosition().getY() + g.getHeight()+1);
         }
 
     }
@@ -124,12 +126,12 @@ public abstract class Mover extends GameObject {
 
     private Position[] getRectBounds(GameObject g, int collisionType) {
         Position[] v = new Position[4];
-        v[0] = new Position(getPosition().getX(), getPosition().getY()+collisionType*height/2);
-        v[1]= new Position(getPosition().getX() + width,
-                getPosition().getY() + height + collisionType*g.height/2);  // ::::mode*g.height/2:::: eller liknande krävs för intersection i mode = 1,
+        v[0] = new Position(getPosition().getX(), getPosition().getY()+collisionType*getHeight()/2);
+        v[1]= new Position(getPosition().getX() + getWidth(),
+                getPosition().getY() + getHeight() + collisionType*g.getHeight()/2);  // ::::mode*g.height/2:::: eller liknande krävs för intersection i mode = 1,
         v[2]= g.getPosition();
-        v[3]= new Position(g.getPosition().getX() + g.width,
-                g.getPosition().getY() + g.height-collisionType*g.height/2);
+        v[3]= new Position(g.getPosition().getX() + g.getWidth(),
+                g.getPosition().getY() + g.getHeight()-collisionType*g.getHeight()/2);
         return v;
     }
 

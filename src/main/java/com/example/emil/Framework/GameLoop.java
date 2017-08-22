@@ -2,9 +2,8 @@ package com.example.emil.Framework;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
-import Game.World;
+import Game.Framework.World;
 
 /**
  * Created by Emil on 2016-11-04.

@@ -1,4 +1,4 @@
-package Game;
+package Game.Util;
 
 /**
  * Created by Emil on 2016-11-26.

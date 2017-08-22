@@ -1,8 +1,8 @@
-package Game;
+package Game.Framework;
 
 import android.content.Intent;
 import android.graphics.Canvas;
-
+import Game.*;
 import com.example.emil.Framework.ActivityConstants;
 import com.example.emil.Framework.GameActivity;
 import com.example.emil.Framework.GameDisplay;
@@ -14,10 +14,12 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.view.MotionEvent;
 
+import Game.Movers.Player;
+
 
 /**
- * Super class to the World class. This class should contain "general logic", such as start/pause game, canvas stuff etc, while World
- * as strictly as possible only implements our "game logic".
+ * Superclass to the World class. This class should contain "general logic", such as start/pause game, canvas stuff etc, while World
+ * as strictly as possible implements our "game logic".
  * Created by Emil on 21/08/2017.
  */
 

@@ -1,4 +1,4 @@
-package Game;
+package Game.InAnimates;
 
 /**
  * Created by Emil on 12/10/2016.
@@ -7,6 +7,9 @@ package Game;
 import android.graphics.drawable.Drawable;
 
 import com.example.emil.app.R;
+
+import Game.Framework.World;
+import Game.Util.Position;
 
 /**
  * "Supa hot fire"
@@ -21,8 +24,8 @@ public class Fire extends Hazard {
         super(position, Block.BLOCK_WIDTH, Block.BLOCK_HEIGHT, world);
         picture1 = world.getGameActivity().getResources().getDrawable(R.drawable.hot_fire);
         picture2 = world.getGameActivity().getResources().getDrawable(R.drawable.hot_fire2);
-        picture1.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
-        picture2.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
+        picture1.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getHeight());
+        picture2.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getHeight());
     }
 
   /*  @Override
@@ -43,7 +46,7 @@ public class Fire extends Hazard {
     }
 
     @Override
-    protected void affectPlayer() {
+    public void affectPlayer() {
         world.gameOver();
 //        canvas.drawColor(Color.BLACK);
 //        world.pauseGame();

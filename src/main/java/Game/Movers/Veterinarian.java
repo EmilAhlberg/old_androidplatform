@@ -1,10 +1,15 @@
-package Game;
+package Game.Movers;
 
 import android.graphics.drawable.Drawable;
 
 import com.example.emil.app.R;
 
 import java.util.Random;
+import Game.*;
+import Game.Framework.World;
+import Game.InAnimates.Block;
+import Game.Util.Position;
+import Game.Util.Rectangle;
 
 /**
  * Created by Emil on 2016-12-18.
@@ -13,14 +18,18 @@ import java.util.Random;
 public class Veterinarian extends GameObject {
     private Drawable picture;
     private Drawable syringePic;
+    private Syringe syringe;
     private int reloadTimer;
+    private final static int VET_WIDTH = 20;
+    private final static int VET_HEIGHT = 40;
     private final int RELOAD_TIME = 75;
 
     public Veterinarian(Position position, World world) {
-        super(position, 20, 40, world);
+        super(new Rectangle(position, VET_WIDTH, VET_HEIGHT), world);
         reloadTimer = new Random().nextInt(75);
+        syringe = new Syringe(new Position(getPosition().getX() - 20, getPosition().getY()), world);
         activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.vet);
-        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
+        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getHeight());
     }
 
   /*  @Override
@@ -38,7 +47,7 @@ public class Veterinarian extends GameObject {
     }
 
     private void throwSyringe() {
-        world.addObject(new Syringe(new Position(position.getX() - 20, position.getY()), world));
+        world.addObject(new Syringe(new Position(getPosition().getX() - 20, getPosition().getY()), world));
     }
 
     public void affectPlayer() {
@@ -46,22 +55,25 @@ public class Veterinarian extends GameObject {
     }
 
     private class Syringe extends Mover {
-
+        private final static int SYR_WIDTH = 10;
+        private final static int SYR_HEIGHT = 20;
+        private boolean isActive;
 
         public Syringe(Position position, World world) {
-            super(position, 10, 20, world);
+            super(new Rectangle(position, SYR_WIDTH, SYR_HEIGHT), world);
             activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.syringe);
+            isActive = false;
             applyForce(200, 300);
         }
 
         @Override
         protected void updatePosition() {
-            move(position.getX() - mv.horizontalSpeed, position.getY() - mv.verticalSpeed);
+            move(getPosition().getX() - mv.horizontalSpeed, getPosition().getY() - mv.verticalSpeed);
         }
 
         @Override
         protected void updatePicture() {
-            activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
+            activePicture.setBounds((int) getPosition().getX(), (int) getPosition().getY(), (int) getPosition().getX() + getWidth(), (int) getPosition().getY() + getHeight());
         }
 
         @Override

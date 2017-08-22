@@ -14,11 +14,8 @@ import android.widget.LinearLayout;
 
 import com.example.emil.app.R;
 
-import java.util.ArrayList;
-
-import Game.GameObject;
-import Game.LevelCreator;
-import Game.World;
+import Game.Framework.LevelCreator;
+import Game.Framework.World;
 
 public class GameActivity extends AppCompatActivity {
 

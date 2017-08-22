@@ -1,15 +1,16 @@
-package Game;
+package Game.Framework;
 
-import android.content.Intent;
-
-import com.example.emil.Framework.ActivityConstants;
 import com.example.emil.Framework.GameActivity;
-import com.example.emil.Framework.SplashScreen;
 
 import java.util.ArrayList;
 import java.util.List;
+import Game.*;
+import Game.Framework.Game;
+import Game.Framework.LevelCreator;
+import Game.Movers.Player;
 
 /**
+ * Game logic.
  * Created by Emil on 2016-11-25.
  */
 

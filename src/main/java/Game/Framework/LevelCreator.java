@@ -1,15 +1,24 @@
-package Game;
+package Game.Framework;
 
 import android.os.Handler;
 
 import com.example.emil.Framework.GameActivity;
 import com.example.emil.app.R;
-
+import Game.*;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import Game.InAnimates.Block;
+import Game.InAnimates.Fire;
+import Game.InAnimates.Goal;
+import Game.Movers.Player;
+import Game.Movers.StandardCat;
+import Game.Movers.SuicideCat;
+import Game.Movers.Veterinarian;
+import Game.Util.Position;
 
 /**
  * Created by Emil on 2016-11-22.

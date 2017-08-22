@@ -1,4 +1,4 @@
-package Game;
+package Game.Util;
 
 import android.graphics.Canvas;
 import android.graphics.Point;

@@ -1,14 +1,15 @@
-package Game;
+package Game.Movers;
 
+import Game.*;
 /**
  * Created by Emil on 2016-12-03.
  */
 
-public class MovementVector {
+public class MovePhysics {
     protected final double GRAVITY = -35;
     protected double verticalForce, horizontalForce, horizontalAcceleration, verticalAcceleration, horizontalSpeed, verticalSpeed, mass;
 
-    public MovementVector() {
+    public MovePhysics() {
         horizontalForce = horizontalAcceleration = verticalAcceleration = horizontalSpeed = verticalSpeed = 0;
         verticalForce = GRAVITY;
         mass = 30;

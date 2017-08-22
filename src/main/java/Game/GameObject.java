@@ -1,9 +1,10 @@
 package Game;
 
-import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
-import com.example.emil.Framework.GameActivity;
+import Game.Framework.World;
+import Game.Util.Position;
+import Game.Util.Rectangle;
 
 /**
  * Created by Emil on 2016-11-20.
@@ -14,36 +15,37 @@ public abstract class GameObject {
    /* protected static Canvas canvas;*/
     protected World world;
   /*  protected static GameActivity gameActivity;*/
-    protected Position position;
-    protected int width;
-    protected int height;
+//    protected Position position;
+//    protected int width;
+//    protected int height;
+    protected Rectangle rect;
     protected Drawable activePicture;
 
-    public GameObject(Position position, int width, int height, World world) {
-        this.position = position;
-        this.width = width;
-        this.height = height;
+    public GameObject(Rectangle rect, World world) {
+        this.rect = rect;
         this.world = world;
     }
     public Position getPosition() {
-        return position;
+        return rect.getPosition();
     }
 
     public void move(double x, double y) {
-        position.setX(x);
-        position.setY(y);
+        rect.getPosition().setX(x);
+        rect.getPosition().setY(y);
     }
 
     public Drawable getDrawable() {
         return activePicture;
     }
 
-    public abstract void update();
+    public int getHeight() {
+        return rect.getHeight();
+    }
 
- /*   public static void initialize(World w) {
-   *//*     canvas = c;*//*
-        world = w;
-      *//*  gameActivity = b;*//*
-    }*/
+    public int getWidth() {
+        return rect.getWidth();
+    }
+
+    public abstract void update();
 
 }

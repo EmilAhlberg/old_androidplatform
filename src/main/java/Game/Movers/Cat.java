@@ -1,8 +1,13 @@
-package Game;
+package Game.Movers;
 
 import android.graphics.drawable.Drawable;
 
-import com.example.emil.app.R;
+import Game.*;
+import Game.Framework.World;
+import Game.InAnimates.Block;
+import Game.InAnimates.Hazard;
+import Game.Util.Position;
+import Game.Util.Rectangle;
 
 /**
  * Created by Emil on 2016-12-14.
@@ -11,10 +16,11 @@ import com.example.emil.app.R;
 public abstract class Cat extends Mover {
     private Drawable picture;
     protected int direction;
+    private final static int CAT_SIZE = 20;
 
 
     public Cat(Position p, Drawable d, World world) {
-        super(p, 20, 20, world);
+        super(new Rectangle(p, CAT_SIZE, CAT_SIZE), world);
         applyForce(35, 0);
         direction = 1;
         activePicture = d;
@@ -24,19 +30,19 @@ public abstract class Cat extends Mover {
     protected void updatePosition() {
         for (int i = 1; i >=0 ; i--) {
             if (i == 0) {
-                move(position.getX() - mv.horizontalSpeed*direction, position.getY());
+                move(getPosition().getX() - mv.horizontalSpeed*direction, getPosition().getY());
             } else if (i == 1) {
-                move(position.getX(), position.getY() - mv.verticalSpeed);
+                move(getPosition().getX(), getPosition().getY() - mv.verticalSpeed);
             }
             checkCollision(i);
            // move(position.getX() - mv.horizontalSpeed * direction, position.getY() - mv.verticalSpeed);
         }
     }
-    protected abstract void specificCatCollision(GameObject g,int collisionType);
+    protected abstract void specificCatCollision(GameObject g, int collisionType);
 
     @Override
     protected void updatePicture() {
-        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
+        activePicture.setBounds((int) getPosition().getX(), (int) getPosition().getY(), (int) getPosition().getX() + getWidth(), (int) getPosition().getY() + getHeight());
     }
 
     @Override

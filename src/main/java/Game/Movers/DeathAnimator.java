@@ -1,6 +1,9 @@
-package Game;
+package Game.Movers;
 
 import com.example.emil.app.R;
+import Game.*;
+import Game.Framework.World;
+import Game.Util.Rectangle;
 
 /**
  * Created by Emil on 2016-12-17.
@@ -8,14 +11,14 @@ import com.example.emil.app.R;
 
 public class DeathAnimator extends GameObject {
  /*   private Drawable picture;*/
-    private MovementVector mv;
+    private MovePhysics mv;
 
     public DeathAnimator(GameObject g, World world) {
-        super(g.getPosition(), g.width, g.height, world);
+        super(new Rectangle(g.getPosition(), g.getWidth(), g.getHeight()), world);
         world.addObject(this);
         initializeImage(g);
 
-        mv = new MovementVector();
+        mv = new MovePhysics();
         mv.applyForce(20, 400);
     }
 
@@ -37,7 +40,7 @@ public class DeathAnimator extends GameObject {
     }
 */
     private void updatePicture() {
-        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
+        activePicture.setBounds((int) getPosition().getX(), (int) getPosition().getY(), (int) getPosition().getX() + getWidth(), (int) getPosition().getY() + getHeight());
     }
     @Override
     public void update() {
@@ -52,6 +55,6 @@ public class DeathAnimator extends GameObject {
     }
 
     protected void updatePosition() {
-        move(position.getX() - mv.horizontalSpeed, position.getY() - mv.verticalSpeed);
+        move(getPosition().getX() - mv.horizontalSpeed, getPosition().getY() - mv.verticalSpeed);
     }
 }

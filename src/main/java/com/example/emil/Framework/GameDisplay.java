@@ -2,19 +2,16 @@ package com.example.emil.Framework;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.example.emil.app.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Game.Block;
 import Game.GameObject;
-import Game.Position;
+import Game.Util.Position;
 
 /**
  * Created by Emil on 2016-12-29.

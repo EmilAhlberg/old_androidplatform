@@ -1,7 +1,10 @@
-package Game;
+package Game.InAnimates;
 
-import android.graphics.drawable.Drawable;
 import android.util.Log;
+import Game.*;
+import Game.Framework.World;
+import Game.Util.Position;
+import Game.Util.Rectangle;
 
 import com.example.emil.app.R;
 
@@ -16,9 +19,9 @@ public class Block extends GameObject {
     //private Drawable picture;
 
     public Block(Position position, int blockType, World world) {
-        super(position, BLOCK_WIDTH, BLOCK_HEIGHT, world);
+        super(new Rectangle(position, BLOCK_WIDTH, BLOCK_HEIGHT), world);
         initializeImage(blockType);
-        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
+        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getWidth());
     }
 
 

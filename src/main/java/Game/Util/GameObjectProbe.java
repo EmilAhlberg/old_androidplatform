@@ -1,6 +1,10 @@
-package Game;
+package Game.Util;
 
 //import Mover;
+
+import Game.Framework.World;
+import Game.Movers.Mover;
+import Game.*;
 
 /**
  * 'Mock object', which checks for collisions on assigned locations.
@@ -13,7 +17,7 @@ public class GameObjectProbe extends Mover {
     private boolean clearPath = false;
 
     public GameObjectProbe(Position p, int width, int height, World world) {
-        super(p, width, height, world);
+        super(new Rectangle(p, width, height), world);
     }
     @Override
     protected void updatePosition() {

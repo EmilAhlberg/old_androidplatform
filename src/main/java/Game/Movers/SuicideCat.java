@@ -1,10 +1,11 @@
-package Game;
-
-import android.graphics.drawable.Drawable;
+package Game.Movers;
 
 import com.example.emil.app.R;
 
 import java.util.Random;
+import Game.*;
+import Game.Framework.World;
+import Game.Util.Position;
 
 /**
  * Created by Emil on 2016-12-23.
