@@ -7,11 +7,12 @@ import android.view.View;
 
 import com.example.emil.app.R;
 
-public class SelectLevelActivity extends AppCompatActivity {
+public class SelectLevelActivity extends AppActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setFullscreen();
         setContentView(R.layout.activity_select_level);
     }
 

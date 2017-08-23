@@ -8,11 +8,12 @@ import android.util.Log;
 
 import com.example.emil.app.R;
 
-public class ActivityHandler extends AppCompatActivity {
+public class ActivityHandler extends AppActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setFullscreen();
         Log.d("onCreate: ", "1");
         setContentView(R.layout.activity_splash_screen);
 

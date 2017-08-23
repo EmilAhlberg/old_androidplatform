@@ -20,7 +20,7 @@ import Game.Framework.GameLoop;
 import Game.Framework.LevelCreator;
 import Game.Framework.World;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppActivity {
 
     private World world;
     private Handler gameLoopThread;
@@ -71,12 +71,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void pauseGame() {
         gameLoop.pauseLoop();
-    }
-
-    public void setFullscreen() {
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //Gör så att appen kör i landscape-mode
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     public boolean onTouchEvent(MotionEvent event) {

@@ -7,11 +7,12 @@ import android.view.View;
 
 import com.example.emil.app.R;
 
-public class LevelClearedActivity extends AppCompatActivity {
+public class LevelClearedActivity extends AppActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setFullscreen();
         setContentView(R.layout.activity_level_cleared);
     }
 
