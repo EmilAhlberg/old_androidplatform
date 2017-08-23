@@ -17,13 +17,17 @@ public class GameOverActivity extends AppCompatActivity {
 
     public void retryLevel(View view) {
         int level = getIntent().getExtras().getInt("level");
-        Intent intent = new Intent (this, GameActivity.class);
+        Intent intent = new Intent (getApplicationContext(), ActivityHandler.class);
+        intent.putExtra("ActivityConstant", ActivityConstants.GAME);
         intent.putExtra("level", level);
+        startActivity(intent);
         finish();
-        startActivity(intent);
     }
+
     public void selectLevel(View view){
-        Intent intent = new Intent(this, SelectLevelActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ActivityHandler.class);
+        intent.putExtra("ActivityConstant", ActivityConstants.SELECTLEVEL);
         startActivity(intent);
+        finish();
     }
 }

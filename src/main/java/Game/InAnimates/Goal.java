@@ -1,5 +1,6 @@
 package Game.InAnimates;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import com.example.emil.app.R;
@@ -9,7 +10,7 @@ import Game.Util.Position;
 import Game.Util.Rectangle;
 
 import com.example.emil.Framework.ActivityConstants;
-import com.example.emil.Framework.SplashScreen;
+import com.example.emil.Framework.ActivityHandler;
 
 /**
  * Created by Emil on 2016-12-03.
@@ -38,10 +39,11 @@ public class Goal extends GameObject {
     public void update() {
         if (goalReached) {
             world.pauseGame();
-            Intent intent = new Intent(world.getGameActivity(), SplashScreen.class);
+            Intent intent = new Intent(world.getGameActivity().getApplicationContext(), ActivityHandler.class);
             intent.putExtra("level",World.Level);
-            intent.putExtra("activityID", ActivityConstants.LEVELCLEARED);
+            intent.putExtra("ActivityConstant", ActivityConstants.LEVELCLEARED);
             world.getGameActivity().startActivity(intent);
+            world.getGameActivity().finish();
         }
     }
 }

@@ -6,9 +6,9 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
 
-    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,19 +18,19 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name="com.example.emil.Framework.SplashScreen">
-            com.example.emil.Framework.SplashScreen
+        <activity android:name="com.example.emil.Framework.ActivityHandler" />
+        <activity android:name="com.example.emil.Framework.GameActivity" />
+        <activity android:name="com.example.emil.Framework.LevelClearedActivity" />
+        <activity android:name="com.example.emil.Framework.GameOverActivity" />
+        <activity android:name="com.example.emil.Framework.StartMenuActivity" >
+            com.example.emil.Framework.StartMenuActivity
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.emil.Framework.GameActivity" />
-        <activity android:name="com.example.emil.Framework.LevelClearedActivity" />
-        <activity android:name="com.example.emil.Framework.GameOverActivity" />
-        <activity android:name="com.example.emil.Framework.StartMenuActivity" />
-        <activity android:name="com.example.emil.Framework.SelectLevelActivity"></activity>
+        <activity android:name="com.example.emil.Framework.SelectLevelActivity" />
     </application>
 
 </manifest>

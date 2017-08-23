@@ -14,7 +14,6 @@ public class StartMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
     @Override
@@ -24,10 +23,10 @@ public class StartMenuActivity extends AppCompatActivity {
     }
 
     public void newGame(View view) {
-        Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ActivityHandler.class);
+        intent.putExtra("ActivityConstant", ActivityConstants.GAME);
         intent.putExtra("level", 1); //start at level 1
         startActivity(intent);
-
+        finish(); //Stänger Activityn
     }
-
 }
