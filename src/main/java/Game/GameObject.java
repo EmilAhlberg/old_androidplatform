@@ -2,6 +2,8 @@ package Game;
 
 import android.graphics.drawable.Drawable;
 
+import java.util.ArrayList;
+
 import Game.Framework.World;
 import Game.Util.Position;
 import Game.Util.Rectangle;
@@ -46,6 +48,14 @@ public abstract class GameObject {
         return rect.getWidth();
     }
 
+    public void updateObject() {
+        update();
+        updatePicture();
+    }
     public abstract void update();
+
+    private void updatePicture() {
+        activePicture.setBounds((int) getPosition().getX(), (int) getPosition().getY(), (int) getPosition().getX() + getWidth(), (int) getPosition().getY() + getHeight());
+    }
 
 }

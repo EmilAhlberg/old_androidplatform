@@ -58,7 +58,6 @@ public class Player extends Mover {
         }
         updateSpeed();
         updatePosition();
-        updatePicture();
         stillOnScreen();
         /*centerPlayer();*/
     }
@@ -114,11 +113,6 @@ public class Player extends Mover {
             }
             checkCollision(i);
         }
-    }
-
-    @Override
-    protected void updatePicture() {
-        activePicture.setBounds((int) getPosition().getX(), (int) getPosition().getY(), (int) getPosition().getX() + getWidth(), (int) getPosition().getY() + getHeight());
     }
 
     @Override
@@ -205,7 +199,7 @@ public class Player extends Mover {
         double dy = 0;
         if (position.getY() >= 240 && position.getY() <= 760) {
             dy = r.centerY() - position.getY();
-        } else if (position.getY() < 240) {
+        } else if (position.getY() < 240) {så
             dy = r.top;  //icke testad
         } else if (position.getY() >= 760) {
             dy = r.bottom - 1000;

@@ -46,10 +46,11 @@ public class World extends Game {
         //ConcurrentModificationException fix
         List<GameObject> temp = createTempGameObjects();
         for (GameObject gameObject : temp) {
-            gameObject.update();
+            gameObject.updateObject();
         }
         Draw(temp);
     }
+
     //OBS
     //objects should handle their own death animation? --> these 2 methods can be removed
     public void addObject(GameObject g) {

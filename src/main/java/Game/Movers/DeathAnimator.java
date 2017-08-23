@@ -39,12 +39,12 @@ public class DeathAnimator extends GameObject {
         picture.draw(canvas);
     }
 */
-    private void updatePicture() {
-        activePicture.setBounds((int) getPosition().getX(), (int) getPosition().getY(), (int) getPosition().getX() + getWidth(), (int) getPosition().getY() + getHeight());
-    }
+//    private void updatePicture() {
+//        activePicture.setBounds((int) getPosition().getX(), (int) getPosition().getY(), (int) getPosition().getX() + getWidth(), (int) getPosition().getY() + getHeight());
+//    }
     @Override
     public void update() {
-        updatePicture();
+        //updatePicture();
         if (mv.verticalForce > -100) {
             mv.updateSpeed();
             updatePosition();

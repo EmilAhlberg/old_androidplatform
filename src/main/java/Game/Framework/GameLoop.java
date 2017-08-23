@@ -1,4 +1,4 @@
-package com.example.emil.Framework;
+package Game.Framework;
 
 import android.os.Handler;
 import android.os.Message;

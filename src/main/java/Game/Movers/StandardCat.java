@@ -17,7 +17,6 @@ public class StandardCat extends Cat {
         super(p, world.getGameActivity().getResources().getDrawable(R.drawable.cat), world);
     }
 
-
     @Override
     protected void specificCatCollision(GameObject g,int collisionType) {
         //redundant

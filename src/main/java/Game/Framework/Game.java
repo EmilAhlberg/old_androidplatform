@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import Game.*;
 import com.example.emil.Framework.ActivityConstants;
 import com.example.emil.Framework.GameActivity;
-import com.example.emil.Framework.GameDisplay;
 import com.example.emil.Framework.SplashScreen;
 
 import java.util.List;

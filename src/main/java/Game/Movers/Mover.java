@@ -40,7 +40,6 @@ public abstract class Mover extends GameObject {
     }
 
     protected abstract void updatePosition();
-    protected abstract void updatePicture();
 
     /**
      * Check for any collisions between THIS and any other GameObject. If any collision occurs,

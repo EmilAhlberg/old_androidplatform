@@ -1,10 +1,11 @@
-package com.example.emil.Framework;
+package Game.Framework;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
+import com.example.emil.Framework.GameActivity;
 import com.example.emil.app.R;
 
 import java.util.ArrayList;

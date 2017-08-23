@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.example.emil.app.R;
 
+import Game.Framework.GameLoop;
 import Game.Framework.LevelCreator;
 import Game.Framework.World;
 

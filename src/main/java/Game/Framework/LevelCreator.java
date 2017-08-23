@@ -80,7 +80,9 @@ public class LevelCreator {
                         break;
                     case 'V':
                         p.setY(p.getY()-20);
-                        newList.add(new Veterinarian(p, world));
+                        Veterinarian v = new Veterinarian(p, world);
+                        newList.add(v);
+                        //newList.add(v.getSyringe());
                         break;
                     case 'P':
                         newList.add(0, new Player(p, world)); //added to front of list
