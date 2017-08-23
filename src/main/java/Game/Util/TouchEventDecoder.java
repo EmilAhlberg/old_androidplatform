@@ -25,7 +25,7 @@ public class TouchEventDecoder {
     }
 
 
-    public void decodeTouchEvent (MotionEvent event, Point p, Canvas canvas) {
+    public void decodeTouchEvent (MotionEvent event, Point p) {
         int action = event.getAction();
         touchAction = action;
 
@@ -62,8 +62,8 @@ public class TouchEventDecoder {
             }
         }
 
-        firstClickPos = new Position(firstClickPos.getX() * canvas.getWidth() / p.x, firstClickPos.getY() * canvas.getHeight() / p.y);
-        secondClickPos = new Position(secondClickPos.getX() * canvas.getWidth() / p.x, secondClickPos.getY() * canvas.getHeight() / p.y);
+        firstClickPos = new Position(firstClickPos.getX() *WindowSize.WINDOW_WIDTH / p.x, firstClickPos.getY() * WindowSize.WINDOW_HEIGHT / p.y);
+        secondClickPos = new Position(secondClickPos.getX() * WindowSize.WINDOW_WIDTH / p.x, secondClickPos.getY() * WindowSize.WINDOW_HEIGHT / p.y);
 
         //Log.d("MultiTouch", "FirstClickPos = (" + firstClickPos.getX() + ", " + firstClickPos.getY() + ")" + " : SecondClickPos = (" + secondClickPos.getX() + ", " + secondClickPos.getY() + ")");
 

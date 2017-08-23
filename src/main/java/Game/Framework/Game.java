@@ -27,17 +27,14 @@ import Game.Movers.Player;
 public class Game {
 
     protected GameActivity gameActivity;
-    private GameDisplay display;
+    //private GameDisplay display;
     protected Player player;
 
     public Game(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
-        display = new GameDisplay(gameActivity);
+        //display = new GameDisplay(gameActivity);
     }
 
-    public void setGameBlocks(ArrayList<GameObject> blockList) {
-        display.setGameBlocks(blockList);
-    }
 
     public void pauseGame() {
         gameActivity.pauseGame();
@@ -52,25 +49,14 @@ public class Game {
         gameActivity.finish();
     }
 
-    public void Draw(List<GameObject> objects) {
-        display.drawWorld(objects);
-    }
-
     //onödig?
     public void startGame() {
         gameActivity.startGame();
     }
 
-    public Bitmap getBitmap() {
-        return display.getBitmap();
-    }
 
     public void nextLevel() {
         gameActivity.setLevel();
-    }
-
-    public Canvas getCanvas() {
-        return display.getCanvas();
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {

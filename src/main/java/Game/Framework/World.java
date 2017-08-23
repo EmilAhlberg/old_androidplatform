@@ -1,5 +1,7 @@
 package Game.Framework;
 
+import android.graphics.Canvas;
+
 import com.example.emil.Framework.GameActivity;
 
 import java.util.ArrayList;
@@ -26,7 +28,6 @@ public class World extends Game {
 
     public void initLevel() {
         list = LevelCreator.GameObjectList;
-        setGameBlocks(LevelCreator.BlockList);
         player = (Player)list.get(0);
         startGame();
     }
@@ -47,7 +48,19 @@ public class World extends Game {
         for (GameObject gameObject : temp) {
             gameObject.updateObject();
         }
-        Draw(temp);
+
+        gameActivity.draw();
+    }
+
+    public void drawWorld(Canvas canvas) {
+        List<GameObject> temp = createTempGameObjects();
+        for (GameObject gameObject : temp) {
+            gameObject.getDrawable().draw(canvas);
+        }
+    }
+
+    public Player getPlayer() {
+        return (Player) list.get(0); //farlig?
     }
 
     //OBS
