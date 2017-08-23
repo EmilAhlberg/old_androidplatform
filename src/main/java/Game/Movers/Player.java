@@ -2,9 +2,9 @@ package Game.Movers;
 
 import android.graphics.Point;
 import android.view.MotionEvent;
-import android.view.Window;
 
 import Game.*;
+import Game.Framework.GameDisplay;
 import Game.Framework.World;
 import Game.InAnimates.Block;
 import Game.InAnimates.Goal;
@@ -12,7 +12,6 @@ import Game.InAnimates.Hazard;
 import Game.Util.Position;
 import Game.Util.Rectangle;
 import Game.Util.TouchEventDecoder;
-import Game.Util.WindowSize;
 
 import com.example.emil.app.R;
 
@@ -73,7 +72,7 @@ public class Player extends Mover {
                 applyForce(WJDirection * 300, 600);
                 grounded = false;
             } else if (grounded) {
-                int cTemp = WindowSize.WINDOW_WIDTH / 2;
+                int cTemp = GameDisplay.WINDOW_WIDTH / 2;
                 double sClickTemp = touchEventDecoder.getSecondClickPos().getX();
                 if ((clickX <= cTemp && sClickTemp > cTemp) || (clickX > cTemp && sClickTemp <= cTemp)) {
                     jump(600);
@@ -81,7 +80,7 @@ public class Player extends Mover {
             }
         }
         if (nbrFingers > 0) {
-            if (clickX <= WindowSize.WINDOW_WIDTH / 2) {
+            if (clickX <= GameDisplay.WINDOW_WIDTH / 2) {
                 applyForce(30 - mv.horizontalSpeed * 2, 0);
             } else {
                 applyForce(-30 - mv.horizontalSpeed * 2, 0);

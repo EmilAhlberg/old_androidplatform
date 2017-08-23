@@ -1,8 +1,6 @@
 package com.example.emil.Framework;
 
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
@@ -17,14 +15,10 @@ import android.widget.LinearLayout;
 
 import com.example.emil.app.R;
 
-import java.util.List;
-
 import Game.Framework.GameDisplay;
 import Game.Framework.GameLoop;
 import Game.Framework.LevelCreator;
 import Game.Framework.World;
-import Game.GameObject;
-import Game.Util.WindowSize;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -49,9 +43,6 @@ public class GameActivity extends AppCompatActivity {
         ll = (LinearLayout) findViewById(R.id.gameActivity);
         //https://www.youtube.com/watch?v=2xYaTGRvpv4
         display = new GameDisplay(this);
-
-        WindowSize.WINDOW_WIDTH = display.getCanvas().getWidth();
-        WindowSize.WINDOW_HEIGHT = display.getCanvas().getHeight();
 
         world = new World(this);
         levelCreator = new LevelCreator(/*levelCreatorThread,*/ this, world);

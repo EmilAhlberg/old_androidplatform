@@ -24,6 +24,8 @@ public class GameDisplay {
     private Drawable backgroundImage;
     private Bitmap background;
     private Bitmap tempMap;
+    public static int WINDOW_WIDTH;
+    public static int WINDOW_HEIGHT;
 
     public GameDisplay(GameActivity gameActivity) {
         bitmap = Bitmap.createBitmap(800, 480, Bitmap.Config.RGB_565);
@@ -31,6 +33,8 @@ public class GameDisplay {
         canvas = new Canvas(bitmap);
         backgroundImage = gameActivity.getResources().getDrawable(R.drawable.background);
         backgroundImage.setBounds(0, 0, 2000, 1000); //(left, top, right, bottom)
+        WINDOW_WIDTH = getCanvas().getWidth();
+        WINDOW_HEIGHT = getCanvas().getHeight();
     }
 
     public void beginDraw(Position playerPos) {
