@@ -33,7 +33,6 @@ public class GameLoop {
                 double currentTime = System.currentTimeMillis();
                 double newTime = 0;
                 while (running) {
-                    Log.d("run: ", "asd");
                     if (newTime - currentTime > timeLimit) {
                         updateLoop();
                         currentTime = newTime;

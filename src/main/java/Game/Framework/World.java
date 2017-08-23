@@ -1,13 +1,16 @@
 package Game.Framework;
 
-import android.util.Log;
+import android.content.Intent;
+import android.graphics.Point;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
+
+import com.example.emil.Framework.ActivityConstants;
+import com.example.emil.Framework.ActivityHandler;
 import com.example.emil.Framework.GameActivity;
 import java.util.ArrayList;
 import java.util.List;
 import Game.*;
-import Game.Framework.Game;
-import Game.Framework.LevelCreator;
 import Game.Movers.Player;
 
 /**
@@ -15,14 +18,15 @@ import Game.Movers.Player;
  * Created by Emil on 2016-11-25.
  */
 
-public class World extends Game {
+public class World {
 
-
+    protected Player player;
+    protected GameActivity gameActivity;
     private ArrayList<GameObject> list;
     public static int Level;
 
     public World(GameActivity gameActivity) {
-        super(gameActivity);
+        this.gameActivity = gameActivity;
     }
 
     public void initLevel() {
@@ -62,6 +66,23 @@ public class World extends Game {
         return (Player) list.get(0); //farlig?
     }
 
+    public void decodeTouchEvent(MotionEvent event, Point p) {
+        try {
+            player.decodeTouchEvent(event, p);
+        } catch(NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void gameOver() {
+        pauseGame();
+        Intent intent = new Intent(gameActivity.getApplicationContext(), ActivityHandler.class);
+        intent.putExtra("level", World.Level);
+        intent.putExtra("ActivityConstant", ActivityConstants.GAMEOVER);
+        gameActivity.startActivity(intent);
+        gameActivity.finish();
+    }
+
     //OBS
     //objects should handle their own death animation? --> these 2 methods can be removed
     public void addObject(GameObject g) {
@@ -76,4 +97,11 @@ public class World extends Game {
         return gameActivity;
     }
 
+    public void startGame() {
+        gameActivity.startGame();
+    }
+
+    public void pauseGame() {
+        gameActivity.pauseGame();
+    }
 }

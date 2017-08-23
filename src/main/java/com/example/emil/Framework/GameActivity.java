@@ -57,9 +57,7 @@ public class GameActivity extends AppCompatActivity {
         levelCreator = new LevelCreator(/*levelCreatorThread,*/ this, world);
         levelCreator.setLevel();
         gameLoop = new GameLoop(world, gameLoopThread);
-        Log.d("GameActivity: ", "före");
         world.initLevel();
-        Log.d("GameActivity: ", "efter");
     }
 
 
