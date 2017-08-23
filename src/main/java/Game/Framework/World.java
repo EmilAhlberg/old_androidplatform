@@ -1,9 +1,8 @@
 package Game.Framework;
 
 import android.util.Log;
-
+import android.graphics.Canvas;
 import com.example.emil.Framework.GameActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 import Game.*;
@@ -28,11 +27,8 @@ public class World extends Game {
 
     public void initLevel() {
         list = LevelCreator.GameObjectList;
-        setGameBlocks(LevelCreator.BlockList);
         player = (Player)list.get(0);
-        Log.d("initLevel: ", "före");
         startGame();
-        Log.d("initLevel: ", "efter");
     }
 
     /**
@@ -49,10 +45,23 @@ public class World extends Game {
         //ConcurrentModificationException fix
         List<GameObject> temp = createTempGameObjects();
         for (GameObject gameObject : temp) {
-            gameObject.update();
+            gameObject.updateObject();
         }
-        Draw(temp);
+
+        gameActivity.draw();
     }
+
+    public void drawWorld(Canvas canvas) {
+        List<GameObject> temp = createTempGameObjects();
+        for (GameObject gameObject : temp) {
+            gameObject.getDrawable().draw(canvas);
+        }
+    }
+
+    public Player getPlayer() {
+        return (Player) list.get(0); //farlig?
+    }
+
     //OBS
     //objects should handle their own death animation? --> these 2 methods can be removed
     public void addObject(GameObject g) {

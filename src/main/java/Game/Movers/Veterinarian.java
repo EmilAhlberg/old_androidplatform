@@ -16,8 +16,6 @@ import Game.Util.Rectangle;
  */
 
 public class Veterinarian extends GameObject {
-    private Drawable picture;
-    private Drawable syringePic;
     private Syringe syringe;
     private int reloadTimer;
     private final static int VET_WIDTH = 20;
@@ -32,38 +30,40 @@ public class Veterinarian extends GameObject {
         activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getHeight());
     }
 
-  /*  @Override
-    public void draw() {
-        picture.draw(canvas);
-    }*/
-
     @Override
     public void update() {
-        reloadTimer--;
-        if (reloadTimer == 0) {
-            throwSyringe();
-            reloadTimer = RELOAD_TIME;
-        }
-    }
+//        reloadTimer--;
+//        if (reloadTimer == 0) {
+//            syringe.activate();
+//            reloadTimer = RELOAD_TIME;
+//        }
 
-    private void throwSyringe() {
-        world.addObject(new Syringe(new Position(getPosition().getX() - 20, getPosition().getY()), world));
     }
 
     public void affectPlayer() {
         world.gameOver();
     }
 
+    public Syringe getSyringe() {
+        return syringe;
+    }
+
     private class Syringe extends Mover {
         private final static int SYR_WIDTH = 10;
         private final static int SYR_HEIGHT = 20;
+        private Position startingPos;
         private boolean isActive;
 
         public Syringe(Position position, World world) {
             super(new Rectangle(position, SYR_WIDTH, SYR_HEIGHT), world);
+            startingPos = position;
             activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.syringe);
             isActive = false;
+        }
+
+        public void activate() {
             applyForce(200, 300);
+            isActive = true;
         }
 
         @Override
@@ -72,38 +72,36 @@ public class Veterinarian extends GameObject {
         }
 
         @Override
-        protected void updatePicture() {
-            activePicture.setBounds((int) getPosition().getX(), (int) getPosition().getY(), (int) getPosition().getX() + getWidth(), (int) getPosition().getY() + getHeight());
-        }
-
-        @Override
         protected void specificCollision(GameObject g, int collisionType) {
+            boolean collision = false;
             if (g instanceof Block) {
-                world.removeObject(this);
+                collision = true;
             } else if (g instanceof Player) {
                 ((Player) g).sedated();
-                world.removeObject(this);
-            } else {
-                world.removeObject(this);
+                collision = true;
+            } else if (getPosition().getY() < -10)
+                collision = true;
+            else {
+                collision = true;
+            }
+            if (collision) {
+                isActive = false;
+                move(startingPos.getX(), startingPos.getY());
+                mv.horizontalForce=0;
+                mv.verticalForce = 0;
             }
         }
-
-       /* @Override
-        public void draw() {
-            syringePic.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + width, (int) position.getY() + height);
-            syringePic.draw(canvas);
-
-        }*/
 
         @Override
         public void update() {
-            updateSpeed();
-            updatePosition();
-            checkCollision(0);
-            if (mv.verticalSpeed > 150) {
-                world.removeObject(this);
+            if (isActive) {
+                updateSpeed();
+                updatePosition();
+                checkCollision(0);
+                if (mv.verticalSpeed > 150) {
+                    world.removeObject(this);
+                }
             }
-            updatePicture();
         }
     }
 }

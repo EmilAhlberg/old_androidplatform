@@ -16,7 +16,6 @@ import Game.InAnimates.Fire;
 import Game.InAnimates.Goal;
 import Game.Movers.Player;
 import Game.Movers.StandardCat;
-import Game.Movers.SuicideCat;
 import Game.Movers.Veterinarian;
 import Game.Util.Position;
 
@@ -27,7 +26,7 @@ import Game.Util.Position;
 public class LevelCreator {
 
 
-    public static ArrayList<GameObject> GameObjectList, BlockList;
+    public static ArrayList<GameObject> GameObjectList;
     //private Handler s;
    /* private Player player;*/
     private GameActivity gameActivity;
@@ -42,20 +41,19 @@ public class LevelCreator {
 
     public void setLevel() {
         GameObjectList = new ArrayList<GameObject>();
-        BlockList = new ArrayList<GameObject>();
         final int newLevel = World.Level;
-        createLevel(GameObjectList, BlockList, getLevelArray(newLevel));
+        createLevel(GameObjectList, getLevelArray(newLevel));
 
         /*new Thread(new Runnable() {
             public void run() {
-                createLevel(GameObjectList, BlockList, getLevelArray(newLevel));
+                createLevel(GameObjectList, getLevelArray(newLevel));
                 s.obtainMessage().sendToTarget();
             }
         }).start();*/
 
     }
 
-    private void createLevel(ArrayList<GameObject> newList, ArrayList<GameObject> blockList, String[] mapString) {
+    private void createLevel(ArrayList<GameObject> newList, String[] mapString) {
         for (int i = 0; i < mapString.length; i++) {
             for (int k = 0; k < mapString[i].length(); k++) {
                 Position p = new Position((k-1) * 20, i * 20); //k-1 vänsterorienterar objekt
@@ -63,12 +61,10 @@ public class LevelCreator {
                     case 'b':
                         Block b = new Block(p, 2, world);
                         newList.add(b);
-                        blockList.add(b);
                         break;
                     case 'B':
                         Block bl = new Block(p, 1, world);
                         newList.add(bl);
-                        blockList.add(bl);
                         break;
                     case 'g':
                         newList.add(new Goal(p, world));
@@ -81,20 +77,18 @@ public class LevelCreator {
                         break;
                     case 'V':
                         p.setY(p.getY()-20);
-                        newList.add(new Veterinarian(p, world));
+                        Veterinarian v = new Veterinarian(p, world);
+                        newList.add(v);
+                        //newList.add(v.getSyringe());
                         break;
                     case 'P':
                         newList.add(0, new Player(p, world)); //added to front of list
                        /* player.move((k-1)*20,(i*20));*/
                         break;
-                    case 's':
-                        newList.add(new SuicideCat(p, world));
-                        break;
-                        //default: throw new IllegalArgumentException();
                 }
             }
         }
-        world.setGameBlocks(blockList);
+        //world.setGameBlocks(blockList);
     }
 
     private String[] getLevelArray(int level) {

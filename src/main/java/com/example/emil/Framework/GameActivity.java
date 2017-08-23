@@ -1,6 +1,8 @@
 package com.example.emil.Framework;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
@@ -15,8 +17,14 @@ import android.widget.LinearLayout;
 
 import com.example.emil.app.R;
 
+import java.util.List;
+
+import Game.Framework.GameDisplay;
+import Game.Framework.GameLoop;
 import Game.Framework.LevelCreator;
 import Game.Framework.World;
+import Game.GameObject;
+import Game.Util.WindowSize;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -26,6 +34,8 @@ public class GameActivity extends AppCompatActivity {
     private LinearLayout ll;
     private GameLoop gameLoop;
     private LevelCreator levelCreator;
+    private GameDisplay display;
+
 
 
     @Override
@@ -38,6 +48,11 @@ public class GameActivity extends AppCompatActivity {
 
         ll = (LinearLayout) findViewById(R.id.gameActivity);
         //https://www.youtube.com/watch?v=2xYaTGRvpv4
+        display = new GameDisplay(this);
+
+        WindowSize.WINDOW_WIDTH = display.getCanvas().getWidth();
+        WindowSize.WINDOW_HEIGHT = display.getCanvas().getHeight();
+
         world = new World(this);
         levelCreator = new LevelCreator(/*levelCreatorThread,*/ this, world);
         levelCreator.setLevel();
@@ -47,6 +62,7 @@ public class GameActivity extends AppCompatActivity {
         Log.d("GameActivity: ", "efter");
     }
 
+
     private void handlerSetup() {
         /*levelCreatorThread = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message inputMessage) {
@@ -55,7 +71,7 @@ public class GameActivity extends AppCompatActivity {
         };*/
         gameLoopThread = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message inputMessage) {
-                ll.setBackground(new BitmapDrawable(getResources(), world.getBitmap()));
+                ll.setBackground(new BitmapDrawable(getResources(), display.getBitmap()));
             }
         };
     }
@@ -81,6 +97,12 @@ public class GameActivity extends AppCompatActivity {
 
 
         return true;
+    }
+
+    public void draw() {
+        display.beginDraw(world.getPlayer().getPosition());
+        world.drawWorld(display.getCanvas());
+        display.endDraw();
     }
 
     /*public Bitmap getBitmap() {

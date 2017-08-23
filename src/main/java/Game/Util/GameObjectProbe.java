@@ -24,10 +24,6 @@ public class GameObjectProbe extends Mover {
 
     }
 
-    @Override
-    protected void updatePicture() {
-
-    }
 
     @Override
     protected void specificCollision(GameObject g, int collisionType) {

@@ -2,6 +2,8 @@ package Game.Movers;
 
 import android.graphics.Point;
 import android.view.MotionEvent;
+import android.view.Window;
+
 import Game.*;
 import Game.Framework.World;
 import Game.InAnimates.Block;
@@ -10,6 +12,7 @@ import Game.InAnimates.Hazard;
 import Game.Util.Position;
 import Game.Util.Rectangle;
 import Game.Util.TouchEventDecoder;
+import Game.Util.WindowSize;
 
 import com.example.emil.app.R;
 
@@ -58,7 +61,6 @@ public class Player extends Mover {
         }
         updateSpeed();
         updatePosition();
-        updatePicture();
         stillOnScreen();
         /*centerPlayer();*/
     }
@@ -71,7 +73,7 @@ public class Player extends Mover {
                 applyForce(WJDirection * 300, 600);
                 grounded = false;
             } else if (grounded) {
-                int cTemp = world.getCanvas().getWidth() / 2;
+                int cTemp = WindowSize.WINDOW_WIDTH / 2;
                 double sClickTemp = touchEventDecoder.getSecondClickPos().getX();
                 if ((clickX <= cTemp && sClickTemp > cTemp) || (clickX > cTemp && sClickTemp <= cTemp)) {
                     jump(600);
@@ -79,7 +81,7 @@ public class Player extends Mover {
             }
         }
         if (nbrFingers > 0) {
-            if (clickX <= world.getCanvas().getWidth() / 2) {
+            if (clickX <= WindowSize.WINDOW_WIDTH / 2) {
                 applyForce(30 - mv.horizontalSpeed * 2, 0);
             } else {
                 applyForce(-30 - mv.horizontalSpeed * 2, 0);
@@ -93,7 +95,7 @@ public class Player extends Mover {
     }*/
 
     public void decodeTouchEvent(MotionEvent event, Point p) {
-        touchEventDecoder.decodeTouchEvent(event, p, world.getCanvas());
+        touchEventDecoder.decodeTouchEvent(event, p);
         clickX = touchEventDecoder.getFirstClickPos().getX();
         clickY = touchEventDecoder.getFirstClickPos().getY();
     }
@@ -114,11 +116,6 @@ public class Player extends Mover {
             }
             checkCollision(i);
         }
-    }
-
-    @Override
-    protected void updatePicture() {
-        activePicture.setBounds((int) getPosition().getX(), (int) getPosition().getY(), (int) getPosition().getX() + getWidth(), (int) getPosition().getY() + getHeight());
     }
 
     @Override
@@ -210,7 +207,7 @@ public class Player extends Mover {
         double dy = 0;
         if (position.getY() >= 240 && position.getY() <= 760) {
             dy = r.centerY() - position.getY();
-        } else if (position.getY() < 240) {
+        } else if (position.getY() < 240) {så
             dy = r.top;  //icke testad
         } else if (position.getY() >= 760) {
             dy = r.bottom - 1000;

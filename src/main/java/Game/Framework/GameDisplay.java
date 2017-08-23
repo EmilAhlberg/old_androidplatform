@@ -1,10 +1,11 @@
-package com.example.emil.Framework;
+package Game.Framework;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
+import com.example.emil.Framework.GameActivity;
 import com.example.emil.app.R;
 
 import java.util.ArrayList;
@@ -22,10 +23,9 @@ public class GameDisplay {
     private Canvas canvas;
     private Drawable backgroundImage;
     private Bitmap background;
+    private Bitmap tempMap;
 
     public GameDisplay(GameActivity gameActivity) {
-   /*     this.bitmap = bitmap;
-        this.canvas = canvas;*/
         bitmap = Bitmap.createBitmap(800, 480, Bitmap.Config.RGB_565);
         background = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
         canvas = new Canvas(bitmap);
@@ -33,27 +33,17 @@ public class GameDisplay {
         backgroundImage.setBounds(0, 0, 2000, 1000); //(left, top, right, bottom)
     }
 
-    public void setGameBlocks(ArrayList<GameObject> blockList) {
+    public void beginDraw(Position playerPos) {
         Canvas c = new Canvas(background);
         backgroundImage.draw(c);
-        for (GameObject g : blockList) {
-            g.getDrawable().draw(c);
-        }
-    }
+        centerPlayer(playerPos); //player  position
 
-    public void drawWorld(List<GameObject> temp) {
-        if (temp.size()>0) {
-            centerPlayer(temp.get(0).getPosition()); //player  position
-        }
-
-        Bitmap tempMap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
+        tempMap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
         canvas.setBitmap(tempMap);
         canvas.drawBitmap(background, null, backgroundImage.getBounds(), null);
-        for (GameObject g : temp) {
-            //if (!(g instanceof Block)) {
-                g.getDrawable().draw(canvas);
-            //}
-        }
+    }
+
+    public void endDraw() {
         bitmap = tempMap;
     }
 
@@ -99,5 +89,4 @@ public class GameDisplay {
         }
         return dy;
     }
-
 }
