@@ -41,7 +41,6 @@ public class GameDisplay {
         Canvas c = new Canvas(background);
         backgroundImage.draw(c);
         centerPlayer(playerPos); //player  position
-
         tempMap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
         canvas.setBitmap(tempMap);
         canvas.drawBitmap(background, null, backgroundImage.getBounds(), null);

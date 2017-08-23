@@ -53,9 +53,9 @@ public class World extends Game {
     }
 
     public void drawWorld(Canvas canvas) {
-        List<GameObject> temp = createTempGameObjects();
+        List<GameObject> temp = createTempGameObjects(); //behövs här?
         for (GameObject gameObject : temp) {
-            gameObject.getDrawable().draw(canvas);
+            gameObject.draw(canvas);
         }
     }
 
