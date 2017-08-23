@@ -56,17 +56,13 @@ public class Game {
         display.drawWorld(objects);
     }
 
-    //onödig?
+    //anropas av initlevel i world
     public void startGame() {
         gameActivity.startGame();
     }
 
     public Bitmap getBitmap() {
         return display.getBitmap();
-    }
-
-    public void nextLevel() {
-        gameActivity.setLevel();
     }
 
     public Canvas getCanvas() {

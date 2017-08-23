@@ -1,5 +1,7 @@
 package Game.Framework;
 
+import android.util.Log;
+
 import com.example.emil.Framework.GameActivity;
 
 import java.util.ArrayList;
@@ -28,7 +30,9 @@ public class World extends Game {
         list = LevelCreator.GameObjectList;
         setGameBlocks(LevelCreator.BlockList);
         player = (Player)list.get(0);
+        Log.d("initLevel: ", "före");
         startGame();
+        Log.d("initLevel: ", "efter");
     }
 
     /**

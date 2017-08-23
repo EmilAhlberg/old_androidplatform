@@ -129,11 +129,16 @@ public class Player extends Mover {
             specificCollisionVertical(g);
         }
         //kollisioner oberoende av typ
-        if (g instanceof Goal) {
+
+
+        //NEIN!!!!!!!!!!!!!!!!!!!!!!!!!! Tas om hand i Goal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /*if (g instanceof Goal) {
             ((Goal) g).playerReachedGoal();
             world.nextLevel();
             move(100, 100);
-        } else if (g instanceof Hazard) {
+        } else */
+
+        if (g instanceof Hazard) {
             ((Hazard) g).affectPlayer();
         }
     }

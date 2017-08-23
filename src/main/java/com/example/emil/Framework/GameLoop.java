@@ -1,7 +1,10 @@
 package com.example.emil.Framework;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.widget.LinearLayout;
 
 import Game.Framework.World;
 
@@ -16,10 +19,9 @@ public class GameLoop {
     private Handler handler;
     private boolean running;
 
-    private double elapsedTime;
+    //private double elapsedTime;
 
     public GameLoop(World world, Handler handler) {
-
         this.world = world;
         this.handler = handler;
     }
@@ -31,6 +33,7 @@ public class GameLoop {
                 double currentTime = System.currentTimeMillis();
                 double newTime = 0;
                 while (running) {
+                    Log.d("run: ", "asd");
                     if (newTime - currentTime > timeLimit) {
                         updateLoop();
                         currentTime = newTime;
