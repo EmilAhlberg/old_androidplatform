@@ -3,6 +3,7 @@ package Game.Framework;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.emil.Framework.ActivityConstants;
@@ -47,12 +48,15 @@ public class World {
 
     public void updateWorld() {
         //ConcurrentModificationException fix
+        long millis = System.currentTimeMillis();
         List<GameObject> temp = createTempGameObjects();
         for (GameObject gameObject : temp) {
             gameObject.updateObject();
         }
-
+        Log.d("updateWorld ", "updateObjects: " + (System.currentTimeMillis() - millis));
+        millis = System.currentTimeMillis();
         gameActivity.draw();
+        Log.d("updateWorld ", "drawGame: " + (System.currentTimeMillis() - millis));
     }
 
     public void drawWorld(Canvas canvas) {

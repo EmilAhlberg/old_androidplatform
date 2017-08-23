@@ -17,11 +17,12 @@ public abstract class Cat extends Mover {
     private Drawable picture;
     protected int direction;
     private final static int CAT_SIZE = 20;
+    private final int CAT_SPEED = 1;
 
 
     public Cat(Position p, Drawable d, World world) {
         super(new Rectangle(p, CAT_SIZE, CAT_SIZE), world);
-        applyForce(35, 0);
+        //applyForce(35, 0);
         direction = 1;
         activePicture = d;
     }

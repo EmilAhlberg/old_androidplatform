@@ -126,15 +126,9 @@ public class Player extends Mover {
         }
         //kollisioner oberoende av typ
 
-
-        //NEIN!!!!!!!!!!!!!!!!!!!!!!!!!! Tas om hand i Goal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        /*if (g instanceof Goal) {
+        if (g instanceof Goal) {
             ((Goal) g).playerReachedGoal();
-            world.nextLevel();
-            move(100, 100);
-        } else */
-
-        if (g instanceof Hazard) {
+        } else if (g instanceof Hazard) {
             ((Hazard) g).affectPlayer();
         }
     }

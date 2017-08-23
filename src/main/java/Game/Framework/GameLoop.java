@@ -15,7 +15,7 @@ import Game.Framework.World;
 public class GameLoop {
 
     private World world;
-    private final int timeLimit = 30;
+    private final int timeLimit = 15;
     private Handler handler;
     private boolean running;
 
@@ -44,9 +44,13 @@ public class GameLoop {
     }
 
     private void updateLoop() {
+        //long millis = System.currentTimeMillis();
         world.updateWorld();
+        //Log.d("updateLoop", "Update world: " + (System.currentTimeMillis() - millis));
+        //millis = System.currentTimeMillis();
         Message m = handler.obtainMessage();
         m.sendToTarget();
+        //Log.d("updateLoop", "Handle messages: " + (System.currentTimeMillis() - millis));
     }
 
     public void pauseLoop() {
