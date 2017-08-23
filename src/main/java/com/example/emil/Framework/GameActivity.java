@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -23,7 +24,7 @@ public class GameActivity extends AppCompatActivity {
 
     private World world;
     private Handler gameLoopThread;
-    private Handler levelCreatorThread;
+    //private Handler levelCreatorThread;
     private LinearLayout ll;
     private GameLoop gameLoop;
     private LevelCreator levelCreator;
@@ -35,28 +36,28 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setFullscreen();
-        setContentView(R.layout.activity_game);
         World.Level = getIntent().getExtras().getInt("level");
         handlerSetup();
-
+        setContentView(R.layout.activity_game);
 
         ll = (LinearLayout) findViewById(R.id.gameActivity);
         //https://www.youtube.com/watch?v=2xYaTGRvpv4
         display = new GameDisplay(this);
 
         world = new World(this);
-        gameLoop = new GameLoop(world, gameLoopThread);
-        levelCreator = new LevelCreator(levelCreatorThread, this, world);
+        levelCreator = new LevelCreator(/*levelCreatorThread,*/ this, world);
         levelCreator.setLevel();
+        gameLoop = new GameLoop(world, gameLoopThread);
+        world.initLevel();
     }
 
 
     private void handlerSetup() {
-        levelCreatorThread = new Handler(Looper.getMainLooper()) {
+        /*levelCreatorThread = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message inputMessage) {
                 world.initLevel();
             }
-        };
+        };*/
         gameLoopThread = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message inputMessage) {
                 ll.setBackground(new BitmapDrawable(getResources(), display.getBitmap()));
@@ -70,10 +71,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void pauseGame() {
         gameLoop.pauseLoop();
-    }
-
-    public void setLevel () {
-        levelCreator.setLevel();
     }
 
     public void setFullscreen() {

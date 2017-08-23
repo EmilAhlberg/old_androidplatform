@@ -12,26 +12,24 @@ public class ActivityHandler extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("onCreate: ", "1");
         super.onCreate(savedInstanceState);
+        Log.d("onCreate: ", "1");
         setContentView(R.layout.activity_splash_screen);
 
-        /*Thread myThread = new Thread() {
+        Thread myThread = new Thread() {
             @Override
             public void run() {
                 try {
                     sleep(2000);
-                    Intent intent = getIntent()
-                    startActivity(intent, 1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                Intent intent = createIntent(getIntent().getExtras());
+                startActivity(intent);
+                finish();
             }
         };
-        myThread.start();*/
-        Intent intent = createIntent(getIntent().getExtras());
-        startActivity(intent);
-        finish();
+        myThread.start();
     }
 
     private Intent createIntent(Bundle extras) {

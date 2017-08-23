@@ -1,7 +1,10 @@
 package Game.Framework;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.widget.LinearLayout;
 
 import Game.Framework.World;
 
@@ -16,10 +19,9 @@ public class GameLoop {
     private Handler handler;
     private boolean running;
 
-    private double elapsedTime;
+    //private double elapsedTime;
 
     public GameLoop(World world, Handler handler) {
-
         this.world = world;
         this.handler = handler;
     }

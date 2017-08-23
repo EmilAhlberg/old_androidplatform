@@ -27,13 +27,13 @@ public class LevelCreator {
 
 
     public static ArrayList<GameObject> GameObjectList;
-    private Handler s;
+    //private Handler s;
    /* private Player player;*/
     private GameActivity gameActivity;
     private World world;
 
-    public LevelCreator(Handler s, GameActivity gameActivity, World world) {
-        this.s = s;
+    public LevelCreator(/*Handler s, */GameActivity gameActivity, World world) {
+        //this.s = s;
         this.world = world;
     /*    this.player = player;*/
         this.gameActivity = gameActivity;
@@ -42,13 +42,14 @@ public class LevelCreator {
     public void setLevel() {
         GameObjectList = new ArrayList<GameObject>();
         final int newLevel = World.Level;
+        createLevel(GameObjectList, getLevelArray(newLevel));
 
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             public void run() {
                 createLevel(GameObjectList, getLevelArray(newLevel));
                 s.obtainMessage().sendToTarget();
             }
-        }).start();
+        }).start();*/
 
     }
 
