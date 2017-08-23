@@ -25,9 +25,8 @@ public class DeathAnimator extends GameObject {
     private void initializeImage(GameObject g) {
         if (g instanceof StandardCat) {
             activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.cat);
-        } else if (g instanceof SuicideCat) {
-            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.suicidecat);
-        } else if (g instanceof Veterinarian) {
+        }
+        else if (g instanceof Veterinarian) {
             activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.vet);
         }
     }

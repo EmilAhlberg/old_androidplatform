@@ -16,7 +16,6 @@ import Game.InAnimates.Fire;
 import Game.InAnimates.Goal;
 import Game.Movers.Player;
 import Game.Movers.StandardCat;
-import Game.Movers.SuicideCat;
 import Game.Movers.Veterinarian;
 import Game.Util.Position;
 
@@ -88,10 +87,6 @@ public class LevelCreator {
                         newList.add(0, new Player(p, world)); //added to front of list
                        /* player.move((k-1)*20,(i*20));*/
                         break;
-                    case 's':
-                        newList.add(new SuicideCat(p, world));
-                        break;
-                        //default: throw new IllegalArgumentException();
                 }
             }
         }
