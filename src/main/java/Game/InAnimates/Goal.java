@@ -22,7 +22,7 @@ public class Goal extends GameObject {
     private final static int GOAL_SIZE = 20;
 
     public Goal(Position position, World world) {
-        super(new Rectangle(position, GOAL_SIZE, GOAL_SIZE), world);
+        super(new Rectangle(position.getX(), position.getY(), GOAL_SIZE, GOAL_SIZE), world);
         /*paint.setColor(Color.MAGENTA);*/
         activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.loading);
         activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getHeight());

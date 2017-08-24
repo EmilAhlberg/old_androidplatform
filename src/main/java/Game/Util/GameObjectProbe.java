@@ -17,7 +17,7 @@ public class GameObjectProbe extends Mover {
     private boolean clearPath = false;
 
     public GameObjectProbe(Position p, int width, int height, World world) {
-        super(new Rectangle(p, width, height), world);
+        super(new Rectangle(p.getX(), p.getY(), width, height), world);
     }
     @Override
     protected void updatePosition() {

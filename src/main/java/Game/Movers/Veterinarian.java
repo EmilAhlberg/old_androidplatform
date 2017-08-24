@@ -23,9 +23,9 @@ public class Veterinarian extends GameObject {
     private final int RELOAD_TIME = 75;
 
     public Veterinarian(Position position, World world) {
-        super(new Rectangle(position, VET_WIDTH, VET_HEIGHT), world);
+        super(new Rectangle(position.getX(), position.getY(), VET_WIDTH, VET_HEIGHT), world);
         reloadTimer = new Random().nextInt(75);
-        syringe = new Syringe(new Position(getPosition().getX() - 20, getPosition().getY()), world);
+        syringe = new Syringe(new Position(getX() - 20, getY()), world);
         activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.vet);
         activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getHeight());
     }
@@ -55,7 +55,7 @@ public class Veterinarian extends GameObject {
         private boolean isActive;
 
         public Syringe(Position position, World world) {
-            super(new Rectangle(position, SYR_WIDTH, SYR_HEIGHT), world);
+            super(new Rectangle(position.getX(), position.getY(), SYR_WIDTH, SYR_HEIGHT), world);
             startingPos = position;
             activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.syringe);
             isActive = false;
@@ -68,7 +68,7 @@ public class Veterinarian extends GameObject {
 
         @Override
         protected void updatePosition() {
-            move(getPosition().getX() - mv.horizontalSpeed, getPosition().getY() - mv.verticalSpeed);
+            move(getX() - mv.horizontalSpeed, getY() - mv.verticalSpeed);
         }
 
         @Override
@@ -79,7 +79,7 @@ public class Veterinarian extends GameObject {
             } else if (g instanceof Player) {
                 ((Player) g).sedated();
                 collision = true;
-            } else if (getPosition().getY() < -10)
+            } else if (getY() < -10)
                 collision = true;
             else {
                 collision = true;

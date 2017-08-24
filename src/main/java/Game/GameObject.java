@@ -25,16 +25,13 @@ public abstract class GameObject extends Picture {
 
 
     public void move(double x, double y) {
-        rect.getPosition().setX(x);
-        rect.getPosition().setY(y);
+        rect.setX(x);
+        rect.setY(y);
     }
-
 
     public void updateObject() {
         update();
     }
     public abstract void update();
-
-
 
 }

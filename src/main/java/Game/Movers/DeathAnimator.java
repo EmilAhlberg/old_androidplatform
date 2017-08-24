@@ -14,7 +14,7 @@ public class DeathAnimator extends GameObject {
     private MovePhysics mv;
 
     public DeathAnimator(GameObject g, World world) {
-        super(new Rectangle(g.getPosition(), g.getWidth(), g.getHeight()), world);
+        super(new Rectangle(g.getX(), g.getY(), g.getWidth(), g.getHeight()), world);
         world.addObject(this);
         initializeImage(g);
 
@@ -54,6 +54,6 @@ public class DeathAnimator extends GameObject {
     }
 
     protected void updatePosition() {
-        move(getPosition().getX() - mv.horizontalSpeed, getPosition().getY() - mv.verticalSpeed);
+        move(getX() - mv.horizontalSpeed, getY() - mv.verticalSpeed);
     }
 }

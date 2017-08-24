@@ -19,6 +19,8 @@ import Game.Framework.GameDisplay;
 import Game.Framework.GameLoop;
 import Game.Framework.LevelCreator;
 import Game.Framework.World;
+import Game.Movers.Player;
+import Game.Util.Position;
 
 public class GameActivity extends AppActivity {
 
@@ -83,7 +85,8 @@ public class GameActivity extends AppActivity {
     }
 
     public void draw() {
-        display.beginDraw(world.getPlayer().getPosition());
+        Player player = world.getPlayer();
+        display.beginDraw(player.getX(), player.getY());
         world.drawWorld(display.getCanvas());
         display.endDraw();
     }

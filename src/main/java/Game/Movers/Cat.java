@@ -1,6 +1,8 @@
 package Game.Movers;
 
 import android.graphics.drawable.Drawable;
+import android.provider.Settings;
+import android.util.Log;
 
 import Game.*;
 import Game.Framework.World;
@@ -20,7 +22,7 @@ public abstract class Cat extends Mover {
 
 
     public Cat(Position p, Drawable d, World world) {
-        super(new Rectangle(p, CAT_SIZE, CAT_SIZE), world);
+        super(new Rectangle(p.getX(), p.getY(), CAT_SIZE, CAT_SIZE), world);
         applyForce(35, 0);
         direction = 1;
         activePicture = d;
@@ -28,13 +30,19 @@ public abstract class Cat extends Mover {
 
     @Override
     protected void updatePosition() {
+        double posX = getX();
+        double posY = getY();
         for (int i = 1; i >=0 ; i--) {
+            //long millis = System.currentTimeMillis();
             if (i == 0) {
-                move(getPosition().getX() - mv.horizontalSpeed*direction, getPosition().getY());
+                move(posX - mv.horizontalSpeed*direction, posY);
             } else if (i == 1) {
-                move(getPosition().getX(), getPosition().getY() - mv.verticalSpeed);
+                move(posX, posY - mv.verticalSpeed);
             }
+            //Log.d("catUpdatePosition: ", "move: " + i + " : " + (System.currentTimeMillis() - millis));
+            //millis = System.currentTimeMillis();
             checkCollision(i);
+            //Log.d("catUpdatePosition: ", "collision: " + i + " : " + (System.currentTimeMillis() - millis));
            // move(position.getX() - mv.horizontalSpeed * direction, position.getY() - mv.verticalSpeed);
         }
     }
@@ -60,9 +68,15 @@ public abstract class Cat extends Mover {
 
     @Override
     public void update() {
+        //long millis = System.currentTimeMillis();
         catAction();
+        //Log.d("catUpdate ", "catAction: " + (System.currentTimeMillis() - millis));
+        //millis = System.currentTimeMillis();
         updateSpeed();
+        //Log.d("catUpdate ", "updateSpeed: " + (System.currentTimeMillis() - millis));
+        //millis = System.currentTimeMillis();
         updatePosition();
+        //Log.d("catUpdate ", "updatePosition: " + (System.currentTimeMillis() - millis));
     /*    checkCollision(1); //ordning på collisionCheck viktig, annars bugg
         checkCollision(0);*/
     }

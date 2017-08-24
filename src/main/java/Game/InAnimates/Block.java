@@ -19,7 +19,7 @@ public class Block extends GameObject {
     //private Drawable picture;
 
     public Block(Position position, int blockType, World world) {
-        super(new Rectangle(position, BLOCK_WIDTH, BLOCK_HEIGHT), world);
+        super(new Rectangle(position.getX(), position.getY(), BLOCK_WIDTH, BLOCK_HEIGHT), world);
         initializeImage(blockType);
         activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getWidth());
     }

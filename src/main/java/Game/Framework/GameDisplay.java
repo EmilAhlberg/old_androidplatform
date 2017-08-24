@@ -37,10 +37,10 @@ public class GameDisplay {
         WINDOW_HEIGHT = getCanvas().getHeight();
     }
 
-    public void beginDraw(Position playerPos) {
+    public void beginDraw(double x, double y) {
         Canvas c = new Canvas(background);
         backgroundImage.draw(c);
-        centerPlayer(playerPos); //player  position
+        centerPlayer(x, y); //player  position
         tempMap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
         canvas.setBitmap(tempMap);
         canvas.drawBitmap(background, null, backgroundImage.getBounds(), null);
@@ -58,10 +58,10 @@ public class GameDisplay {
         return canvas;
     }
 
-    private void centerPlayer(Position position) {
+    private void centerPlayer(double x, double y) {
         Rect r = canvas.getClipBounds();
-        double dx = calculateDx(r, position);
-        double dy = calculateDy(r, position);
+        double dx = calculateDx(r, x);
+        double dy = calculateDy(r, y);
 
         //förhindrar 'flimmer' vid stillastående
         if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
@@ -69,25 +69,25 @@ public class GameDisplay {
         }
     }
 
-    private double calculateDx(Rect r, Position position) {
+    private double calculateDx(Rect r, double x) {
         double dx = 0;
-        if (position.getX() >= 400 && position.getX() <= 1600) {
-            dx = r.centerX() - position.getX();
-        } else if (position.getX() <= 400) {
+        if (x >= 400 && x <= 1600) {
+            dx = r.centerX() - x;
+        } else if (x <= 400) {
             dx = r.left;
-        } else if (position.getX() >= 1600) {
+        } else if (x >= 1600) {
             dx = r.right - 2000;
         }
         return dx;
     }
 
-    private double calculateDy(Rect r, Position position) {
+    private double calculateDy(Rect r, double y) {
         double dy = 0;
-        if (position.getY() >= 240 && position.getY() <= 760) {
-            dy = r.centerY() - position.getY();
-        } else if (position.getY() < 240) {
+        if (y >= 240 && y <= 760) {
+            dy = r.centerY() - y;
+        } else if (y < 240) {
             dy = r.top;  //icke testad
-        } else if (position.getY() >= 760) {
+        } else if (y >= 760) {
             dy = r.bottom - 1000;
         }
         return dy;

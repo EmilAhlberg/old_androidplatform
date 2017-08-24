@@ -36,7 +36,7 @@ public class StandardCat extends Cat {
         if (direction > 0) {
             probeXOffset = probeXOffset - getWidth();
         }
-        GameObjectProbe probe = new GameObjectProbe(new Position(getPosition().getX() - probeXOffset, getPosition().getY() + probeYOffset), 2, 5, world);
+        GameObjectProbe probe = new GameObjectProbe(new Position(getX() - probeXOffset, getY() + probeYOffset), 2, 5, world);
         probe.setClearPath(probe.checkCollision(0));
         return probe;
     }

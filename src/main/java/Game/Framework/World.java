@@ -12,6 +12,7 @@ import com.example.emil.Framework.GameActivity;
 import java.util.ArrayList;
 import java.util.List;
 import Game.*;
+import Game.Movers.Mover;
 import Game.Movers.Player;
 
 /**
@@ -50,8 +51,13 @@ public class World {
         //ConcurrentModificationException fix
         long millis = System.currentTimeMillis();
         List<GameObject> temp = createTempGameObjects();
+        Log.d("updateWorld ", "createObjects: " + (System.currentTimeMillis() - millis));
+        millis = System.currentTimeMillis();
         for (GameObject gameObject : temp) {
+            long millis2 = System.currentTimeMillis();
             gameObject.updateObject();
+            //if (gameObject instanceof Mover)
+                //Log.d("updateWorld ", "updateObject: " + gameObject.toString() + " : " + (System.currentTimeMillis() - millis2) + "\n//////////////////////////////////////////////////////////////");
         }
         Log.d("updateWorld ", "updateObjects: " + (System.currentTimeMillis() - millis));
         millis = System.currentTimeMillis();

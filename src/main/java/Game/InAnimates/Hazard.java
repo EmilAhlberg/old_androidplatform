@@ -11,7 +11,7 @@ import Game.Util.Rectangle;
 public abstract class Hazard extends GameObject{
 
     public Hazard(Position position, int width, int height, World world) {
-        super(new Rectangle(position, width, height), world);
+        super(new Rectangle(position.getX(), position.getY(), width, height), world);
     }
 
     public abstract void affectPlayer();

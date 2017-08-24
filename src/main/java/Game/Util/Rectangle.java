@@ -6,18 +6,31 @@ package Game.Util;
 
 public class Rectangle {
 
-    private Position p;
+    private double x, y;
     private int width;
     private int height;
 
-    public Rectangle(Position p, int width, int height) {
-        this.p = p;
+    public Rectangle(double x, double y, int width, int height) {
+        this.x = x;
+        this.y = y;
         this.width = width;
         this.height = height;
     }
 
-    public Position getPosition() {
-        return p;
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 
     public int getWidth() {
@@ -27,4 +40,9 @@ public class Rectangle {
     public int getHeight() {
         return height;
     }
+
+    public boolean intersects(Rectangle r)
+       {
+           return r.width > 0 && r.height > 0 && width > 0 && height > 0 && r.x < x + width && r.x + r.width > x && r.y < y + height && r.y + r.height > y;
+        }
 }

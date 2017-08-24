@@ -23,15 +23,15 @@ public class Player extends Mover {
 
     protected static final int PLAYER_WIDTH = 30;
     protected static final int PLAYER_HEIGHT = 30;
-    private double clickX = getPosition().getX();
-    private double clickY = getPosition().getY();
+    private double clickX = getX();
+    private double clickY = getY();
     private TouchEventDecoder touchEventDecoder;
     /*private Drawable picture;*/
     private boolean awake = true;
     private int sleepTime = 0;
 
     public Player(Position position, World world) {
-        super(new Rectangle(position, PLAYER_WIDTH, PLAYER_HEIGHT), world);
+        super(new Rectangle(position.getX(), position.getY(), PLAYER_WIDTH, PLAYER_HEIGHT), world);
         touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()), new Position(position.getX(), position.getY()));
         activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.test);
     }
@@ -109,9 +109,9 @@ public class Player extends Mover {
         for (int i = 0; i < 2; i++) {
             if (i == 0) {
                 applyFriction();
-                move(getPosition().getX() - mv.horizontalSpeed, getPosition().getY());
+                move(getX() - mv.horizontalSpeed, getY());
             } else if (i == 1) {
-                move(getPosition().getX(), getPosition().getY() - mv.verticalSpeed);
+                move(getX(), getY() - mv.verticalSpeed);
             }
             checkCollision(i);
         }
@@ -209,7 +209,7 @@ public class Player extends Mover {
     }*/
 
     private void stillOnScreen() {
-        if (getPosition().getY() >= 1000) {
+        if (getY() >= 1000) {
             world.gameOver();
         }
     }

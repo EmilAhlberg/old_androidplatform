@@ -20,8 +20,12 @@ public abstract class Picture {
         this.rect = rect;
     }
 
-    public Position getPosition() {
-        return rect.getPosition();
+    public double getX() {
+        return rect.getX();
+    }
+
+    public double getY() {
+        return rect.getY();
     }
 
     public int getHeight() {
@@ -32,9 +36,12 @@ public abstract class Picture {
         return rect.getWidth();
     }
 
+    public Rectangle getRect() {
+        return rect;
+    }
 
     private void updatePicture() {
-        activePicture.setBounds((int) getPosition().getX(), (int) getPosition().getY(), (int) getPosition().getX() + getWidth(), (int) getPosition().getY() + getHeight());
+        activePicture.setBounds((int) getX(), (int) getY(), (int) getX() + getWidth(), (int) getY() + getHeight());
     }
 
     public Drawable getDrawable() {
