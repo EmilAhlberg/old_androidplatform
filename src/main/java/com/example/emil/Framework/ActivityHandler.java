@@ -21,7 +21,7 @@ public class ActivityHandler extends AppActivity {
             @Override
             public void run() {
                 try {
-                    sleep(2000);
+                    sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
