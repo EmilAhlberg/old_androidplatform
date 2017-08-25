@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Canvas;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 
 import com.example.emil.Framework.ActivityConstants;
@@ -54,21 +55,22 @@ public class World {
         Log.d("updateWorld ", "createObjects: " + (System.currentTimeMillis() - millis));
         millis = System.currentTimeMillis();
         for (GameObject gameObject : temp) {
-            long millis2 = System.currentTimeMillis();
+            //long millis2 = System.currentTimeMillis();
             gameObject.updateObject();
             //if (gameObject instanceof Mover)
                 //Log.d("updateWorld ", "updateObject: " + gameObject.toString() + " : " + (System.currentTimeMillis() - millis2) + "\n//////////////////////////////////////////////////////////////");
         }
         Log.d("updateWorld ", "updateObjects: " + (System.currentTimeMillis() - millis));
         millis = System.currentTimeMillis();
-        gameActivity.draw();
+        gameActivity.draw(temp); //Draws all objects in list + background
         Log.d("updateWorld ", "drawGame: " + (System.currentTimeMillis() - millis));
     }
 
-    public void drawWorld(Canvas canvas) {
-        List<GameObject> temp = createTempGameObjects(); //behövs här?
-        for (GameObject gameObject : temp) {
-            gameObject.draw(canvas);
+    public void drawWorld(Canvas canvas, List<GameObject> temp) {
+        for (int i = 0; i < temp.size(); i++) {
+            GameObject g = temp.get(i);
+            if (Math.sqrt(Math.pow(player.getX() - g.getX(), 2) + Math.pow(player.getY() - g.getY(), 2)) < GameDisplay.WINDOW_HEIGHT + GameDisplay.WINDOW_WIDTH)
+                g.draw(canvas);
         }
     }
 
