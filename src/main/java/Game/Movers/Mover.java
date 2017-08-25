@@ -1,12 +1,12 @@
 package Game.Movers;
 
+import android.graphics.Rect;
 import android.util.Log;
 
 import Game.*;
 import Game.Framework.LevelCreator;
 import Game.Framework.World;
 import Game.Util.Position;
-import Game.Util.Rectangle;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public abstract class Mover extends GameObject {
     private int WJDirectionHelper;
     private ArrayList<GameObject> objectsCloseBy;
 
-    public Mover(Rectangle rect, World world) {
+    public Mover(Rect rect, World world) {
         super(rect, world);
         mv = new MovePhysics();
         grounded = false;
@@ -146,7 +146,7 @@ public abstract class Mover extends GameObject {
         normal intersection check between two rectangular objects.
      */
     private boolean intersects(GameObject g) {
-        return g.getRect().intersects(rect);
+        return g.getRect().intersect(rect);
        //return(checkRectIntersection(getRectBounds(g,0)));
     }
     /*

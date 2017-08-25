@@ -1,10 +1,10 @@
 package Game.InAnimates;
 
+import android.graphics.Rect;
 import android.util.Log;
 import Game.*;
 import Game.Framework.World;
 import Game.Util.Position;
-import Game.Util.Rectangle;
 
 import com.example.emil.app.R;
 
@@ -19,9 +19,10 @@ public class Block extends GameObject {
     //private Drawable picture;
 
     public Block(Position position, int blockType, World world) {
-        super(new Rectangle(position.getX(), position.getY(), BLOCK_WIDTH, BLOCK_HEIGHT), world);
-        initializeImage(blockType);
-        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getWidth());
+        //super(new Rect((int)position.getX(), (int)position.getY(), BLOCK_WIDTH, BLOCK_HEIGHT), world);
+        super(new Rect((int)position.getX(), (int)position.getY(), (int)position.getX() + BLOCK_WIDTH, (int)position.getY() + BLOCK_HEIGHT), world);
+//        initializeImage(blockType);
+//        activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getWidth());
     }
 
 
@@ -37,10 +38,10 @@ public class Block extends GameObject {
     }
 
     private void initializeImage(int blockType) {
-        if (blockType == 1) {
-            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.block1);
-        } else if (blockType == 2) {
-            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.block2);
-        }
+//        if (blockType == 1) {
+//            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.block1);
+//        } else if (blockType == 2) {
+//            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.block2);
+//        }
     }
 }

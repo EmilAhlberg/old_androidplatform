@@ -1,5 +1,6 @@
 package Game.Movers;
 
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 import android.util.Log;
@@ -9,7 +10,6 @@ import Game.Framework.World;
 import Game.InAnimates.Block;
 import Game.InAnimates.Hazard;
 import Game.Util.Position;
-import Game.Util.Rectangle;
 
 /**
  * Created by Emil on 2016-12-14.
@@ -21,11 +21,11 @@ public abstract class Cat extends Mover {
     private final static int CAT_SIZE = 20;
 
 
-    public Cat(Position p, Drawable d, World world) {
-        super(new Rectangle(p.getX(), p.getY(), CAT_SIZE, CAT_SIZE), world);
+    public Cat(Position p, World world) {
+        super(new Rect((int)p.getX(), (int)p.getY(), (int)p.getX() +CAT_SIZE, (int) p.getY() + CAT_SIZE), world);
         applyForce(35, 0);
         direction = 1;
-        activePicture = d;
+        //activePicture = d;
     }
 
     @Override

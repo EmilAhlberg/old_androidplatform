@@ -1,6 +1,7 @@
 package Game.Movers;
 
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import Game.*;
@@ -10,7 +11,6 @@ import Game.InAnimates.Block;
 import Game.InAnimates.Goal;
 import Game.InAnimates.Hazard;
 import Game.Util.Position;
-import Game.Util.Rectangle;
 import Game.Util.TouchEventDecoder;
 
 import com.example.emil.app.R;
@@ -31,9 +31,9 @@ public class Player extends Mover {
     private int sleepTime = 0;
 
     public Player(Position position, World world) {
-        super(new Rectangle(position.getX(), position.getY(), PLAYER_WIDTH, PLAYER_HEIGHT), world);
+        super(new Rect((int)position.getX(), (int)position.getY(), (int)position.getX() + PLAYER_WIDTH, (int)position.getY() + PLAYER_HEIGHT), world);
         touchEventDecoder = new TouchEventDecoder(new Position(position.getX(), position.getY()), new Position(position.getX(), position.getY()));
-        activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.test);
+
     }
 
 

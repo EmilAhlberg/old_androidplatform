@@ -22,10 +22,10 @@ public class Fire extends Hazard {
 
     public Fire(Position position, World world) {
         super(position, Block.BLOCK_WIDTH, Block.BLOCK_HEIGHT, world);
-        picture1 = world.getGameActivity().getResources().getDrawable(R.drawable.hot_fire);
-        picture2 = world.getGameActivity().getResources().getDrawable(R.drawable.hot_fire2);
-        picture1.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getHeight());
-        picture2.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getHeight());
+//        picture1 = world.getGameActivity().getResources().getDrawable(R.drawable.hot_fire);
+//        picture2 = world.getGameActivity().getResources().getDrawable(R.drawable.hot_fire2);
+//        picture1.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getHeight());
+//        picture2.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getHeight());
     }
 
   /*  @Override
@@ -36,13 +36,14 @@ public class Fire extends Hazard {
 
     @Override
     public void update() {
-        if (animation < 10)
-            activePicture = picture1;
-        else
-            activePicture = picture2;
-        if (animation == 19)
-            animation = 0;
-        animation++;
+        //NEEDS FIX, animation in sprite (spritesheet needed)
+//        if (animation < 10)
+//            activePicture = picture1;
+//        else
+//            activePicture = picture2;
+//        if (animation == 19)
+//            animation = 0;
+//        animation++;
     }
 
     @Override

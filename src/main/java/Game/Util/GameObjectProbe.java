@@ -2,6 +2,8 @@ package Game.Util;
 
 //import Mover;
 
+import android.graphics.Rect;
+
 import Game.Framework.World;
 import Game.Movers.Mover;
 import Game.*;
@@ -17,7 +19,7 @@ public class GameObjectProbe extends Mover {
     private boolean clearPath = false;
 
     public GameObjectProbe(Position p, int width, int height, World world) {
-        super(new Rectangle(p.getX(), p.getY(), width, height), world);
+        super(new Rect((int)p.getX(), (int)p.getY(), (int)p.getX() + width, (int)p.getX() + height), world);
     }
     @Override
     protected void updatePosition() {

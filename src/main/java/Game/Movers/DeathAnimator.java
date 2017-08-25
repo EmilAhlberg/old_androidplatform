@@ -1,9 +1,10 @@
 package Game.Movers;
 
+import android.graphics.Rect;
+
 import com.example.emil.app.R;
 import Game.*;
 import Game.Framework.World;
-import Game.Util.Rectangle;
 
 /**
  * Created by Emil on 2016-12-17.
@@ -14,7 +15,7 @@ public class DeathAnimator extends GameObject {
     private MovePhysics mv;
 
     public DeathAnimator(GameObject g, World world) {
-        super(new Rectangle(g.getX(), g.getY(), g.getWidth(), g.getHeight()), world);
+        super(new Rect((int)g.getX(), (int)g.getY(), (int)g.getX() + g.getWidth(), (int)g.getY() + g.getHeight()), world);
         world.addObject(this);
         initializeImage(g);
 
@@ -22,13 +23,14 @@ public class DeathAnimator extends GameObject {
         mv.applyForce(20, 400);
     }
 
+    //TODO
     private void initializeImage(GameObject g) {
-        if (g instanceof StandardCat) {
-            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.cat);
-        }
-        else if (g instanceof Veterinarian) {
-            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.vet);
-        }
+//        if (g instanceof StandardCat) {
+//            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.cat);
+//        }
+//        else if (g instanceof Veterinarian) {
+//            activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.vet);
+//        }
     }
 
 

@@ -1,15 +1,12 @@
 package com.example.emil.Framework;
 
-import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.example.emil.app.R;
@@ -19,7 +16,8 @@ import Game.Framework.GameLoop;
 import Game.Framework.LevelCreator;
 import Game.Framework.World;
 import Game.Movers.Player;
-import Game.Util.Position;
+import Game.Util.IDHandler;
+import Game.Util.IDs;
 
 public class GameActivity extends AppActivity {
 
@@ -36,6 +34,7 @@ public class GameActivity extends AppActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadDrawables();
         setFullscreen();
         World.Level = getIntent().getExtras().getInt("level");
         handlerSetup();
@@ -50,6 +49,19 @@ public class GameActivity extends AppActivity {
         levelCreator.setLevel();
         gameLoop = new GameLoop(world, gameLoopThread);
         world.initLevel();
+    }
+
+    private void loadDrawables() {
+        if (IDHandler.drawables[0] == null) { //makes sure images are only loaded once (during first gameActivity onCreate)
+            IDHandler.drawables[IDs.DEFAULT.ordinal()] = getResources().getDrawable(R.drawable.startscreen); //default
+            IDHandler.drawables[IDs.PLAYER.ordinal()] = getResources().getDrawable(R.drawable.player);
+            IDHandler.drawables[IDs.BLOCK.ordinal()] = getResources().getDrawable(R.drawable.block1);
+            IDHandler.drawables[IDs.FIRE.ordinal()] = getResources().getDrawable(R.drawable.hot_fire);
+            IDHandler.drawables[IDs.GOAL.ordinal()] = getResources().getDrawable(R.drawable.loading);
+            IDHandler.drawables[IDs.CAT.ordinal()] = getResources().getDrawable(R.drawable.cat);
+            IDHandler.drawables[IDs.VETERINARIAN.ordinal()] = getResources().getDrawable(R.drawable.vet);
+            IDHandler.drawables[IDs.SYRINGE.ordinal()] = getResources().getDrawable(R.drawable.syringe);
+        }
     }
 
 

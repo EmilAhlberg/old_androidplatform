@@ -14,7 +14,7 @@ import Game.Util.Position;
 public class StandardCat extends Cat {
 
     public StandardCat(Position p, World world) {
-        super(p, world.getGameActivity().getResources().getDrawable(R.drawable.cat), world);
+        super(p, world);
     }
 
     @Override

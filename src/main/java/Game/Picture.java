@@ -2,10 +2,12 @@ package Game;
 
 
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
+import Game.Util.IDHandler;
+import Game.Util.IDs;
 import Game.Util.Position;
-import Game.Util.Rectangle;
 
 /**
  * Created by Emil on 23/08/2017.
@@ -13,44 +15,42 @@ import Game.Util.Rectangle;
 
 public abstract class Picture {
 
-    protected Drawable activePicture;
-    protected Rectangle rect;
+    public Sprite sprite;
+    protected Rect rect;
+    protected IDs id;
 
-    public Picture(Rectangle rect) {
+    public Picture(Rect rect)
+    {
+        id = IDHandler.getID(this.getClass());
         this.rect = rect;
+        sprite = new Sprite(rect, id);
     }
 
     public double getX() {
-        return rect.getX();
+        return rect.left;
     }
 
     public double getY() {
-        return rect.getY();
+        return rect.top;
     }
 
     public int getHeight() {
-        return rect.getHeight();
+        return rect.height();
     }
 
     public int getWidth() {
-        return rect.getWidth();
+        return rect.height();
     }
 
-    public Rectangle getRect() {
+    public Rect getRect() {
         return rect;
     }
 
-    private void updatePicture() {
-        activePicture.setBounds((int) getX(), (int) getY(), (int) getX() + getWidth(), (int) getY() + getHeight());
-    }
 
-    public Drawable getDrawable() {
-        return activePicture;
-    }
 
     public void draw(Canvas canvas) {
-        updatePicture();
-        activePicture.draw(canvas);
+        sprite.setSpriteRect(rect);
+        sprite.draw(canvas);
     }
 
 }
