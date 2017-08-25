@@ -33,7 +33,7 @@ public class World {
 
     public void initLevel() {
         list = LevelCreator.GameObjectList;
-        player = (Player)list.get(0);
+        player = (Player)list.get(0); //farlig?
         startGame();
     }
 
@@ -65,7 +65,7 @@ public class World {
         Log.d("updateWorld ", "drawGame: " + (System.currentTimeMillis() - millis));
     }
 
-    public void drawWorld(Canvas canvas) {
+    public void draw(Canvas canvas) {
         List<GameObject> temp = createTempGameObjects(); //behövs här?
         for (GameObject gameObject : temp) {
             gameObject.draw(canvas);
@@ -73,7 +73,7 @@ public class World {
     }
 
     public Player getPlayer() {
-        return (Player) list.get(0); //farlig?
+        return player;
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {
@@ -92,6 +92,8 @@ public class World {
         gameActivity.startActivity(intent);
         gameActivity.finish();
     }
+
+
 
     //OBS
     //objects should handle their own death animation? --> these 2 methods can be removed

@@ -27,10 +27,7 @@ public class Goal extends GameObject {
         activePicture = world.getGameActivity().getResources().getDrawable(R.drawable.loading);
         activePicture.setBounds((int) position.getX(), (int) position.getY(), (int) position.getX() + getWidth(), (int) position.getY() + getHeight());
     }
-    /*@Override
-    public void draw() {
-        canvas.drawRect((float)position.getX(),(float)position.getY(),(float)(position.getX()+width),(float)(position.getY()+height),paint);
-    }*/
+
     public void playerReachedGoal() {
         goalReached=true;
     }

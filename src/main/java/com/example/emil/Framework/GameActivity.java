@@ -8,7 +8,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -85,14 +84,10 @@ public class GameActivity extends AppActivity {
     }
 
     public void draw() {
+
         Player player = world.getPlayer();
         display.beginDraw(player.getX(), player.getY());
-        world.drawWorld(display.getCanvas());
+        world.draw(display.getCanvas());
         display.endDraw();
     }
-
-    /*public Bitmap getBitmap() {
-        return bg;
-    }*/
-
 }
