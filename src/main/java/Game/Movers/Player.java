@@ -10,23 +10,25 @@ import Game.Framework.World;
 import Game.InAnimates.Block;
 import Game.InAnimates.Goal;
 import Game.InAnimates.Hazard;
+import Game.Util.IDs;
 import Game.Util.Position;
 import Game.Util.TouchEventDecoder;
 
 import com.example.emil.app.R;
 
+import static Game.Util.IDs.BLOCK;
+
 /**
  * Created by Emil on 2016-11-24.
  */
 
-public class Player extends Mover {
+public class Player extends Collidable {
 
     protected static final int PLAYER_WIDTH = 30;
     protected static final int PLAYER_HEIGHT = 30;
     private double clickX = getX();
     private double clickY = getY();
     private TouchEventDecoder touchEventDecoder;
-    /*private Drawable picture;*/
     private boolean awake = true;
     private int sleepTime = 0;
 
@@ -88,11 +90,6 @@ public class Player extends Mover {
         }
     }
 
-    /*public void jump(int force) {
-        applyForce(0, force);
-        grounded = false;
-    }*/
-
     public void decodeTouchEvent(MotionEvent event, Point p) {
         touchEventDecoder.decodeTouchEvent(event, p);
         clickX = touchEventDecoder.getFirstClickPos().getX();
@@ -152,7 +149,7 @@ public class Player extends Mover {
         }
     }
 
-
+    //should be replaced by new collision methods
     public void kill(GameObject g) {
         world.removeObject(g);
         DeathAnimator d = new DeathAnimator(g, world);
@@ -172,51 +169,27 @@ public class Player extends Mover {
         }
     }
 
-
-   /* private void centerPlayer() {
-        Rect r = canvas.getClipBounds();
-        double dx = calculateDx(r);
-        double dy = calculateDy(r);
-
-        //förhindrar 'flimmer' vid stillastående
-        if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
-            canvas.translate((float) dx, (float) dy);
-        }
-    }
-
-    private double calculateDx(Rect r) {
-        double dx = 0;
-        if (position.getX() >= 400 && position.getX() <= 1600) {
-            dx = r.centerX() - position.getX();
-        } else if (position.getX() <= 400) {
-            dx = r.left;
-        } else if (position.getX() >= 1600) {
-            dx = r.right - 2000;
-        }
-        return dx;
-    }
-
-    private double calculateDy(Rect r) {
-        double dy = 0;
-        if (position.getY() >= 240 && position.getY() <= 760) {
-            dy = r.centerY() - position.getY();
-        } else if (position.getY() < 240) {så
-            dy = r.top;  //icke testad
-        } else if (position.getY() >= 760) {
-            dy = r.bottom - 1000;
-        }
-        return dy;
-    }*/
-
     private void stillOnScreen() {
         if (getY() >= 1000) {
             world.gameOver();
         }
     }
 
-    public void sedated() {
-        awake = false;
-        sleepTime = 50;
+//    public void sedated() {
+//        awake = false;
+//        sleepTime = 50;
+//    }
+
+    @Override
+    public void handleCollisionWith(Collidable c) {
+        switch(c.getID()) {
+            case BLOCK: //etc
+                break;
+            case CAT:   //etc
+                break;
+        }
+
     }
+
 }
 

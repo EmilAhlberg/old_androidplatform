@@ -13,6 +13,7 @@ import com.example.emil.Framework.GameActivity;
 import java.util.ArrayList;
 import java.util.List;
 import Game.*;
+import Game.Movers.Collidable;
 import Game.Movers.Mover;
 import Game.Movers.Player;
 
@@ -62,8 +63,23 @@ public class World {
         }
         Log.d("updateWorld ", "updateObjects: " + (System.currentTimeMillis() - millis));
         millis = System.currentTimeMillis();
+
+        HandleAllCollisions(temp);
+
         gameActivity.draw(temp); //Draws all objects in list + background
         Log.d("updateWorld ", "drawGame: " + (System.currentTimeMillis() - millis));
+    }
+
+    //setup for collisionHandler, could break up list param into several lists
+    //vill vi slippa foreach-loopen, kan vi i world ha collidable-listan som attribut kanske (dock bara n tidskomplexitet)
+    private void HandleAllCollisions(List<GameObject> temp) {
+        List<Collidable> cs = new ArrayList<Collidable>();
+        for (GameObject g : temp) {
+            if (g instanceof Collidable) {
+                cs.add((Collidable)g);
+            }
+        }
+        CollisionHandler.CheckCollisions(cs);
     }
 
     public void drawWorld(Canvas canvas, List<GameObject> temp) {

@@ -26,6 +26,10 @@ public abstract class Picture {
         sprite = new Sprite(rect, id);
     }
 
+    public IDs getID() {
+        return id;
+    }
+
     public double getX() {
         return rect.left;
     }
