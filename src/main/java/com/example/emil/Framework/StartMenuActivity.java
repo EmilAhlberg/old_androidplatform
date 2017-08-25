@@ -26,7 +26,7 @@ public class StartMenuActivity extends AppActivity {
     public void newGame(View view) {
         Intent intent = new Intent(getApplicationContext(), ActivityHandler.class);
         intent.putExtra("ActivityConstant", ActivityConstants.GAME);
-        intent.putExtra("level", 1); //start at level 1
+        intent.putExtra("level", 0); //start at level 1
         startActivity(intent);
         finish(); //Stänger Activityn
     }

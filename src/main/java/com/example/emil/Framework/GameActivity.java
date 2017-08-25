@@ -11,10 +11,14 @@ import android.widget.LinearLayout;
 
 import com.example.emil.app.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Game.Framework.GameDisplay;
 import Game.Framework.GameLoop;
 import Game.Framework.LevelCreator;
 import Game.Framework.World;
+import Game.GameObject;
 import Game.Movers.Player;
 import Game.Util.IDHandler;
 import Game.Util.IDs;
@@ -95,11 +99,11 @@ public class GameActivity extends AppActivity {
         return true;
     }
 
-    public void draw() {
 
+    public void draw(List<GameObject> temp) {
         Player player = world.getPlayer();
         display.beginDraw(player.getX(), player.getY());
-        world.draw(display.getCanvas());
+        world.drawWorld(display.getCanvas(), temp);
         display.endDraw();
     }
 }

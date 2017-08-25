@@ -95,6 +95,9 @@ public class LevelCreator {
         String[] map;
         try {
             switch (level) {
+                case 0:
+                    map = getStringArrayFromFile(R.raw.level0);
+                    break;
                 case 1:
                     map = getStringArrayFromFile(R.raw.level1);
                     break;
