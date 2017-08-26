@@ -78,20 +78,12 @@ public abstract class Mover extends GameObject {
     protected boolean checkCollision(int vOrH) {
         //long millis = System.currentTimeMillis();
         ArrayList<GameObject> collisions = getIntersectingObjects();
-        for (GameObject g : objectsCloseBy) {
-            if (g instanceof Block)
-                Log.d("moverCC ", "nr: " + vOrH + " width: "+ g.getRect().width() + "height: " + g.getRect().height());
-        }
         //Log.d("moverCheckCollision ", "getIntersectingObjects: " + (System.currentTimeMillis() - millis));
         //millis = System.currentTimeMillis();
         if (collisions.size() > 0) {
             handleCollisions(collisions, vOrH);
             //Log.d("moverCheckCollision ", "handleCollisions: " + collisions.size() + " : " + (System.currentTimeMillis() - millis));
             return true;
-        }
-        for (GameObject g : objectsCloseBy) {
-            if (g instanceof Block)
-                Log.d("moverCC2 ", "nr: " + vOrH + " width: "+ g.getRect().width() + "height: " + g.getRect().height());
         }
         return false;
     }
@@ -105,7 +97,6 @@ public abstract class Mover extends GameObject {
         ArrayList<GameObject> colliders = new ArrayList<GameObject>();
         for (GameObject g : objectsCloseBy) {
             if (this != g && intersects(g)) {
-                Log.d("moverGIO ", "width: "+ g.getRect().width() + "height: " + g.getRect().height());
                 colliders.add(g);
             }
         }
@@ -115,7 +106,6 @@ public abstract class Mover extends GameObject {
 
     private void handleCollisions(ArrayList<GameObject> colliders, int collisionType) {
         for (GameObject g : colliders) {
-            Log.d("moverHC ", "width: "+ g.getRect().width() + "height: " + g.getRect().height());
             specificCollision(g, collisionType);
         }
     }
@@ -134,9 +124,9 @@ public abstract class Mover extends GameObject {
         mv.verticalAcceleration = 0;
         mv.verticalSpeed = 0;
         if (grounded) {
-            move(rect.left, g.getRect().top - rect.height()-1);
+            move(rect.left, g.getRect().top - rect.height());
         } else {
-            move(rect.left, g.getRect().bottom+1);
+            move(rect.left, g.getRect().bottom);
         }
     }
     /**
@@ -155,28 +145,29 @@ public abstract class Mover extends GameObject {
         normal intersection check between two rectangular objects.
      */
     private boolean intersects(GameObject g) {
-        //return rect.intersect(g.getRect());
-        return checkRectIntersection(getRectBounds(g,0));
+        return Rect.intersects(rect, g.getRect());
     }
     /*
         special intersection check between the bottom half rectangle of 'this',
                     and upper half of 'g' (collision from "above")
      */
     protected boolean bottomIntersection(GameObject g) {
-        return checkRectIntersection(getRectBounds(g,1));
+        Rect gRect = g.getRect();
+        Rect temp = new Rect(rect.left, rect.top + rect.height()/2, rect.right, rect.bottom + gRect.height()/2); //En halv extra på rect.bottom eftersom den redan är uppflyttad? Mycket oklart
+        return Rect.intersects(temp, gRect);
+        //return checkRectIntersection(getRectBounds(g,1));
     }
 
-    private Position[] getRectBounds(GameObject g, int collisionType) {
-        int height = rect.height();
+    /*private Position[] getRectBounds(GameObject g, int collisionType) {
         Rect gRect = g.getRect();
         int gHeight = gRect.height();
         Position[] v = new Position[4];
-        v[0] = new Position(rect.left, rect.top+collisionType*height/2);
-        v[1]= new Position(rect.left + rect.width(),
-                rect.top + height + collisionType*gHeight/2);  // ::::mode*g.height/2:::: eller liknande krävs för intersection i mode = 1,
+        v[0] = new Position(rect.left, rect.top+collisionType*rect.height()/2);
+        v[1]= new Position(rect.right,
+                rect.bottom + collisionType*gHeight/2);  // ::::mode*g.height/2:::: eller liknande krävs för intersection i mode = 1,
         v[2]= new Position(gRect.left, gRect.top);
-        v[3]= new Position(gRect.left + gRect.width(),
-                gRect.top + gHeight-collisionType*gHeight/2);
+        v[3]= new Position(gRect.right,
+                gRect.bottom-collisionType*gHeight/2);
         return v;
     }
 
@@ -186,5 +177,5 @@ public abstract class Mover extends GameObject {
             return false;
         }
         return true;
-    }
+    }*/
 }

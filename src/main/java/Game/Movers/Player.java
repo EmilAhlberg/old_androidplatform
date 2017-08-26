@@ -53,10 +53,6 @@ public class Player extends Mover {
 
     @Override
     public void update() {
-        for (GameObject g : objectsCloseBy) {
-            if (g instanceof Block)
-                Log.d("playerUpdate1 ", "width: "+ g.getRect().width() + "height: " + g.getRect().height());
-        }
         if (awake) {
             performAction();
         } else {
@@ -69,10 +65,6 @@ public class Player extends Mover {
         updatePosition();
         stillOnScreen();
         /*centerPlayer();*/
-        for (GameObject g : objectsCloseBy) {
-            if (g instanceof Block)
-                Log.d("playerUpdate2 ", "width: "+ g.getRect().width() + "height: " + g.getRect().height());
-        }
     }
 
     private void performAction() {
@@ -125,7 +117,6 @@ public class Player extends Mover {
 
     @Override
     protected void specificCollision(GameObject g, int collisionType) {
-        Log.d("playerSC1 ", "width: "+ g.getRect().width() + " height: " + g.getRect().height());
         if (collisionType == 0) {
             specificCollisionHorizontal(g);
         } else if (collisionType == 1) {
@@ -138,7 +129,6 @@ public class Player extends Mover {
         } else if (g instanceof Hazard) {
             ((Hazard) g).affectPlayer();
         }
-        Log.d("playerSC2 ", "width: "+ g.getRect().width() + " height: " + g.getRect().height());
     }
 
     private void specificCollisionHorizontal(GameObject g) {
