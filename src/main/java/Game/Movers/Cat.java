@@ -30,14 +30,12 @@ public abstract class Cat extends Mover {
 
     @Override
     protected void updatePosition() {
-        double posX = getX();
-        double posY = getY();
         for (int i = 1; i >=0 ; i--) {
             //long millis = System.currentTimeMillis();
             if (i == 0) {
-                move(posX - mv.horizontalSpeed*direction, posY);
+                move(rect.left - mv.horizontalSpeed*direction, rect.top);
             } else if (i == 1) {
-                move(posX, posY - mv.verticalSpeed);
+                move(rect.left, rect.top - mv.verticalSpeed);
             }
             //Log.d("catUpdatePosition: ", "move: " + i + " : " + (System.currentTimeMillis() - millis));
             //millis = System.currentTimeMillis();

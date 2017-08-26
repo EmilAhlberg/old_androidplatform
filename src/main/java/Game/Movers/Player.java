@@ -2,6 +2,7 @@ package Game.Movers;
 
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import Game.*;
@@ -22,12 +23,12 @@ import static Game.Util.IDs.BLOCK;
  * Created by Emil on 2016-11-24.
  */
 
-public class Player extends Collidable {
+public class Player extends Mover {
 
     protected static final int PLAYER_WIDTH = 30;
     protected static final int PLAYER_HEIGHT = 30;
-    private double clickX = getX();
-    private double clickY = getY();
+    private double clickX = rect.left;
+    private double clickY = rect.top;
     private TouchEventDecoder touchEventDecoder;
     private boolean awake = true;
     private int sleepTime = 0;
@@ -52,6 +53,10 @@ public class Player extends Collidable {
 
     @Override
     public void update() {
+        for (GameObject g : objectsCloseBy) {
+            if (g instanceof Block)
+                Log.d("playerUpdate1 ", "width: "+ g.getRect().width() + "height: " + g.getRect().height());
+        }
         if (awake) {
             performAction();
         } else {
@@ -64,6 +69,10 @@ public class Player extends Collidable {
         updatePosition();
         stillOnScreen();
         /*centerPlayer();*/
+        for (GameObject g : objectsCloseBy) {
+            if (g instanceof Block)
+                Log.d("playerUpdate2 ", "width: "+ g.getRect().width() + "height: " + g.getRect().height());
+        }
     }
 
     private void performAction() {
@@ -106,9 +115,9 @@ public class Player extends Collidable {
         for (int i = 0; i < 2; i++) {
             if (i == 0) {
                 applyFriction();
-                move(getX() - mv.horizontalSpeed, getY());
+                move(rect.left - mv.horizontalSpeed, rect.top);
             } else if (i == 1) {
-                move(getX(), getY() - mv.verticalSpeed);
+                move(rect.left, rect.top - mv.verticalSpeed);
             }
             checkCollision(i);
         }
@@ -116,6 +125,7 @@ public class Player extends Collidable {
 
     @Override
     protected void specificCollision(GameObject g, int collisionType) {
+        Log.d("playerSC1 ", "width: "+ g.getRect().width() + " height: " + g.getRect().height());
         if (collisionType == 0) {
             specificCollisionHorizontal(g);
         } else if (collisionType == 1) {
@@ -128,6 +138,7 @@ public class Player extends Collidable {
         } else if (g instanceof Hazard) {
             ((Hazard) g).affectPlayer();
         }
+        Log.d("playerSC2 ", "width: "+ g.getRect().width() + " height: " + g.getRect().height());
     }
 
     private void specificCollisionHorizontal(GameObject g) {
@@ -170,7 +181,7 @@ public class Player extends Collidable {
     }
 
     private void stillOnScreen() {
-        if (getY() >= 1000) {
+        if (rect.top >= 1000) {
             world.gameOver();
         }
     }
@@ -179,17 +190,5 @@ public class Player extends Collidable {
 //        awake = false;
 //        sleepTime = 50;
 //    }
-
-    @Override
-    public void handleCollisionWith(Collidable c) {
-        switch(c.getID()) {
-            case BLOCK: //etc
-                break;
-            case CAT:   //etc
-                break;
-        }
-
-    }
-
 }
 

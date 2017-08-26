@@ -31,12 +31,13 @@ public class StandardCat extends Cat {
     }
 
     protected GameObjectProbe probePath() {
-        int probeXOffset = direction * -2 + getWidth() * direction;
-        int probeYOffset = getHeight() + 2;
+        int width = rect.width();
+        int probeXOffset = direction * -2 + width * direction;
+        int probeYOffset = rect.height() + 2;
         if (direction > 0) {
-            probeXOffset = probeXOffset - getWidth();
+            probeXOffset = probeXOffset - width;
         }
-        GameObjectProbe probe = new GameObjectProbe(new Position(getX() - probeXOffset, getY() + probeYOffset), 2, 5, world);
+        GameObjectProbe probe = new GameObjectProbe(new Position(rect.left - probeXOffset, rect.top + probeYOffset), 2, 5, world);
         probe.setClearPath(probe.checkCollision(0));
         return probe;
     }

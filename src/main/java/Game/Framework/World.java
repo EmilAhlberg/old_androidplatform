@@ -3,6 +3,7 @@ package Game.Framework;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -83,9 +84,11 @@ public class World {
     }
 
     public void drawWorld(Canvas canvas, List<GameObject> temp) {
+        Rect pRect = player.getRect();
         for (int i = 0; i < temp.size(); i++) {
             GameObject g = temp.get(i);
-            if (Math.sqrt(Math.pow(player.getX() - g.getX(), 2) + Math.pow(player.getY() - g.getY(), 2)) < GameDisplay.WINDOW_HEIGHT + GameDisplay.WINDOW_WIDTH)
+            Rect gRect = g.getRect();
+            if (Math.sqrt(Math.pow(pRect.left - gRect.left, 2) + Math.pow(pRect.top - gRect.top, 2)) < GameDisplay.WINDOW_HEIGHT + GameDisplay.WINDOW_WIDTH)
                 g.draw(canvas);
         }
     }

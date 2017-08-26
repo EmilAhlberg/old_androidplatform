@@ -30,27 +30,9 @@ public abstract class Picture {
         return id;
     }
 
-    public double getX() {
-        return rect.left;
-    }
-
-    public double getY() {
-        return rect.top;
-    }
-
-    public int getHeight() {
-        return rect.height();
-    }
-
-    public int getWidth() {
-        return rect.height();
-    }
-
     public Rect getRect() {
         return rect;
     }
-
-
 
     public void draw(Canvas canvas) {
         sprite.setSpriteRect(rect);

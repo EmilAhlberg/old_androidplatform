@@ -1,6 +1,7 @@
 package com.example.emil.Framework;
 
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -101,8 +102,8 @@ public class GameActivity extends AppActivity {
 
 
     public void draw(List<GameObject> temp) {
-        Player player = world.getPlayer();
-        display.beginDraw(player.getX(), player.getY());
+        Rect pRect = world.getPlayer().getRect();
+        display.beginDraw(pRect.left, pRect.top);
         world.drawWorld(display.getCanvas(), temp);
         display.endDraw();
     }
