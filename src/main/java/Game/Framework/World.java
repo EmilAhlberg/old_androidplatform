@@ -64,7 +64,7 @@ public class World {
         Log.d("updateWorld ", "updateObjects: " + (System.currentTimeMillis() - millis));
         millis = System.currentTimeMillis();
 
-        HandleAllCollisions(temp);
+        //HandleAllCollisions(temp);
 
         gameActivity.draw(temp); //Draws all objects in list + background
         Log.d("updateWorld ", "drawGame: " + (System.currentTimeMillis() - millis));

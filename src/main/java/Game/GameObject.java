@@ -18,21 +18,18 @@ public abstract class GameObject extends Picture {
 
     protected World world;
 
-
-
     public GameObject(Rect rect, World world) {
         super(rect);
         this.world = world;
     }
 
+    /**
+     * Moves the gameObject to the coordinates
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     public void move(double x, double y) {
-        //borde kunna lösas enklare
-        double dx = rect.left - x;
-        double dy = rect.top -y;
-        rect.left= (int)x;
-        rect.right = rect.right - (int)dx;
-        rect.top = (int)(y);
-        rect.bottom = rect.bottom - (int)dy;
+        rect.offset((int)(x - rect.left), (int)(y - rect.top));
     }
 
     public void updateObject() {

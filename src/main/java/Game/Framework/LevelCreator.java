@@ -25,17 +25,12 @@ import Game.Util.Position;
 
 public class LevelCreator {
 
-
     public static ArrayList<GameObject> GameObjectList;
-    //private Handler s;
-   /* private Player player;*/
     private GameActivity gameActivity;
     private World world;
 
-    public LevelCreator(/*Handler s, */GameActivity gameActivity, World world) {
-        //this.s = s;
+    public LevelCreator(GameActivity gameActivity, World world) {
         this.world = world;
-    /*    this.player = player;*/
         this.gameActivity = gameActivity;
     }
 
@@ -43,14 +38,6 @@ public class LevelCreator {
         GameObjectList = new ArrayList<GameObject>();
         final int newLevel = World.Level;
         createLevel(GameObjectList, getLevelArray(newLevel));
-
-        /*new Thread(new Runnable() {
-            public void run() {
-                createLevel(GameObjectList, getLevelArray(newLevel));
-                s.obtainMessage().sendToTarget();
-            }
-        }).start();*/
-
     }
 
     private void createLevel(ArrayList<GameObject> newList, String[] mapString) {
@@ -116,30 +103,21 @@ public class LevelCreator {
             map = null;
         }
 
-//        try {
-//            map = getStringArrayFromFile(R.raw.level1);
-//        } catch(Exception e) {
-//            Log.d("LevelCreator Error", "getStringFromFile Failed");
-//            map = null;
-//        }
         return map;
     }
 
     private String[] convertStreamToStringArray(InputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         ArrayList<String> strings = new ArrayList<String>();
-        StringBuilder sb = new StringBuilder();
         String line = null;
         while ((line = reader.readLine()) != null) {
             if (line.charAt(4) == '§') {         //skalar bort ram, unviker null vid tom rad
                 strings.add(line.substring(4));
-                //sb.append(line.substring(1)).append("\n");
             }
         }
         reader.close();
         Object[] objects = strings.toArray();
         String[] stringArray = Arrays.copyOf(objects, objects.length, String[].class);
-        //return sb.toString();
         return stringArray;
     }
 
@@ -150,10 +128,4 @@ public class LevelCreator {
         fin.close();
         return ret;
     }
-
-//    public ArrayList<GameObject> getNewList() {
-//        return GameObjectList;
-//    }
-
-
 }
