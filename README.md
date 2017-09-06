@@ -1,3 +1,5 @@
+#Projektet flyttat till androidplatformer2#
+
 #Fixlist:#
 //skriv upp alla möjliga  idéer/problem  här
 
